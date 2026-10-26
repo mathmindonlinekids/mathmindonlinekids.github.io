@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind Daily Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script src="config.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div>
+      <span class="eyebrow">MathMind Online · Daily Practice</span>
+      <h1 id="hello">Hi!</h1>
+      <p class="muted" id="sub">15–20 minutes a day. Warm-up, review and an olympiad challenge.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b id="sStars">0</b><span>stars</span></div>
+      <div class="stat"><b id="sStreak">0</b><span>days in a row</span></div>
+      <div class="stat"><b id="sDays">0</b><span>days done</span></div>
+    </div>
+  </div>
+  <div class="banner" id="testBanner" hidden>Test mode: your answers are not being sent to your teacher yet.</div>
+  <div class="card">
+    <div class="row" style="justify-content:space-between"><h2 id="dayTitle">Day 1</h2><span class="muted" id="dayTheme"></span></div>
+    <div class="days" id="days" aria-label="Choose a day"></div>
+  </div>
+  <section class="card"><h2>1. Warm-up</h2><p class="muted">Find the magic pair first!</p><div id="warm"></div></section>
+  <section class="card"><h2>2. Review</h2><div id="review"></div></section>
+  <section class="card oly"><h2>3. Olympiad Challenge</h2><p class="muted" id="olyTheme"></p><div id="oly"></div></section>
+  <section class="card">
+    <h2>Finish</h2>
+    <p class="q" id="finishText">Answer every question, then press Finish.</p>
+    <div class="row"><button class="btn" id="finish" disabled>Finish today ★</button><span class="fb" id="finishFb"></span></div>
+  </section>
+  <p class="muted" id="err" hidden></p>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const P=new URLSearchParams(location.search); const KID=(P.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(P.get('n')||'').slice(0,30);
+  const CFG=window.MATHMIND||{}; const URL_=CFG.SCRIPT_URL||'';
+  const KEY='mm-'+KID; let S={done:{},ans:{},dates:[]}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(KEY)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(KEY,JSON.stringify(S)); }catch(e){} };
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const send=o=>{ if(!URL_) return; o.kid=KID; o.ts=new Date().toISOString(); try{ fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }catch(e){} };
+  if(!URL_) $('#testBanner').hidden=false;
+  if(NAME) $('#hello').textContent='Hi, '+NAME+'!';
+  if(!KID){ $('#err').hidden=false; $('#err').textContent='This link is missing a student code. Ask your teacher for your personal link.'; return; }
+  let DATA=null, day=1, started=Date.now();
+
+  function stats(){ let stars=0; Object.values(S.ans).forEach(a=>{ if(a.final&&a.correct) stars++; }); $('#sStars').textContent=stars; $('#sDays').textContent=Object.keys(S.done).length;
+    const ds=[...new Set(S.dates)].sort(); let st=0; let d=new Date(); for(;;){ const k=d.toISOString().slice(0,10); if(ds.includes(k)){ st++; d.setDate(d.getDate()-1);} else { if(st===0 && k===new Date().toISOString().slice(0,10)){ d.setDate(d.getDate()-1); continue; } break; } } $('#sStreak').textContent=st; }
+
+  function renderDays(){ $('#days').innerHTML=DATA.days.map(x=>'<button class="'+(S.done[x.day]?'done':'')+'" aria-current="'+(x.day===day)+'" data-d="'+x.day+'" aria-label="Day '+x.day+(S.done[x.day]?', done':'')+'">'+x.day+'</button>').join('');
+    $$('#days button').forEach(b=>b.onclick=()=>{ day=+b.dataset.d; render(); window.scrollTo({top:0,behavior:'smooth'}); }); }
+
+  function item(it,k,section){
+    const a=S.ans[it.id]||{}; const n='<span class="n">'+(k+1)+'.</span>';
+    let ctl= it.type==='mc'
+      ? '<div class="row" id="'+it.id+'_c">'+it.choices.map((c,j)=>'<button class="btn ghost small" data-j="'+j+'">('+'ABCDE'[j]+') '+c+'</button>').join('')+'</div>'
+      : '<div class="row"><input class="num" id="'+it.id+'_i" inputmode="numeric" autocomplete="off" aria-label="Answer"><button class="btn small" id="'+it.id+'_b">Check</button></div>';
+    return '<div class="item">'+n+'<div class="b"><div class="q">'+it.q+'</div>'+ctl+'<div class="fb" id="'+it.id+'_f"></div><div class="hint" id="'+it.id+'_h" hidden></div></div></div>';
+  }
+
+  function wire(it,section){
+    const a=S.ans[it.id]=S.ans[it.id]||{tries:0};
+    const fb=$('#'+it.id+'_f'), hint=$('#'+it.id+'_h');
+    const correctText = it.type==='mc' ? '('+'ABCDE'[it.ans]+') '+it.choices[it.ans] : String(it.ans);
+    function finalize(val,ok){ a.final=true; a.correct=ok; a.value=val; save();
+      send({type:'item',day:day,item:it.id,section:section,q:it.q,answer:val,correct:ok,firstTry:a.tries===1&&ok,tries:a.tries,seconds:Math.round((Date.now()-started)/1000)});
+      stats(); checkFinish(); }
+    function show(ok,val){ if(ok){ fb.textContent=a.tries===1?'Correct! ★':'Correct on the second try! ★'; fb.className='fb ok'; }
+      else if(a.final){ fb.textContent='The answer is '+correctText+'.'; fb.className='fb no'; }
+      else { fb.textContent='Not yet. Try once more!'; fb.className='fb no'; }
+      const ex=it.explain||it.hint; if(ex && (a.final||!ok)){ hint.hidden=false; hint.textContent=(a.final?'':'Hint: ')+ex; } }
+    function attempt(val,ok){ if(a.final) return; a.tries++; if(ok||a.tries>=2) finalize(val,ok); else save(); show(ok,val); }
+    if(it.type==='mc'){
+      const btns=$$('#'+it.id+'_c button');
+      const paint=()=>{ btns.forEach(b=>b.classList.remove('right','wrong')); if(a.value!==undefined){ const j=+a.value; btns[j]&&btns[j].classList.add(a.correct||j===it.ans?'right':'wrong'); } if(a.final){ btns[it.ans].classList.add('right'); btns.forEach(b=>b.disabled=true); } };
+      btns.forEach(b=>b.onclick=()=>{ const j=+b.dataset.j; a.value=j; attempt(j,j===it.ans); paint(); });
+      if(a.tries){ paint(); show(!!a.correct,a.value); }
+    } else {
+      const inp=$('#'+it.id+'_i'), btn=$('#'+it.id+'_b');
+      const go=()=>{ const v=num(inp.value); if(isNaN(v)){ fb.textContent='Type a number first.'; fb.className='fb no'; return; } const ok=v===it.ans; inp.classList.toggle('right',ok); inp.classList.toggle('wrong',!ok); attempt(v,ok); if(a.final){ inp.disabled=true; btn.disabled=true; } };
+      btn.onclick=go; inp.addEventListener('keydown',e=>{ if(e.key==='Enter') go(); });
+      if(a.tries){ inp.value=a.value!==undefined?a.value:''; inp.classList.toggle('right',!!a.correct); inp.classList.toggle('wrong',!a.correct); if(a.final){ inp.disabled=true; btn.disabled=true; } show(!!a.correct,a.value); }
+    }
+  }
+
+  function items(){ const d=DATA.days.find(x=>x.day===day); return [].concat(d.warm.map(i=>[i,'warm']),d.review.map(i=>[i,'review']),d.oly.map(i=>[i,'oly'])); }
+  function checkFinish(){ const all=items(); const fin=all.filter(([i])=>S.ans[i.id]&&S.ans[i.id].final).length; const done=!!S.done[day];
+    $('#finish').disabled=done||fin<all.length; $('#finishText').textContent= done ? 'Day '+day+' is done. Great job!' : (fin<all.length ? 'Answered '+fin+' of '+all.length+'. Answer every question, then press Finish.' : 'All done! Press Finish.'); }
+
+  function render(){
+    const d=DATA.days.find(x=>x.day===day); started=Date.now();
+    $('#dayTitle').textContent='Day '+day; $('#dayTheme').textContent='Olympiad trick: '+d.theme; $('#olyTheme').textContent='Today\'s trick: '+d.theme+'. Choose one answer.';
+    $('#warm').innerHTML=d.warm.map((it,k)=>item(it,k)).join(''); $('#review').innerHTML=d.review.map((it,k)=>item(it,k)).join(''); $('#oly').innerHTML=d.oly.map((it,k)=>item(it,k)).join('');
+    d.warm.forEach(i=>wire(i,'warm')); d.review.forEach(i=>wire(i,'review')); d.oly.forEach(i=>wire(i,'oly'));
+    renderDays(); stats(); checkFinish(); $('#finishFb').textContent='';
+  }
+
+  $('#finish').onclick=()=>{ const all=items(); const score=all.filter(([i])=>S.ans[i.id].correct).length;
+    S.done[day]={score,total:all.length,at:new Date().toISOString()}; S.dates.push(new Date().toISOString().slice(0,10)); save();
+    send({type:'day',day:day,score:score,total:all.length,seconds:Math.round((Date.now()-started)/1000)});
+    $('#finishFb').textContent='★ '+score+' of '+all.length+'. See you tomorrow!'; $('#finishFb').className='fb ok'; renderDays(); stats(); checkFinish(); };
+
+  fetch('data/'+KID+'.json',{cache:'no-store'}).then(r=>{ if(!r.ok) throw 0; return r.json(); }).then(j=>{ DATA=j;
+    const next=DATA.days.find(x=>!S.done[x.day]); const pd=parseInt(P.get('d'),10); day= DATA.days.some(x=>x.day===pd)?pd:(next?next.day:DATA.days[DATA.days.length-1].day); render(); })
+  .catch(()=>{ $('#err').hidden=false; $('#err').textContent='Could not load your practice. Check the link or ask your teacher.'; });
+})();
+</script>
+</body>
+</html>

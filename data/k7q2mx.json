@@ -1,0 +1,1017 @@
+{
+ "kid": "k7q2mx",
+ "grade": "3 · NC",
+ "feedback": true,
+ "days": [
+  {
+   "day": 1,
+   "theme": "Working backwards",
+   "warm": [
+    {
+     "id": "d1w0",
+     "type": "num",
+     "q": "2 × 5 × 9 = ?",
+     "ans": 90,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d1w1",
+     "type": "num",
+     "q": "8 × 4 × 25 = ?",
+     "ans": 800,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d1w2",
+     "type": "num",
+     "q": "25 × 6 × 4 = ?",
+     "ans": 600,
+     "hint": "Magic pair: 25 × 4 = 100"
+    },
+    {
+     "id": "d1w3",
+     "type": "num",
+     "q": "125 × 8 × 17 = ?",
+     "ans": 17000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    }
+   ],
+   "review": [
+    {
+     "id": "d1r0",
+     "type": "num",
+     "q": "Area model: 82 × 6 = 80 × 6 + 2 × 6 = ?",
+     "ans": 492,
+     "hint": "80 × 6 = 480, 2 × 6 = 12. Now add."
+    },
+    {
+     "id": "d1r1",
+     "type": "num",
+     "q": "Area model: 152 × 4 = 100 × 4 + 50 × 4 + 2 × 4 = ?",
+     "ans": 608,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d1r2",
+     "type": "num",
+     "q": "A square has a perimeter of 36 in. How long is one side (in inches)?",
+     "ans": 9,
+     "hint": "A square has 4 equal sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d1o0",
+     "type": "mc",
+     "q": "I think of a number. I multiply it by 2, then add 4. I get 18. What is my number?",
+     "choices": [
+      "5",
+      "7",
+      "9",
+      "11",
+      "14"
+     ],
+     "ans": 1,
+     "explain": "Go backwards: 18 − 4 = 14, 14 ÷ 2 = 7."
+    },
+    {
+     "id": "d1o1",
+     "type": "mc",
+     "q": "Leo had some marbles. He gave half of them to Mia, then 3 to Sam. Now he has 5. How many marbles did he have at first?",
+     "choices": [
+      "10",
+      "13",
+      "16",
+      "18",
+      "20"
+     ],
+     "ans": 2,
+     "explain": "Backwards: 5 + 3 = 8 was half, so 16."
+    },
+    {
+     "id": "d1o2",
+     "type": "mc",
+     "q": "A magic plant grows 3 times taller every week. After 3 weeks it is 54 cm tall. How tall was it at the start?",
+     "choices": [
+      "2 cm",
+      "3 cm",
+      "6 cm",
+      "9 cm",
+      "18 cm"
+     ],
+     "ans": 0,
+     "explain": "54 ÷ 3 = 18, 18 ÷ 3 = 6, 6 ÷ 3 = 2."
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "theme": "Listing in order",
+   "warm": [
+    {
+     "id": "d2w0",
+     "type": "num",
+     "q": "8 × 5 × 20 = ?",
+     "ans": 800,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d2w1",
+     "type": "num",
+     "q": "20 × 13 × 50 = ?",
+     "ans": 13000,
+     "hint": "Magic pair: 20 × 50 = 1,000"
+    },
+    {
+     "id": "d2w2",
+     "type": "num",
+     "q": "13 × 4 × 25 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d2w3",
+     "type": "num",
+     "q": "9 × 25 × 4 = ?",
+     "ans": 900,
+     "hint": "Magic pair: 25 × 4 = 100"
+    }
+   ],
+   "review": [
+    {
+     "id": "d2r0",
+     "type": "num",
+     "q": "Area model: 57 × 7 = 50 × 7 + 7 × 7 = ?",
+     "ans": 399,
+     "hint": "50 × 7 = 350, 7 × 7 = 49. Now add."
+    },
+    {
+     "id": "d2r1",
+     "type": "num",
+     "q": "Area model: 231 × 5 = 200 × 5 + 30 × 5 + 1 × 5 = ?",
+     "ans": 1155,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d2r2",
+     "type": "num",
+     "q": "A rectangle has a perimeter of 26 m. Its length is 8 m. What is its width (in m)?",
+     "ans": 5,
+     "hint": "Length + width = half of the perimeter."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d2o0",
+     "type": "mc",
+     "q": "How many 2-digit numbers have digits that add up to 4?",
+     "choices": [
+      "3",
+      "4",
+      "5",
+      "6",
+      "8"
+     ],
+     "ans": 1,
+     "explain": "13, 22, 31, 40."
+    },
+    {
+     "id": "d2o1",
+     "type": "mc",
+     "q": "3 kids stand in a line for a photo. How many different orders are there?",
+     "choices": [
+      "3",
+      "4",
+      "6",
+      "8",
+      "9"
+     ],
+     "ans": 2,
+     "explain": "ABC, ACB, BAC, BCA, CAB, CBA."
+    },
+    {
+     "id": "d2o2",
+     "type": "mc",
+     "q": "How many different ways can you make exactly 20¢ with nickels and dimes?",
+     "choices": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "ans": 1,
+     "explain": "2 dimes; 1 dime + 2 nickels; 4 nickels."
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "theme": "Balance and swap",
+   "warm": [
+    {
+     "id": "d3w0",
+     "type": "num",
+     "q": "17 × 125 × 8 = ?",
+     "ans": 17000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d3w1",
+     "type": "num",
+     "q": "5 × 11 × 20 = ?",
+     "ans": 1100,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d3w2",
+     "type": "num",
+     "q": "5 × 13 × 20 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d3w3",
+     "type": "num",
+     "q": "13 × 50 × 2 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 50 × 2 = 100"
+    }
+   ],
+   "review": [
+    {
+     "id": "d3r0",
+     "type": "num",
+     "q": "Area model: 29 × 6 = 20 × 6 + 9 × 6 = ?",
+     "ans": 174,
+     "hint": "20 × 6 = 120, 9 × 6 = 54. Now add."
+    },
+    {
+     "id": "d3r1",
+     "type": "num",
+     "q": "Area model: 231 × 5 = 200 × 5 + 30 × 5 + 1 × 5 = ?",
+     "ans": 1155,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d3r2",
+     "type": "num",
+     "q": "A rectangle is 8 cm long and 5 cm wide. What is its perimeter (in cm)?",
+     "ans": 26,
+     "hint": "Perimeter = walk around: add all 4 sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d3o0",
+     "type": "mc",
+     "q": "3 apples weigh the same as 1 melon. 2 melons weigh the same as 12 pears. How many pears weigh the same as 1 apple?",
+     "choices": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "6"
+     ],
+     "ans": 1,
+     "explain": "1 melon = 6 pears, so 3 apples = 6 pears, 1 apple = 2 pears."
+    },
+    {
+     "id": "d3o1",
+     "type": "mc",
+     "q": "A cat and a dog weigh 15 kg together. The dog is 9 kg heavier than the cat. How much does the cat weigh?",
+     "choices": [
+      "3 kg",
+      "4 kg",
+      "6 kg",
+      "9 kg",
+      "12 kg"
+     ],
+     "ans": 0,
+     "explain": "15 − 9 = 6 is two cats, so the cat is 3 kg."
+    },
+    {
+     "id": "d3o2",
+     "type": "mc",
+     "q": "A box with 10 balls weighs 60 g. The same box with 4 balls weighs 30 g. How much does the empty box weigh?",
+     "choices": [
+      "5 g",
+      "10 g",
+      "15 g",
+      "20 g",
+      "30 g"
+     ],
+     "ans": 1,
+     "explain": "6 balls = 30 g, so 1 ball = 5 g. 60 − 50 = 10 g."
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "theme": "Equal parts",
+   "warm": [
+    {
+     "id": "d4w0",
+     "type": "num",
+     "q": "2 × 5 × 7 = ?",
+     "ans": 70,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d4w1",
+     "type": "num",
+     "q": "4 × 7 × 25 = ?",
+     "ans": 700,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d4w2",
+     "type": "num",
+     "q": "50 × 9 × 2 = ?",
+     "ans": 900,
+     "hint": "Magic pair: 50 × 2 = 100"
+    },
+    {
+     "id": "d4w3",
+     "type": "num",
+     "q": "125 × 8 × 17 = ?",
+     "ans": 17000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    }
+   ],
+   "review": [
+    {
+     "id": "d4r0",
+     "type": "num",
+     "q": "Area model: 95 × 3 = 90 × 3 + 5 × 3 = ?",
+     "ans": 285,
+     "hint": "90 × 3 = 270, 5 × 3 = 15. Now add."
+    },
+    {
+     "id": "d4r1",
+     "type": "num",
+     "q": "Area model: 231 × 5 = 200 × 5 + 30 × 5 + 1 × 5 = ?",
+     "ans": 1155,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d4r2",
+     "type": "num",
+     "q": "A square has a perimeter of 36 in. How long is one side (in inches)?",
+     "ans": 9,
+     "hint": "A square has 4 equal sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d4o0",
+     "type": "mc",
+     "q": "Two numbers add up to 30. One number is 4 times the other. What is the smaller number?",
+     "choices": [
+      "5",
+      "6",
+      "7",
+      "8",
+      "24"
+     ],
+     "ans": 1,
+     "explain": "5 equal parts = 30, one part = 6."
+    },
+    {
+     "id": "d4o1",
+     "type": "mc",
+     "q": "Marmeladka is 3 times as heavy as a kitten. Together they weigh 16 kg. How much does the kitten weigh?",
+     "choices": [
+      "3 kg",
+      "4 kg",
+      "5 kg",
+      "8 kg",
+      "12 kg"
+     ],
+     "ans": 1,
+     "explain": "4 equal parts = 16, one part = 4."
+    },
+    {
+     "id": "d4o2",
+     "type": "mc",
+     "q": "Leo has 10 more stickers than Mia. Together they have 34. How many does Leo have?",
+     "choices": [
+      "12",
+      "17",
+      "22",
+      "24",
+      "44"
+     ],
+     "ans": 2,
+     "explain": "34 − 10 = 24 is two equal parts, Mia 12, Leo 22."
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "theme": "Patterns",
+   "warm": [
+    {
+     "id": "d5w0",
+     "type": "num",
+     "q": "2 × 9 × 5 = ?",
+     "ans": 90,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d5w1",
+     "type": "num",
+     "q": "7 × 50 × 2 = ?",
+     "ans": 700,
+     "hint": "Magic pair: 50 × 2 = 100"
+    },
+    {
+     "id": "d5w2",
+     "type": "num",
+     "q": "3 × 4 × 25 = ?",
+     "ans": 300,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d5w3",
+     "type": "num",
+     "q": "20 × 50 × 11 = ?",
+     "ans": 11000,
+     "hint": "Magic pair: 20 × 50 = 1,000"
+    }
+   ],
+   "review": [
+    {
+     "id": "d5r0",
+     "type": "num",
+     "q": "Area model: 46 × 6 = 40 × 6 + 6 × 6 = ?",
+     "ans": 276,
+     "hint": "40 × 6 = 240, 6 × 6 = 36. Now add."
+    },
+    {
+     "id": "d5r1",
+     "type": "num",
+     "q": "Area model: 143 × 3 = 100 × 3 + 40 × 3 + 3 × 3 = ?",
+     "ans": 429,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d5r2",
+     "type": "num",
+     "q": "A rectangle has a perimeter of 24 m. Its length is 7 m. What is its width (in m)?",
+     "ans": 5,
+     "hint": "Length + width = half of the perimeter."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d5o0",
+     "type": "mc",
+     "q": "3, 7, 11, 15, … What is the 10th number in this pattern?",
+     "choices": [
+      "35",
+      "39",
+      "40",
+      "43",
+      "44"
+     ],
+     "ans": 1,
+     "explain": "Add 4 each time: 3 + 9 × 4 = 39."
+    },
+    {
+     "id": "d5o1",
+     "type": "mc",
+     "q": "A pattern repeats: circle, triangle, square, circle, triangle, square, … What is the 20th shape?",
+     "choices": [
+      "circle",
+      "triangle",
+      "square",
+      "star",
+      "heart"
+     ],
+     "ans": 1,
+     "explain": "Every 3 shapes repeat. 18 is a square, 19 circle, 20 triangle."
+    },
+    {
+     "id": "d5o2",
+     "type": "mc",
+     "q": "1, 2, 4, 7, 11, 16, … What comes next?",
+     "choices": [
+      "20",
+      "21",
+      "22",
+      "23",
+      "24"
+     ],
+     "ans": 2,
+     "explain": "Add 1, 2, 3, 4, 5, then 6: 16 + 6 = 22."
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "theme": "Logic",
+   "warm": [
+    {
+     "id": "d6w0",
+     "type": "num",
+     "q": "5 × 20 × 8 = ?",
+     "ans": 800,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d6w1",
+     "type": "num",
+     "q": "6 × 125 × 8 = ?",
+     "ans": 6000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d6w2",
+     "type": "num",
+     "q": "2 × 11 × 5 = ?",
+     "ans": 110,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d6w3",
+     "type": "num",
+     "q": "5 × 13 × 20 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 5 × 20 = 100"
+    }
+   ],
+   "review": [
+    {
+     "id": "d6r0",
+     "type": "num",
+     "q": "Area model: 73 × 8 = 70 × 8 + 3 × 8 = ?",
+     "ans": 584,
+     "hint": "70 × 8 = 560, 3 × 8 = 24. Now add."
+    },
+    {
+     "id": "d6r1",
+     "type": "num",
+     "q": "Area model: 312 × 3 = 300 × 3 + 10 × 3 + 2 × 3 = ?",
+     "ans": 936,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d6r2",
+     "type": "num",
+     "q": "A rectangle is 9 cm long and 4 cm wide. What is its perimeter (in cm)?",
+     "ans": 26,
+     "hint": "Perimeter = walk around: add all 4 sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d6o0",
+     "type": "mc",
+     "q": "Ann, Ben and Cal have a cat, a dog and a fish (one pet each). Ann has a pet with no fur. Ben does not have the dog. Who has the dog?",
+     "choices": [
+      "Ann",
+      "Ben",
+      "Cal",
+      "Nobody",
+      "You cannot tell"
+     ],
+     "ans": 2,
+     "explain": "Ann has the fish, so Ben has the cat and Cal has the dog."
+    },
+    {
+     "id": "d6o1",
+     "type": "mc",
+     "q": "Tom is taller than Sam. Sam is taller than Lily. Mia is taller than Tom. Who is the shortest?",
+     "choices": [
+      "Tom",
+      "Sam",
+      "Lily",
+      "Mia",
+      "You cannot tell"
+     ],
+     "ans": 2,
+     "explain": "Mia > Tom > Sam > Lily."
+    },
+    {
+     "id": "d6o2",
+     "type": "mc",
+     "q": "In a race of 4 kids, Leo finished before Mia but after Sam. Lily finished last. Who won?",
+     "choices": [
+      "Leo",
+      "Mia",
+      "Sam",
+      "Lily",
+      "You cannot tell"
+     ],
+     "ans": 2,
+     "explain": "Order: Sam, Leo, Mia, Lily."
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "theme": "Clocks and calendars",
+   "warm": [
+    {
+     "id": "d7w0",
+     "type": "num",
+     "q": "25 × 3 × 4 = ?",
+     "ans": 300,
+     "hint": "Magic pair: 25 × 4 = 100"
+    },
+    {
+     "id": "d7w1",
+     "type": "num",
+     "q": "7 × 5 × 20 = ?",
+     "ans": 700,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d7w2",
+     "type": "num",
+     "q": "17 × 5 × 20 = ?",
+     "ans": 1700,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d7w3",
+     "type": "num",
+     "q": "2 × 9 × 5 = ?",
+     "ans": 90,
+     "hint": "Magic pair: 2 × 5 = 10"
+    }
+   ],
+   "review": [
+    {
+     "id": "d7r0",
+     "type": "num",
+     "q": "Area model: 29 × 6 = 20 × 6 + 9 × 6 = ?",
+     "ans": 174,
+     "hint": "20 × 6 = 120, 9 × 6 = 54. Now add."
+    },
+    {
+     "id": "d7r1",
+     "type": "num",
+     "q": "Area model: 312 × 5 = 300 × 5 + 10 × 5 + 2 × 5 = ?",
+     "ans": 1560,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d7r2",
+     "type": "num",
+     "q": "A square has a perimeter of 32 in. How long is one side (in inches)?",
+     "ans": 8,
+     "hint": "A square has 4 equal sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d7o0",
+     "type": "mc",
+     "q": "Today is Monday. What day of the week will it be in 10 days?",
+     "choices": [
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+     ],
+     "ans": 1,
+     "explain": "7 days later is Monday again, 3 more days: Thursday."
+    },
+    {
+     "id": "d7o1",
+     "type": "mc",
+     "q": "A clock is 5 minutes slow. It shows 3:58. What is the real time?",
+     "choices": [
+      "3:53",
+      "4:00",
+      "4:03",
+      "4:05",
+      "4:08"
+     ],
+     "ans": 2,
+     "explain": "Real time is 5 minutes later: 4:03."
+    },
+    {
+     "id": "d7o2",
+     "type": "mc",
+     "q": "Lessons are 45 minutes long with 10-minute breaks. The first lesson starts at 8:00. When does the third lesson start?",
+     "choices": [
+      "9:30",
+      "9:40",
+      "9:50",
+      "10:00",
+      "10:35"
+     ],
+     "ans": 2,
+     "explain": "8:00 + 55 min = 8:55, + 55 min = 9:50."
+    }
+   ]
+  },
+  {
+   "day": 8,
+   "theme": "Counting carefully",
+   "warm": [
+    {
+     "id": "d8w0",
+     "type": "num",
+     "q": "125 × 17 × 8 = ?",
+     "ans": 17000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d8w1",
+     "type": "num",
+     "q": "11 × 5 × 20 = ?",
+     "ans": 1100,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d8w2",
+     "type": "num",
+     "q": "17 × 50 × 2 = ?",
+     "ans": 1700,
+     "hint": "Magic pair: 50 × 2 = 100"
+    },
+    {
+     "id": "d8w3",
+     "type": "num",
+     "q": "25 × 8 × 4 = ?",
+     "ans": 800,
+     "hint": "Magic pair: 25 × 4 = 100"
+    }
+   ],
+   "review": [
+    {
+     "id": "d8r0",
+     "type": "num",
+     "q": "Area model: 57 × 6 = 50 × 6 + 7 × 6 = ?",
+     "ans": 342,
+     "hint": "50 × 6 = 300, 7 × 6 = 42. Now add."
+    },
+    {
+     "id": "d8r1",
+     "type": "num",
+     "q": "Area model: 152 × 3 = 100 × 3 + 50 × 3 + 2 × 3 = ?",
+     "ans": 456,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d8r2",
+     "type": "num",
+     "q": "A rectangle has a perimeter of 30 m. Its length is 9 m. What is its width (in m)?",
+     "ans": 6,
+     "hint": "Length + width = half of the perimeter."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d8o0",
+     "type": "mc",
+     "q": "How many numbers from 1 to 50 have the digit 7?",
+     "choices": [
+      "4",
+      "5",
+      "6",
+      "7",
+      "10"
+     ],
+     "ans": 1,
+     "explain": "7, 17, 27, 37, 47."
+    },
+    {
+     "id": "d8o1",
+     "type": "mc",
+     "q": "The pages of a book are numbered from 1 to 20. How many digits are printed in all?",
+     "choices": [
+      "20",
+      "29",
+      "30",
+      "31",
+      "40"
+     ],
+     "ans": 3,
+     "explain": "1–9: 9 digits, 10–20: 11 × 2 = 22. 9 + 22 = 31."
+    },
+    {
+     "id": "d8o2",
+     "type": "mc",
+     "q": "A fence is 20 m long. There is a post every 4 m, at both ends too. How many posts are there?",
+     "choices": [
+      "4",
+      "5",
+      "6",
+      "7",
+      "20"
+     ],
+     "ans": 2,
+     "explain": "0, 4, 8, 12, 16, 20 m: 6 posts."
+    }
+   ]
+  },
+  {
+   "day": 9,
+   "theme": "Area and numbers",
+   "warm": [
+    {
+     "id": "d9w0",
+     "type": "num",
+     "q": "50 × 2 × 13 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 50 × 2 = 100"
+    },
+    {
+     "id": "d9w1",
+     "type": "num",
+     "q": "125 × 13 × 8 = ?",
+     "ans": 13000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d9w2",
+     "type": "num",
+     "q": "11 × 125 × 8 = ?",
+     "ans": 11000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d9w3",
+     "type": "num",
+     "q": "20 × 50 × 11 = ?",
+     "ans": 11000,
+     "hint": "Magic pair: 20 × 50 = 1,000"
+    }
+   ],
+   "review": [
+    {
+     "id": "d9r0",
+     "type": "num",
+     "q": "Area model: 73 × 4 = 70 × 4 + 3 × 4 = ?",
+     "ans": 292,
+     "hint": "70 × 4 = 280, 3 × 4 = 12. Now add."
+    },
+    {
+     "id": "d9r1",
+     "type": "num",
+     "q": "Area model: 152 × 5 = 100 × 5 + 50 × 5 + 2 × 5 = ?",
+     "ans": 760,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d9r2",
+     "type": "num",
+     "q": "A rectangle is 7 cm long and 6 cm wide. What is its perimeter (in cm)?",
+     "ans": 26,
+     "hint": "Perimeter = walk around: add all 4 sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d9o0",
+     "type": "mc",
+     "q": "A square has an area of 49 sq cm. What is its perimeter?",
+     "choices": [
+      "14 cm",
+      "21 cm",
+      "28 cm",
+      "49 cm",
+      "56 cm"
+     ],
+     "ans": 2,
+     "explain": "Side 7 cm, 4 × 7 = 28."
+    },
+    {
+     "id": "d9o1",
+     "type": "mc",
+     "q": "Two numbers multiply to 36 and add up to 13. What is the bigger number?",
+     "choices": [
+      "4",
+      "6",
+      "9",
+      "12",
+      "18"
+     ],
+     "ans": 2,
+     "explain": "4 × 9 = 36 and 4 + 9 = 13."
+    },
+    {
+     "id": "d9o2",
+     "type": "mc",
+     "q": "A rectangle has a perimeter of 18 cm. Its length is twice its width. What is its area?",
+     "choices": [
+      "9 sq cm",
+      "12 sq cm",
+      "18 sq cm",
+      "20 sq cm",
+      "24 sq cm"
+     ],
+     "ans": 2,
+     "explain": "Width 3, length 6: 3 + 6 = 9 is half the perimeter. Area 18."
+    }
+   ]
+  },
+  {
+   "day": 10,
+   "theme": "Mini Kangaroo",
+   "warm": [
+    {
+     "id": "d10w0",
+     "type": "num",
+     "q": "17 × 25 × 4 = ?",
+     "ans": 1700,
+     "hint": "Magic pair: 25 × 4 = 100"
+    },
+    {
+     "id": "d10w1",
+     "type": "num",
+     "q": "13 × 4 × 25 = ?",
+     "ans": 1300,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d10w2",
+     "type": "num",
+     "q": "20 × 50 × 13 = ?",
+     "ans": 13000,
+     "hint": "Magic pair: 20 × 50 = 1,000"
+    },
+    {
+     "id": "d10w3",
+     "type": "num",
+     "q": "11 × 4 × 25 = ?",
+     "ans": 1100,
+     "hint": "Magic pair: 4 × 25 = 100"
+    }
+   ],
+   "review": [
+    {
+     "id": "d10r0",
+     "type": "num",
+     "q": "Area model: 46 × 4 = 40 × 4 + 6 × 4 = ?",
+     "ans": 184,
+     "hint": "40 × 4 = 160, 6 × 4 = 24. Now add."
+    },
+    {
+     "id": "d10r1",
+     "type": "num",
+     "q": "Area model: 231 × 5 = 200 × 5 + 30 × 5 + 1 × 5 = ?",
+     "ans": 1155,
+     "hint": "Three parts: hundreds, tens, ones. Then add."
+    },
+    {
+     "id": "d10r2",
+     "type": "num",
+     "q": "A square has a perimeter of 36 in. How long is one side (in inches)?",
+     "ans": 9,
+     "hint": "A square has 4 equal sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d10o0",
+     "type": "mc",
+     "q": "1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9 + 10 = ?",
+     "choices": [
+      "45",
+      "50",
+      "55",
+      "60",
+      "100"
+     ],
+     "ans": 2,
+     "explain": "Pairs that make 11: (1 + 10), (2 + 9) … 5 pairs × 11 = 55."
+    },
+    {
+     "id": "d10o1",
+     "type": "mc",
+     "q": "How many legs do 3 cats and 4 birds have together?",
+     "choices": [
+      "14",
+      "18",
+      "20",
+      "24",
+      "28"
+     ],
+     "ans": 2,
+     "explain": "3 × 4 = 12 and 4 × 2 = 8. 12 + 8 = 20."
+    },
+    {
+     "id": "d10o2",
+     "type": "mc",
+     "q": "Which sum is odd?",
+     "choices": [
+      "13 + 15",
+      "24 + 30",
+      "17 + 28",
+      "9 + 11",
+      "40 + 2"
+     ],
+     "ans": 2,
+     "explain": "Odd + even = odd: 17 + 28 = 45."
+    }
+   ]
+  }
+ ]
+}

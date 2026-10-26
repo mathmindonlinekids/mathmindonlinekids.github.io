@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind: кабинет учителя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script src="config.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <span class="eyebrow">MathMind Online · для учителя</span>
+    <h1>Кабинет учителя</h1>
+  </div>
+  <section class="card" id="login">
+    <p>Введите ваш ключ учителя (тот, что вы вписали в Google Apps Script).</p>
+    <div class="row"><input class="num" id="key" type="password" style="width:220px" aria-label="Ключ учителя"><button class="btn" id="go">Открыть</button><span class="fb" id="msg"></span></div>
+  </section>
+  <div id="out"></div>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||'';
+  const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  let saved=''; try{ saved=localStorage.getItem('mm-teacher-key')||''; }catch(e){}
+  $('#key').value=saved;
+  if(!URL_){ $('#msg').textContent='Google-таблица ещё не подключена (config.js).'; $('#msg').className='fb no'; }
+  const pct=(a,b)=>b?Math.round(a/b*100):0;
+  const pill=p=>'<span class="pill '+(p>=80?'g':p>=60?'y':'r')+'">'+p+'%</span>';
+  const SEC={warm:'Warm-up',review:'Повторение',oly:'Олимпиада'};
+
+  function render(data){
+    const names={}; (data.kids||[]).forEach(k=>{ if(k.code) names[k.code]=k.name||k.code; });
+    const rows=data.rows||[]; const by={};
+    rows.forEach(r=>{ (by[r.kid]=by[r.kid]||[]).push(r); });
+    const kids=Object.keys(by).sort();
+    if(!kids.length){ $('#out').innerHTML='<section class="card"><p>Пока нет ни одного ответа.</p></section>'; return; }
+    $('#out').innerHTML=kids.map(kid=>{
+      const rs=by[kid]; const items=rs.filter(r=>r.type==='item'); const days=rs.filter(r=>r.type==='day');
+      const last=rs.reduce((m,r)=>r.time>m?r.time:m,''); const name=names[kid]||kid;
+      const sec=Object.keys(SEC).map(s=>{ const it=items.filter(r=>r.section===s); const ok=it.filter(r=>String(r.correct)==='true').length; const ft=it.filter(r=>String(r.first_try)==='true').length;
+        return '<tr><td>'+SEC[s]+'</td><td>'+it.length+'</td><td>'+pill(pct(ok,it.length))+'</td><td>'+pill(pct(ft,it.length))+'</td></tr>'; }).join('');
+      const mist=items.filter(r=>String(r.correct)!=='true').slice(-15).reverse().map(r=>'<tr><td>День '+esc(r.day)+'</td><td>'+esc(r.question)+'</td><td>'+esc(r.answer)+'</td></tr>').join('');
+      const dayList=days.map(d=>'День '+d.day+': '+d.score+'/'+d.total).join(' · ');
+      const allOk=items.filter(r=>String(r.correct)==='true').length;
+      const report='Отчёт MathMind: '+name+'\\n'+
+        'Ежедневная практика: выполнено дней — '+days.length+(dayList?' ('+dayList+')':'')+'.\\n'+
+        'Верных ответов: '+pct(allOk,items.length)+'%.\\n'+
+        Object.keys(SEC).map(s=>{ const it=items.filter(r=>r.section===s); return '• '+SEC[s]+': '+pct(it.filter(r=>String(r.correct)==='true').length,it.length)+'% верно'; }).join('\\n')+
+        '\\n\\nНаблюдения учителя: …\\nЦели на следующие 2 недели: …';
+      return '<section class="card"><div class="row" style="justify-content:space-between"><h2>'+esc(name)+'</h2><span class="muted">последняя активность: '+esc(String(last).replace('T',' ').slice(0,16))+'</span></div>'+
+        '<p>Выполнено дней: <b>'+days.length+'</b>'+(dayList?' — '+esc(dayList):'')+'</p>'+
+        '<div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Заданий</th><th>Верно</th><th>С первой попытки</th></tr></thead><tbody>'+sec+'</tbody></table></div>'+
+        '<h3>Последние ошибки</h3>'+(mist?'<div class="tablewrap"><table><thead><tr><th>День</th><th>Задание</th><th>Ответ</th></tr></thead><tbody>'+mist+'</tbody></table></div>':'<p class="muted">Ошибок нет.</p>')+
+        '<h3>Отчёт для родителя</h3><textarea aria-label="Отчёт для родителя">'+esc(report.replace(/\\n/g,'\n'))+'</textarea>'+
+        '<div class="row"><button class="btn small copy">Скопировать отчёт</button><span class="fb"></span></div></section>';
+    }).join('');
+    document.querySelectorAll('.copy').forEach(b=>b.onclick=()=>{ const ta=b.closest('section').querySelector('textarea'); const fb=b.nextElementSibling;
+      const fall=()=>{ ta.focus(); ta.select(); fb.textContent='Выделено: нажмите ⌘C'; };
+      try{ navigator.clipboard.writeText(ta.value).then(()=>{ fb.textContent='Скопировано'; },fall); }catch(e){ fall(); } });
+  }
+
+  $('#go').onclick=()=>{ const k=$('#key').value.trim(); if(!k||!URL_) return; $('#msg').textContent='Загружаю…'; $('#msg').className='fb';
+    fetch(URL_+'?key='+encodeURIComponent(k)).then(r=>r.json()).then(d=>{ if(d.error){ $('#msg').textContent='Неверный ключ.'; $('#msg').className='fb no'; return; }
+      try{ localStorage.setItem('mm-teacher-key',k); }catch(e){} $('#msg').textContent='Обновлено'; $('#msg').className='fb ok'; render(d); })
+    .catch(()=>{ $('#msg').textContent='Не удалось загрузить. Проверьте подключение таблицы.'; $('#msg').className='fb no'; }); };
+})();
+</script>
+</body>
+</html>
