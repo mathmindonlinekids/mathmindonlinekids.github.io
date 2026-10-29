@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 3</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+[hidden]{display:none!important}
+body{margin:0}
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+.chain{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.box{min-width:64px;height:48px;border:2.5px solid var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:"Grandstander",sans-serif;font-size:20px;background:var(--card)}
+.box input{width:60px;border:none;background:transparent;text-align:center;font:inherit;color:var(--ink)}
+.arr{display:flex;flex-direction:column;align-items:center;font-size:14px;color:var(--warm);font-weight:700;min-width:54px}
+.arr span{font-size:20px;line-height:1}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:"Grandstander",sans-serif;font-size:18px;line-height:1.05;margin:0 3px}
+.frac i{font-style:normal;border-top:2px solid var(--ink);padding-top:1px}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 3</span>
+    <h1>Smart Steps and Equal Parts</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later on this computer.</p><p class="lead" id="hi" hidden></p>
+    <nav class="jump" aria-label="Sections"><a href="#s1">1 Magic pairs</a><a href="#s2">2 Mystery side</a><a href="#s3">3 Parts</a><a href="#s4">4 Charts</a><a href="#s5">5 Undo</a><a href="#s6">6 Rectangles</a><a href="#s7">Finish</a></nav>
+  </header>
+  <section class="card" id="s1"><div class="head"><h2>1. Warm-up: Magic Pairs</h2><span class="cnt" id="c1"></span></div>
+    <div class="method">Find a pair that makes <b>10, 100 or 1,000</b> first: 2 × 5 = 10, 4 × 25 = 100, 8 × 125 = 1,000. You can <b>split</b> a number to make a pair: 24 × 25 = 6 × 4 × 25.</div><div class="list" id="L1"></div></section>
+  <section class="card" id="s2"><div class="head"><h2>2. Area with a Mystery Side</h2><span class="cnt" id="c2"></span></div>
+    <div class="method">Area = length × width. A <b>letter</b> stands for a number we do not know yet. Write the equation first: 9 × M = 63.</div><div class="list" id="L2"></div></section>
+  <section class="card" id="s3"><div class="head"><h2>3. Word Problems: Parts in Words</h2><span class="cnt" id="c3"></span></div>
+    <div class="method">Draw a bar with equal parts. <b>One third</b> = 1 of 3 equal parts. <b>One fourth</b> = 1 of 4 equal parts. Read carefully: do they ask for the part, or for <b>the rest</b>?</div><div class="list" id="L3"></div></section>
+  <section class="card" id="s4"><div class="head"><h2>4. Fill in the Charts</h2><span class="cnt" id="c4"></span></div>
+    <p class="q">Fill in every box. Then look at the last two columns. What do you notice?</p>
+    <div class="tablewrap"><table id="chA"></table></div>
+    <div class="row"><span class="q">So <b>a × 2 × 5 = a ×</b></span><input class="num" id="chA_x" inputmode="numeric" aria-label="Number"></div>
+    <div class="tablewrap"><table id="chB"></table></div>
+    <div class="row"><span class="q">So <b>a × 4 × 25 = a ×</b></span><input class="num" id="chB_x" inputmode="numeric" aria-label="Number"></div></section>
+  <section class="card" id="s5"><div class="head"><h2>5. I Thought of a Number: Undo in One Step</h2><span class="cnt" id="c5"></span></div>
+    <div class="method">Fill in the boxes. Then choose <b>one operation</b> that takes you all the way back to the first number.</div><div class="list" id="L5"></div></section>
+  <section class="card" id="s6"><div class="head"><h2>6. Changing Rectangles</h2><span class="cnt" id="c6"></span></div>
+    <div class="method">Perimeter = 2 × (length + width). Area = length × width.</div><div class="list" id="L6"></div></section>
+  <section class="card done" id="s7">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+
+  const SEC={1:'Magic pairs',2:'Mystery side',3:'Parts',4:'Charts',5:'Undo',6:'Rectangles'};
+  const Q=[]; // {sec,label,fields:[id],check(vals),expect}
+  const fr=(a,b)=>'<span class="frac">'+a+'<i>'+b+'</i></span>';
+  const inp=(id,l,u)=>(l?'<span>'+l+'</span>':'')+'<input class="num" id="'+id+'" inputmode="numeric" aria-label="'+(l||'Answer')+'">'+(u?'<span>'+u+'</span>':'');
+  const item=(n,q,row)=>'<div class="it"><span class="n">'+n+'.</span><div class="b"><div class="q">'+q+'</div><div class="row">'+row+'</div></div></div>';
+  const one=(sec,id,ans,label)=>Q.push({sec,label,fields:[id],check:v=>num(v[0])===ans,expect:String(ans)});
+
+  /* 1 */
+  const W=[['2 × 17 × 5',170],['25 × 6 × 4',600],['8 × 9 × 125',9000],['4 × 11 × 25',1100],['14 × 5',70],['24 × 25',600],['5 × 7 × 2 × 3',210],['50 × 9 × 2',900]];
+  $('#L1').innerHTML=W.map((w,k)=>item(k+1,'<span class="ex">'+w[0]+' =</span>',inp('w'+k))).join(''); W.forEach((w,k)=>one(1,'w'+k,w[1],w[0]));
+
+  /* 2 */
+  function rect(L,Wd,area){ const sw=Math.min(16,150/Math.max(L.v,Wd.v)), w=L.v*sw, h=Wd.v*sw;
+    return '<svg viewBox="0 0 220 '+(h+50)+'" width="220" role="img" aria-label="rectangle" style="display:block;max-width:100%;height:auto"><rect x="'+(110-w/2)+'" y="20" width="'+w+'" height="'+h+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5"/>'+
+      '<text x="110" y="14" text-anchor="middle" font-size="17" fill="var(--ink)">'+L.t+'</text><text x="'+(110-w/2-8)+'" y="'+(20+h/2+6)+'" text-anchor="end" font-size="17" fill="var(--ink)">'+Wd.t+'</text><text x="110" y="'+(20+h/2+5)+'" text-anchor="middle" font-size="13" fill="var(--ink)">Area = '+area+'</text></svg>'; }
+  const AR=[[{t:'9',v:9},{t:'M',v:7},63,'M',7],[{t:'c',v:8},{t:'7',v:7},56,'c',8],[{t:'12',v:12},{t:'6',v:6},'A','A',72],[{t:'Q',v:8},{t:'Q',v:8},64,'Q',8,'square'],[{t:'6',v:6},{t:'N',v:8},48,'N',8],[{t:'k',v:5},{t:'11',v:11},55,'k',5]];
+  $('#L2').innerHTML=AR.map((r,k)=>item(k+1,rect(r[0],r[1],r[2])+(r[5]?'<span class="hint">This is a square.</span>':''),inp('a'+k,'<b>'+r[3]+' =</b>'))).join('');
+  AR.forEach((r,k)=>one(2,'a'+k,r[4],'area '+(k+1)+' ('+r[3]+')'));
+
+  /* 3 */
+  const P=[['A plate has <b>27 cookies</b>. The kids eat <b>one third</b> of them. How many cookies are <b>left</b>?',18,'cookies'],
+    ['A box has <b>32 crayons</b>. <b>One fourth</b> of them are broken. How many crayons are <b>not</b> broken?',24,'crayons'],
+    ['Leo has <b>45 stickers</b>. He gives <b>one third</b> of them to Mia. How many stickers does he <b>give</b>?',15,'stickers'],
+    ['Marmeladka has <b>28 toys</b>. <b>One fourth</b> of them are balls. How many toys are <b>not</b> balls?',21,'toys'],
+    ['A book has <b>60 pages</b>. Leo reads <b>one fourth</b> of the book on Monday. How many pages are <b>left</b>?',45,'pages'],
+    ['A jar has <b>36 marbles</b>. <b>Two thirds</b> of them are blue. How many marbles are <b>blue</b>?',24,'marbles']];
+  $('#L3').innerHTML=P.map((p,k)=>item(k+1,p[0],inp('p'+k,'',p[2]))).join(''); P.forEach((p,k)=>one(3,'p'+k,p[1],'word problem '+(k+1)));
+
+  /* 4 */
+  function chart(host,pref,vals,mults,heads){ $(host).innerHTML='<tr>'+heads.map(h=>'<th>'+h+'</th>').join('')+'</tr>'+vals.map((a,r)=>'<tr><th>'+a+'</th>'+mults.map((m,c)=>'<td><input class="num" id="'+pref+r+'_'+c+'" inputmode="numeric" aria-label="'+heads[c+1]+' for a = '+a+'"></td>').join('')+'</tr>').join('');
+    vals.forEach((a,r)=>mults.forEach((m,c)=>one(4,pref+r+'_'+c,a*m,heads[c+1].replace('a',a)))); }
+  chart('#chA','A',[6,14,25,70,300],[2,10,10],['a','a × 2','a × 2 × 5','a × 10']); one(4,'chA_x',10,'a×2×5 = a×?');
+  chart('#chB','B',[2,5,9,13,30],[4,100,100],['a','a × 4','a × 4 × 25','a × 100']); one(4,'chB_x',100,'a×4×25 = a×?');
+
+  /* 5 */
+  const UN=[{s:5,ops:[['×',3],['×',4]],back:['÷',12]},{s:8,ops:[['×',5],['×',2]],back:['÷',10]},{s:96,ops:[['÷',2],['÷',3]],back:['×',6]},{s:120,ops:[['÷',2],['÷',3],['÷',4]],back:['×',24]}];
+  $('#L5').innerHTML=UN.map((u,i)=>{ let h='<div class="chain"><div class="box">'+u.s+'</div>'; u.ops.forEach((o,k)=>{ h+='<div class="arr">'+o[0]+' '+o[1]+'<span>→</span></div><div class="box"><input id="u'+i+'_'+k+'" inputmode="numeric" aria-label="box '+(k+1)+'"></div>'; });
+    h+='</div><div class="row" style="margin-top:6px"><span>One step back to '+u.s+':</span><span class="row pk" id="u'+i+'op"><button class="btn ghost" data-v="×" aria-pressed="false">×</button><button class="btn ghost" data-v="÷" aria-pressed="false">÷</button></span><input class="num" id="u'+i+'n" inputmode="numeric" aria-label="number"></div>';
+    return item(i+1,h,''); }).join('');
+  UN.forEach((u,i)=>{ let v=u.s; u.ops.forEach((o,k)=>{ v=o[0]==='×'?v*o[1]:v/o[1]; one(5,'u'+i+'_'+k,v,'chain '+(i+1)+' box '+(k+1)); });
+    Q.push({sec:5,label:'chain '+(i+1)+' one step back',fields:['u'+i+'op','u'+i+'n'],check:x=>x[0]===u.back[0]&&num(x[1])===u.back[1],expect:u.back.join(' ')}); });
+
+  /* 6 */
+  $('#L6').innerHTML=item(1,'Rectangle <b>A</b> is <b>10</b> by <b>4</b>. Find its perimeter and its area.',inp('r1p','P =')+inp('r1a','A ='))+
+    item(2,'Draw rectangle <b>B</b>: its <b>area</b> is <b>half</b> of the area of A. What are its length and width?',inp('r2l','length =')+inp('r2w','width ='))+
+    item(3,'Draw rectangle <b>C</b>: its <b>perimeter</b> is <b>half</b> of the perimeter of A. What are its length and width?',inp('r3l','length =')+inp('r3w','width ='))+
+    item(4,'Rectangle <b>D</b> is <b>half as long</b> and <b>twice as wide</b> as A. Find its area and its perimeter.',inp('r4a','A =')+inp('r4p','P ='))+
+    item(5,'⭐ Find <b>another</b> rectangle B (different from your answer to 2) with half the area of A.',inp('r5l','length =')+inp('r5w','width ='));
+  one(6,'r1p',28,'A perimeter'); one(6,'r1a',40,'A area');
+  Q.push({sec:6,label:'B: area 20',fields:['r2l','r2w'],check:x=>num(x[0])*num(x[1])===20,expect:'length × width = 20 (5×4, 10×2, 20×1)'});
+  Q.push({sec:6,label:'C: perimeter 14',fields:['r3l','r3w'],check:x=>num(x[0])>0&&num(x[1])>0&&num(x[0])+num(x[1])===7,expect:'length + width = 7 (6×1, 5×2, 4×3)'});
+  one(6,'r4a',40,'D area (5×8)'); one(6,'r4p',26,'D perimeter (5×8)');
+  Q.push({sec:6,label:'another B',fields:['r5l','r5w'],check:x=>num(x[0])*num(x[1])===20&&!((num(x[0])===num($('#r2l').value)&&num(x[1])===num($('#r2w').value))||(num(x[0])===num($('#r2w').value)&&num(x[1])===num($('#r2l').value))),expect:'another pair with area 20'});
+
+  /* state + sending */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw3';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 3'; }
+  const FIELDS=[].concat(...Q.map(q=>q.fields));
+  const SK='mm-hw3-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  const isPick=id=>/op$/.test(id);
+  const get=id=> isPick(id) ? ($('#'+id).dataset.v||'') : $('#'+id).value.trim();
+  Q.forEach((q,i)=>q.id='q'+(i+1));
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice(); 
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(q){ const vals=q.fields.map(get); if(vals.some(v=>v==='')) return; const key=vals.join('|'); if(S.sent[q.id]===key) return;
+    S.sent[q.id]=key; S.tries[q.id]=(S.tries[q.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:q.id,section:SEC[q.sec],q:q.label+' → верно: '+q.expect,answer:vals.join(' '),correct:q.check(vals),firstTry:S.tries[q.id]===1,tries:S.tries[q.id]}); }
+  const qOf={}; Q.forEach(q=>q.fields.forEach(f=>qOf[f]=q));
+  const changed=id=>{ clearTimeout(timers[id]); timers[id]=setTimeout(()=>sendQ(qOf[id]),1500); };
+  FIELDS.forEach(id=>{ const el=$('#'+id);
+    if(isPick(id)){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[id]) setv(S.v[id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[id]=b.dataset.v; save(); counts(); changed(id); }); }
+    else { if(S.v[id]!==undefined) el.value=S.v[id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(id); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[id]); sendQ(qOf[id]); }); } });
+  function counts(){ Object.keys(SEC).forEach(s=>{ const f=[].concat(...Q.filter(q=>q.sec==s).map(q=>q.fields)); $('#c'+s).textContent=f.filter(id=>get(id)!=='').length+' of '+f.length+' filled'; });
+    const tot=FIELDS.filter(id=>get(id)!=='').length; $('#filled').textContent='You filled '+tot+' of '+FIELDS.length+' boxes.'+(tot<FIELDS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  $('#finish').onclick=()=>{ Q.forEach(q=>sendQ(q)); const done=Q.filter(q=>q.fields.every(f=>get(f)!=='')); const ok=done.filter(q=>q.check(q.fields.map(get))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 3',answer:done.length+' of '+Q.length+' answered',score:ok,total:Q.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>

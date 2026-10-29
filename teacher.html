@@ -35,6 +35,18 @@
   const pill=p=>'<span class="pill '+(p>=80?'g':p>=60?'y':'r')+'">'+p+'%</span>';
   const SEC={warm:'Warm-up',review:'Повторение',oly:'Олимпиада'};
 
+  function hwBlock(rs){
+    const hw=rs.filter(r=>r.type==='hw'); if(!hw.length) return '';
+    const byHw={}; hw.forEach(r=>{ (byHw[r.day]=byHw[r.day]||{})[r.item]=r; });
+    const done={}; rs.filter(r=>r.type==='hwdone').forEach(r=>{ done[r.day]=r; });
+    return '<h3>Домашние задания</h3>'+Object.keys(byHw).sort().map(h=>{ const it=Object.values(byHw[h]); const ok=it.filter(r=>String(r.correct)==='true').length;
+      const secs={}; it.forEach(r=>{ const s=secs[r.section]=secs[r.section]||[0,0]; s[1]++; if(String(r.correct)==='true') s[0]++; });
+      const wrong=it.filter(r=>String(r.correct)!=='true').map(r=>'<tr><td>'+esc(r.section)+'</td><td>'+esc(r.question)+'</td><td>'+esc(r.answer)+'</td><td>'+esc(r.tries)+'</td></tr>').join('');
+      return '<p><b>'+esc(h.toUpperCase())+'</b>: отвечено '+it.length+', верно '+ok+' ('+pct(ok,it.length)+'%)'+(done[h]?' · отметил «I\'m done!» '+esc(String(done[h].time).replace('T',' ').slice(0,16)):' · ещё не отметил «готово»')+'</p>'+
+        '<div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Верно</th></tr></thead><tbody>'+Object.keys(secs).map(k=>'<tr><td>'+esc(k)+'</td><td>'+secs[k][0]+' / '+secs[k][1]+' '+pill(pct(secs[k][0],secs[k][1]))+'</td></tr>').join('')+'</tbody></table></div>'+
+        (wrong?'<div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Задание</th><th>Ответ</th><th>Попыток</th></tr></thead><tbody>'+wrong+'</tbody></table></div>':'<p class="muted">Ошибок нет.</p>'); }).join('');
+  }
+
   function render(data){
     const names={}; (data.kids||[]).forEach(k=>{ if(k.code) names[k.code]=k.name||k.code; });
     const rows=data.rows||[]; const by={};
@@ -58,6 +70,7 @@
         '<p>Выполнено дней: <b>'+days.length+'</b>'+(dayList?' — '+esc(dayList):'')+'</p>'+
         '<div class="tablewrap"><table><thead><tr><th>Раздел</th><th>Заданий</th><th>Верно</th><th>С первой попытки</th></tr></thead><tbody>'+sec+'</tbody></table></div>'+
         '<h3>Последние ошибки</h3>'+(mist?'<div class="tablewrap"><table><thead><tr><th>День</th><th>Задание</th><th>Ответ</th></tr></thead><tbody>'+mist+'</tbody></table></div>':'<p class="muted">Ошибок нет.</p>')+
+        hwBlock(rs)+
         '<h3>Отчёт для родителя</h3><textarea aria-label="Отчёт для родителя">'+esc(report.replace(/\\n/g,'\n'))+'</textarea>'+
         '<div class="row"><button class="btn small copy">Скопировать отчёт</button><span class="fb"></span></div></section>';
     }).join('');
