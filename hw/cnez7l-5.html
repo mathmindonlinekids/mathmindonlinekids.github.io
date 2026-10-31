@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 5</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+.sub{margin:0;font-size:18px;font-family:"Grandstander",sans-serif}
+.rbw{overflow-x:auto;padding-bottom:4px}
+.rb{display:inline-flex;flex-direction:column}
+.rb svg{display:block}
+.rbrow{display:flex}
+.rbrow > *{width:52px;margin:0 3px;flex:none}
+.rbrow input.num{width:52px;font-size:17px;padding:4px 2px}
+.rbrow .giv{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:10px;border:2px solid var(--ink);font-weight:700;font-size:18px;background:var(--gold-soft)}
+.tree svg{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 5</span>
+    <h1>Divide, Remainders and Factors</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later on this computer.</p><p class="lead" id="hi" hidden></p>
+    <nav class="jump" aria-label="Sections"><a href="#s1">1 Warm-up</a><a href="#s2">2 Equal groups</a><a href="#s3">3 Remainders</a><a href="#s4">4 Check</a><a href="#s5">5 Stories</a><a href="#s6">6 Divide by parts</a><a href="#s7">7 Equations</a><a href="#s8">8 Factors and primes</a><a href="#s9">9 Part and whole</a><a href="#s10">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <div class="head"><h2>1. Warm-up</h2><span class="cnt" id="c1"></span></div>
+    <div class="method">Look for <b>magic pairs</b> first: 2 × 5 = 10, 4 × 25 = 100, 8 × 125 = 1000.</div>
+    <div class="list" id="w"></div>
+  </section>
+
+  <section class="card" id="s2">
+    <div class="head"><h2>2. Equal Groups</h2><span class="cnt" id="c2"></span></div>
+    <div class="method">Division is the opposite of multiplication: 56 ÷ 7 = 8 because 7 × 8 = 56.</div>
+    <div class="list" id="g"></div>
+  </section>
+
+  <section class="card" id="s3">
+    <div class="head"><h2>3. Divide with a Remainder</h2><span class="cnt" id="c3"></span></div>
+    <div class="method">Make as many full groups as you can. What is left is the <b>remainder</b> (R).<br>The remainder is always <b>smaller</b> than the number you divide by.</div>
+    <div class="list" id="r"></div>
+  </section>
+
+  <section class="card" id="s4">
+    <div class="head"><h2>4. Check Your Division</h2><span class="cnt" id="c4"></span></div>
+    <div class="method">Check: <b>quotient × divisor + remainder = the number we divided</b>.</div>
+    <div class="list" id="ck"></div>
+  </section>
+
+  <section class="card" id="s5">
+    <div class="head"><h2>5. Remainder in a Story</h2><span class="cnt" id="c5"></span></div>
+    <div class="method">Read the question carefully. Think: do we need <b>one more</b> group? Do we <b>drop</b> the remainder? Or do we <b>say</b> what is left?</div>
+    <div class="list" id="st"></div>
+  </section>
+
+  <section class="card" id="s6">
+    <div class="head"><h2>6. Divide by Parts</h2><span class="cnt" id="c6"></span></div>
+    <div class="method">Split the big number into parts that are easy to divide. Divide each part, then add. Find the parts yourself on paper!</div>
+    <div class="list" id="d"></div>
+  </section>
+
+  <section class="card" id="s7">
+    <div class="head"><h2>7. Equations</h2><span class="cnt" id="c7"></span></div>
+    <div class="method">① Open the brackets (multiply <b>every</b> part) ② put the same letters together ③ remove the number (+ or −) ④ divide ⑤ check by putting the answer back.</div>
+    <div class="list" id="eq"></div>
+  </section>
+
+  <section class="card" id="s8">
+    <div class="head"><h2>8. Factors and Primes</h2><span class="cnt" id="c8"></span></div>
+    <div class="method"><b>Prime number</b>: exactly 2 factors, 1 and itself (2, 3, 5, 7…).<br><b>Composite number</b>: more than 2 factors (4, 6, 8, 9…).<br><b>1</b> is neither prime nor composite.</div>
+    <h3 class="sub">A. Prime, composite or neither?</h3>
+    <div class="list" id="pc"></div>
+    <h3 class="sub">B. Lollipop diagrams</h3>
+    <p class="q">Fill in all the factors from smallest to largest. Each arc joins a factor pair. If a number pairs with itself, it gets a lollipop stick!</p>
+    <div class="list" id="lp"></div>
+    <h3 class="sub">C. Factor trees</h3>
+    <p class="q">Keep splitting until every number at the bottom is prime. Find the numbers hiding behind the letters.</p>
+    <div class="list" id="ft"></div>
+    <h3 class="sub">D. Prime factorization</h3>
+    <p class="q">Write the prime factors from <b>smallest to largest</b>. Make a factor tree on paper first.</p>
+    <div class="list" id="pf"></div>
+  </section>
+
+  <section class="card" id="s9">
+    <div class="head"><h2>9. Part and Whole</h2><span class="cnt" id="c9"></span></div>
+    <div class="method">Always find <b>one part</b> first.<br><b>Find the part:</b> whole ÷ bottom number = 1 part, then × top number.<br><b>Find the whole:</b> the part ÷ top number = 1 part, then × bottom number.</div>
+    <h3 class="sub">A. Find the part</h3>
+    <div class="list" id="pp"></div>
+    <h3 class="sub">B. Find the whole</h3>
+    <div class="list" id="pw"></div>
+  </section>
+
+  <section class="card done" id="s10">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={1:'Warm-up',2:'Equal groups',3:'Remainders',4:'Check',5:'Stories',6:'Divide by parts',7:'Equations',8:'Factors and primes',9:'Part and whole'};
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const fr=(a,b)=>'<sup>'+a+'</sup>⁄<sub>'+b+'</sub>';
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).insertAdjacentHTML('beforeend',items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(f[0]||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join(''));
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],(it.lab||('#'+(start+k+1)))+(it.f.length>1?' ('+(f[0]||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){
+    $(host).insertAdjacentHTML('beforeend',items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+opts.map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join(''));
+    items.forEach((p,k)=>add(pref+k,sec,p[1],p[2]||('#'+(start+k+1)),1));
+  }
+  function tape(n,k){ const W=300, w=W/n; let g='';
+    for(let i=0;i<n;i++) g+='<rect x="'+(10+i*w)+'" y="8" width="'+w+'" height="34" fill="'+(i<k?'var(--gold-soft)':'var(--acc-soft)')+'" stroke="var(--ink)" stroke-width="2"/>';
+    return '<svg viewBox="0 0 320 50" width="320" role="img" aria-label="bar in '+n+' equal parts, '+k+' shaded" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  const R=(a,b)=>[['',Math.floor(a/b)],['R',a%b]];
+
+  /* 1. warm-up */
+  rows('#w',1,'w',[['25 × 9 × 4',900],['5 × 17 × 2',170],['63 ÷ 7',9],['48 ÷ 8',6],['4 × 13 × 25',1300],['2 × 46 × 5',460],['72 ÷ 9',8],['⭐ 125 × 7 × 8',7000]]
+    .map(e=>({q:e[0]+' =',cls:'ex',f:[['',e[1]]],lab:e[0].replace('⭐ ','')})));
+
+  /* 2. equal groups */
+  rows('#g',2,'g',[
+    {q:'7 × □ = 56',cls:'ex',f:[['□ =',8]],lab:'7×□=56'},
+    {q:'54 ÷ 6 =',cls:'ex',f:[['',9]],lab:'54÷6'},
+    {q:'81 ÷ 9 =',cls:'ex',f:[['',9]],lab:'81÷9'},
+    {q:'Mia has <b>64</b> beads. She makes <b>8</b> bracelets with the same number of beads. How many beads are on each bracelet?',f:[['',8,'beads']],lab:'64 beads, 8 bracelets'},
+    {q:'<b>42</b> kids are split into <b>7</b> equal teams. How many kids are in each team?',f:[['',6,'kids']],lab:'42 kids, 7 teams'},
+    {q:'48 ÷ 6 = □ R □. What is the remainder?',cls:'q',f:[['quotient',8],['remainder',0]],lab:'48÷6'}]);
+
+  /* 3. remainders */
+  rows('#r',3,'r',[[19,4],[26,3],[38,5],[47,6],[59,7],[44,9],[70,8],[83,9]]
+    .map(e=>({q:e[0]+' ÷ '+e[1]+' =',cls:'ex',f:R(e[0],e[1]),lab:e[0]+'÷'+e[1]})));
+  rows('#r',3,'rq',[{q:'When you divide by <b>7</b>, what is the <b>biggest</b> remainder you can get?',f:[['',6]],lab:'biggest remainder ÷7'}],8);
+
+  /* 4. check */
+  rows('#ck',4,'k',[
+    {q:'Check 38 ÷ 5 = 7 R 3:&nbsp; 5 × 7 + 3 =',f:[['',38]],lab:'5×7+3'},
+    {q:'Check 61 ÷ 8 = 7 R 5:&nbsp; 8 × 7 + 5 =',f:[['',61]],lab:'8×7+5'},
+    {q:'A number divided by <b>6</b> gives <b>9 R 4</b>. What is the number?',f:[['',58]],lab:'?÷6=9R4'}]);
+  picks('#ck',4,'ky',[
+    ['50 ÷ 6 = 8 R 2. Is it right?','Yes','50÷6=8R2'],
+    ['27 ÷ 4 = 5 R 7. Is it right?','No','27÷4=5R7'],
+    ['44 ÷ 9 = 4 R 8. Is it right?','Yes','44÷9=4R8'],
+    ['35 ÷ 8 = 4 R 2. Is it right?','No','35÷8=4R2']],['Yes','No'],3);
+
+  /* 5. stories */
+  rows('#st',5,'s',[
+    {q:'<b>30</b> kids go on a trip. <b>4</b> kids can sit at one table. Every kid needs a seat. How many tables do they need?',f:[['',8,'tables']],lab:'30 kids, 4 per table'},
+    {q:'Mom baked <b>45</b> cookies. She puts <b>6</b> cookies in a bag. How many <b>full</b> bags can she make?',f:[['',7,'bags']],lab:'45 cookies, bags of 6'},
+    {q:'<b>53</b> stickers are shared equally among <b>6</b> friends. How many stickers does each friend get? How many are left?',f:[['each:',8],['left:',5]],lab:'53 stickers, 6 friends'},
+    {q:'Mia has <b>62</b> k-pop cards. One album page holds <b>8</b> cards. How many pages does she need for <b>all</b> her cards?',f:[['',8,'pages']],lab:'62 cards, 8 per page'},
+    {q:'Mia has <b>$40</b>. One notebook costs <b>$6</b>. How many notebooks can she buy? How much money is left?',f:[['notebooks:',6],['left: $',4]],lab:'$40, $6 notebooks'},
+    {q:'A bracelet needs <b>7</b> beads. Mia has <b>52</b> beads. How many bracelets can she make? How many beads are left?',f:[['bracelets:',7],['left:',3]],lab:'52 beads, 7 per bracelet'}]);
+
+  /* 6. divide by parts (no hints) */
+  rows('#d',6,'d',[['72 ÷ 3',24],['84 ÷ 6',14],['91 ÷ 7',13],['96 ÷ 8',12],['78 ÷ 6',13],['92 ÷ 4',23],['87 ÷ 3',29],['⭐ 135 ÷ 5',27]]
+    .map(e=>({q:e[0]+' =',cls:'ex',f:[['',e[1]]],lab:e[0].replace('⭐ ','')})));
+
+  /* 7. equations */
+  const EQ=[['x ÷ 7 = 9','x',63],['8y = 72','y',9],['5n − 7 = 38','n',9],['x ÷ 4 + 6 = 15','x',36],
+            ['3(a + 4) = 33','a',7],['4(m − 3) = 28','m',10],['6(k − 5) = 42','k',12],['9(c − 4) = 54','c',10],
+            ['4(2n + 1) = 44','n',5],['2(x + 3) + 4x = 42','x',6],['5(y + 2) − 2y = 31','y',7],['⭐ 3(p + 2) + 2(p − 1) = 39','p',7]];
+  rows('#eq',7,'q',EQ.map(e=>({q:e[0],cls:'ex',f:[[e[1]+' =',e[2]]],lab:e[0].replace('⭐ ','')})));
+
+  /* 8A. prime / composite */
+  picks('#pc',8,'c',[['<b>17</b>','Prime','17'],['<b>21</b>','Composite','21'],['<b>2</b>','Prime','2'],['<b>1</b>','Neither','1'],
+    ['<b>39</b>','Composite','39'],['<b>31</b>','Prime','31'],['<b>57</b>','Composite','57'],['<b>47</b>','Prime','47']],['Prime','Composite','Neither'],0);
+  rows('#pc',8,'cq',[
+    {q:'How many prime numbers are smaller than <b>20</b>?',f:[['',8,'primes']],lab:'primes below 20'},
+    {q:'Write the 4 prime numbers between <b>20</b> and <b>40</b>, from smallest to largest.',f:[['',23],['',29],['',31],['',37]],lab:'primes 20–40'},
+    {q:'There is only <b>one</b> even prime number. Which one?',f:[['',2]],lab:'even prime'},
+    {q:'⭐ 91 is composite. Find its factor pair (not 1 × 91).',f:[['',7,'×'],['',13]],lab:'91 = ? × ?'}],8);
+
+  /* 8B. lollipop diagrams */
+  function lolli(n,fs,given,k){
+    const m=fs.length, W=58, w=m*W, mid=(m-1)/2, hs=Math.floor(m/2)*16+30; let g='';
+    for(let i=0;i<Math.floor(m/2);i++){ const a=W/2+i*W, b=W/2+(m-1-i)*W, h=(Math.floor(m/2)-i)*16+8;
+      g+='<path d="M'+a+' '+hs+' C'+a+' '+(hs-h*1.3)+' '+b+' '+(hs-h*1.3)+' '+b+' '+hs+'" fill="none" stroke="var(--acc)" stroke-width="2.5"/>'; }
+    if(m%2){ const x=W/2+mid*W; g+='<line x1="'+x+'" y1="'+hs+'" x2="'+x+'" y2="12" stroke="var(--warm)" stroke-width="2.5"/><circle cx="'+x+'" cy="11" r="8" fill="var(--warm)"/>'; }
+    const cells=fs.map((f,i)=>given.includes(i)?'<span class="giv">'+f+'</span>':'<input class="num" id="lp'+k+'_'+i+'" inputmode="numeric" aria-label="factor '+(i+1)+' of '+n+'">').join('');
+    $('#lp').insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+(k+1)+'.</span><div class="b"><div class="q">Factors of <b>'+n+'</b></div><div class="rbw"><div class="rb"><svg viewBox="0 0 '+w+' '+hs+'" width="'+w+'" height="'+hs+'" aria-hidden="true">'+g+'</svg><div class="rbrow">'+cells+'</div></div></div><div class="row"><span>How many factors does '+n+' have?</span><input class="num" id="lpc'+k+'" inputmode="numeric" aria-label="number of factors of '+n+'"></div></div></div>');
+    fs.forEach((f,i)=>{ if(!given.includes(i)) add('lp'+k+'_'+i,8,f,'lollipop '+n+' slot '+(i+1)); });
+    add('lpc'+k,8,m,'how many factors of '+n);
+  }
+  lolli(24,[1,2,3,4,6,8,12,24],[0,7],0);
+  lolli(36,[1,2,3,4,6,9,12,18,36],[0,8],1);
+  lolli(30,[1,2,3,5,6,10,15,30],[0],2);
+  lolli(49,[1,7,49],[],3);
+
+  /* 8C. factor trees */
+  function tree(k,nodes,edges,qs){
+    const nd=nodes.map(n=>{ const L=/[A-Z]/.test(n[2]); return '<circle cx="'+n[0]+'" cy="'+n[1]+'" r="19" fill="'+(L?'var(--gold-soft)':'var(--card)')+'" stroke="var(--ink)" stroke-width="2"/><text x="'+n[0]+'" y="'+(n[1]+6)+'" text-anchor="middle" font-family="Grandstander,sans-serif" font-weight="800" font-size="17" fill="var(--ink)">'+n[2]+'</text>'; }).join('');
+    const ed=edges.map(e=>'<line x1="'+nodes[e[0]][0]+'" y1="'+(nodes[e[0]][1]+19)+'" x2="'+nodes[e[1]][0]+'" y2="'+(nodes[e[1]][1]-19)+'" stroke="var(--muted)" stroke-width="2"/>').join('');
+    $('#ft').insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+(k+1)+'.</span><div class="b tree"><svg viewBox="0 0 320 210" width="320" role="img" aria-label="factor tree of '+nodes[0][2]+'">'+ed+nd+'</svg><div class="row">'+qs.map((q,j)=>'<span>'+q[0]+' =</span><input class="num" id="ft'+k+'_'+j+'" inputmode="numeric" aria-label="'+q[0]+'">').join('')+'</div></div></div>');
+    qs.forEach((q,j)=>add('ft'+k+'_'+j,8,q[1],'tree '+nodes[0][2]+': '+q[0]));
+  }
+  tree(0,[[160,25,'36'],[90,95,'4'],[230,95,'9'],[55,170,'A'],[125,170,'B'],[195,170,'C'],[265,170,'D']],[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]],[['A',2],['B',2],['C',3],['D',3]]);
+  tree(1,[[160,25,'60'],[90,95,'6'],[230,95,'E'],[55,170,'2'],[125,170,'F'],[195,170,'G'],[265,170,'5']],[[0,1],[0,2],[1,3],[1,4],[2,5],[2,6]],[['E',10],['F',3],['G',2]]);
+  tree(2,[[160,25,'K'],[90,95,'6'],[230,95,'7'],[55,170,'2'],[125,170,'M']],[[0,1],[0,2],[1,3],[1,4]],[['M',3],['K',42]]);
+
+  /* 8D. prime factorization */
+  rows('#pf',8,'f',[
+    {q:'36 = 2 × 2 × □ × □',cls:'ex',f:[['',3],['×',3]],lab:'36'},
+    {q:'48 = 2 × 2 × 2 × □ × □',cls:'ex',f:[['',2],['×',3]],lab:'48'},
+    {q:'72 = 2 × □ × □ × □ × □',cls:'ex',f:[['',2],['×',2],['×',3],['×',3]],lab:'72'},
+    {q:'90 = □ × □ × □ × □',cls:'ex',f:[['',2],['×',3],['×',3],['×',5]],lab:'90'},
+    {q:'2 × 2 × 3 × 7 =',cls:'ex',f:[['',84]],lab:'2×2×3×7'},
+    {q:'⭐ 100 = □ × □ × □ × □',cls:'ex',f:[['',2],['×',2],['×',5],['×',5]],lab:'100'}]);
+
+  /* 9. part and whole */
+  rows('#pp',9,'pp',[
+    {q:tape(3,2)+'Find '+fr(2,3)+' of <b>27</b>.',f:[['1 part =',9],['answer =',18]],lab:'2/3 of 27'},
+    {q:tape(5,3)+'Find '+fr(3,5)+' of <b>40</b>.',f:[['1 part =',8],['answer =',24]],lab:'3/5 of 40'},
+    {q:tape(6,5)+'Find '+fr(5,6)+' of <b>42</b>.',f:[['1 part =',7],['answer =',35]],lab:'5/6 of 42'},
+    {q:'<b>56</b> kids came to a k-pop concert. '+fr(4,7)+' of them were girls. How many girls came?',f:[['1 part =',8],['answer =',32]],lab:'4/7 of 56'}]);
+  rows('#pw',9,'pw',[
+    {q:tape(4,3)+fr(3,4)+' of a number is <b>27</b>. Find the number.',f:[['1 part =',9],['whole =',36]],lab:'3/4 is 27'},
+    {q:tape(7,2)+fr(2,7)+' of a number is <b>12</b>. Find the number.',f:[['1 part =',6],['whole =',42]],lab:'2/7 is 12'},
+    {q:tape(8,5)+fr(5,8)+' of a number is <b>40</b>. Find the number.',f:[['1 part =',8],['whole =',64]],lab:'5/8 is 40'},
+    {q:'Mia spent '+fr(2,5)+' of her money on a k-pop poster. The poster cost <b>$18</b>. How much money did she have at first?',f:[['1 part = $',9],['whole = $',45]],lab:'2/5 is $18'}],4);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw5';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 5'; }
+  const SK='mm-hw5-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ Object.keys(SEC).forEach(s=>{ const its=ITEMS.filter(i=>i.sec==s); $('#c'+s).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 5',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
