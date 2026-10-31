@@ -57,7 +57,11 @@
   function stats(){ let stars=0; Object.values(S.ans).forEach(a=>{ if(a.final&&a.correct) stars++; }); $('#sStars').textContent=stars; $('#sDays').textContent=Object.keys(S.done).length;
     const ds=[...new Set(S.dates)].sort(); let st=0; let d=new Date(); for(;;){ const k=d.toISOString().slice(0,10); if(ds.includes(k)){ st++; d.setDate(d.getDate()-1);} else { if(st===0 && k===new Date().toISOString().slice(0,10)){ d.setDate(d.getDate()-1); continue; } break; } } $('#sStreak').textContent=st; }
 
-  function renderDays(){ $('#days').innerHTML=DATA.days.map(x=>'<button class="'+(S.done[x.day]?'done':'')+'" aria-current="'+(x.day===day)+'" data-d="'+x.day+'" aria-label="Day '+x.day+(S.done[x.day]?', done':'')+'">'+x.day+'</button>').join('');
+  /* days may carry a date (YYYY-MM-DD): a day opens on its date; lesson days have no practice */
+  const pad=n=>String(n).padStart(2,'0'); const now=new Date(); const TODAY=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+  const nice=ds=>{ const p=ds.split('-').map(Number); return new Date(p[0],p[1]-1,p[2]).toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}); };
+  const open=x=>!x.date||x.date<=TODAY||!!S.done[x.day];
+  function renderDays(){ $('#days').innerHTML=DATA.days.map(x=>'<button class="'+(S.done[x.day]?'done':'')+'" aria-current="'+(x.day===day)+'" data-d="'+x.day+'"'+(open(x)?'':' disabled')+' title="'+(x.date?nice(x.date):'')+'" aria-label="Day '+x.day+(x.date?', '+nice(x.date):'')+(S.done[x.day]?', done':(open(x)?'':', opens later'))+'">'+x.day+'</button>').join('');
     $$('#days button').forEach(b=>b.onclick=()=>{ day=+b.dataset.d; render(); window.scrollTo({top:0,behavior:'smooth'}); }); }
 
   function item(it,k,section){
@@ -99,19 +103,23 @@
 
   function render(){
     const d=DATA.days.find(x=>x.day===day); started=Date.now();
-    $('#dayTitle').textContent='Day '+day; $('#dayTheme').textContent='Olympiad trick: '+d.theme; $('#olyTheme').textContent='Today\'s trick: '+d.theme+'. Choose one answer.';
+    $('#dayTitle').textContent='Day '+day+(d.date?' · '+nice(d.date):''); $('#dayTheme').textContent='Olympiad trick: '+d.theme; $('#olyTheme').textContent='Today\'s trick: '+d.theme+'. Choose one answer.';
     $('#warm').innerHTML=d.warm.map((it,k)=>item(it,k)).join(''); $('#review').innerHTML=d.review.map((it,k)=>item(it,k)).join(''); $('#oly').innerHTML=d.oly.map((it,k)=>item(it,k)).join('');
     d.warm.forEach(i=>wire(i,'warm')); d.review.forEach(i=>wire(i,'review')); d.oly.forEach(i=>wire(i,'oly'));
     renderDays(); stats(); checkFinish(); $('#finishFb').textContent='';
   }
 
+  function nextMsg(){ const nx=DATA.days.find(x=>!open(x)); return nx?' Next practice opens on '+nice(nx.date)+'.':''; }
   $('#finish').onclick=()=>{ const all=items(); const score=all.filter(([i])=>S.ans[i.id].correct).length;
     S.done[day]={score,total:all.length,at:new Date().toISOString()}; S.dates.push(new Date().toISOString().slice(0,10)); save();
     send({type:'day',day:day,score:score,total:all.length,seconds:Math.round((Date.now()-started)/1000)});
-    $('#finishFb').textContent='★ '+score+' of '+all.length+'. See you tomorrow!'; $('#finishFb').className='fb ok'; renderDays(); stats(); checkFinish(); };
+    $('#finishFb').textContent='★ '+score+' of '+all.length+'. Great job!'+nextMsg(); $('#finishFb').className='fb ok'; renderDays(); stats(); checkFinish(); };
 
   fetch('data/'+KID+'.json',{cache:'no-store'}).then(r=>{ if(!r.ok) throw 0; return r.json(); }).then(j=>{ DATA=j;
-    const next=DATA.days.find(x=>!S.done[x.day]); const pd=parseInt(P.get('d'),10); day= DATA.days.some(x=>x.day===pd)?pd:(next?next.day:DATA.days[DATA.days.length-1].day); render(); })
+    const avail=DATA.days.filter(open); const next=avail.find(x=>!S.done[x.day]); const pd=parseInt(P.get('d'),10);
+    day= avail.some(x=>x.day===pd)?pd:(next?next.day:(avail.length?avail[avail.length-1].day:DATA.days[0].day));
+    if(!avail.length){ $('#err').hidden=false; $('#err').textContent='Your practice starts on '+nice(DATA.days[0].date)+'. See you then!'; $$('section.card').forEach(c=>c.hidden=true); return; }
+    render(); if(!next && avail.length){ $('#finishFb').textContent='All practice days so far are done ★'+nextMsg(); $('#finishFb').className='fb ok'; } })
   .catch(()=>{ $('#err').hidden=false; $('#err').textContent='Could not load your practice. Check the link or ask your teacher.'; });
 })();
 </script>

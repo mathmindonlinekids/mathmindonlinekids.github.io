@@ -102,7 +102,8 @@
      "ans": 1,
      "explain": "64 → 32 → 16 → 8."
     }
-   ]
+   ],
+   "date": "2026-10-31"
   },
   {
    "day": 2,
@@ -203,7 +204,8 @@
      "ans": 1,
      "explain": "22, 24, …, 40: that is 10 numbers."
     }
-   ]
+   ],
+   "date": "2026-11-01"
   },
   {
    "day": 3,
@@ -304,7 +306,8 @@
      "ans": 2,
      "explain": "1, 0, 2: the hundreds digit cannot be 0."
     }
-   ]
+   ],
+   "date": "2026-11-03"
   },
   {
    "day": 4,
@@ -405,7 +408,8 @@
      "ans": 2,
      "explain": "4 small triangles + 4 big ones (made of 2 small) = 8."
     }
-   ]
+   ],
+   "date": "2026-11-04"
   },
   {
    "day": 5,
@@ -506,7 +510,8 @@
      "ans": 2,
      "explain": "The sums are 2 × 2, 3 × 3, 4 × 4… Six odd numbers: 6 × 6 = 36."
     }
-   ]
+   ],
+   "date": "2026-11-05"
   },
   {
    "day": 6,
@@ -607,7 +612,8 @@
      "ans": 2,
      "explain": "Not red = blue + green = 6, not blue = red + green = 7, not green = red + blue = 5. Add: 2 × all = 18, so 9 balls."
     }
-   ]
+   ],
+   "date": "2026-11-07"
   },
   {
    "day": 7,
@@ -708,7 +714,8 @@
      "ans": 2,
      "explain": "The difference is 2 cubes = 10 g, so 1 cube = 5 g."
     }
-   ]
+   ],
+   "date": "2026-11-08"
   },
   {
    "day": 8,
@@ -809,7 +816,8 @@
      "ans": 2,
      "explain": "Both say 12, 24, 36, 48… Between 30 and 40 it is 36."
     }
-   ]
+   ],
+   "date": "2026-11-10"
   },
   {
    "day": 9,
@@ -910,7 +918,8 @@
      "ans": 3,
      "explain": "Perimeter 32, side 8, area 64."
     }
-   ]
+   ],
+   "date": "2026-11-11"
   },
   {
    "day": 10,
@@ -1011,7 +1020,8 @@
      "ans": 3,
      "explain": "Ones: 2, 12, 22 (3 times). Tens: 20–29 (10 times). 3 + 10 = 13."
     }
-   ]
+   ],
+   "date": "2026-11-12"
   }
  ]
 }

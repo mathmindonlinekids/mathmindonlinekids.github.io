@@ -49,6 +49,7 @@ input.wrong,.btn.wrong{border-color:var(--bad)!important;background:var(--bad-so
 .stat span{font-size:12px;color:var(--muted)}
 .days{display:flex;flex-wrap:wrap;gap:6px}
 .days button{font:inherit;font-size:14px;width:44px;height:40px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.days button:disabled{opacity:.4;cursor:not-allowed}
 .days button.done{background:var(--ok-soft);border-color:var(--ok)}
 .days button[aria-current="true"]{border:2.5px solid var(--ink);font-weight:700}
 .banner{border-radius:12px;padding:10px 14px;background:var(--gold-soft);font-size:14px}
