@@ -1,0 +1,1027 @@
+{
+ "kid": "n2ql2a",
+ "grade": "3 · NC",
+ "feedback": true,
+ "days": [
+  {
+   "day": 1,
+   "date": "2026-11-01",
+   "theme": "Counting legs",
+   "warm": [
+    {
+     "id": "d1w0",
+     "type": "num",
+     "q": "40 + 30 = ?",
+     "ans": 70,
+     "hint": "4 tens + 3 tens = 7 tens"
+    },
+    {
+     "id": "d1w1",
+     "type": "num",
+     "q": "90 − 50 = ?",
+     "ans": 40,
+     "hint": "9 tens − 5 tens = 4 tens"
+    },
+    {
+     "id": "d1w2",
+     "type": "num",
+     "q": "6 × 7 = ?",
+     "ans": 42,
+     "hint": "5 × 7 + 7 = 35 + 7"
+    },
+    {
+     "id": "d1w3",
+     "type": "num",
+     "q": "8 × 5 = ?",
+     "ans": 40,
+     "hint": "Count by 5s eight times"
+    }
+   ],
+   "review": [
+    {
+     "id": "d1r0",
+     "type": "num",
+     "q": "1/3 (one third) of 18 = ?",
+     "ans": 6,
+     "hint": "Split 18 into 3 equal parts: 18 ÷ 3"
+    },
+    {
+     "id": "d1r1",
+     "type": "num",
+     "q": "72 − 38 = ?",
+     "ans": 34,
+     "hint": "Borrow a ten: 12 − 8 = 4, 6 − 3 = 3"
+    },
+    {
+     "id": "d1r2",
+     "type": "num",
+     "q": "I thought of a number. I added 9 and got 20. What was my number?",
+     "ans": 11,
+     "hint": "Go backwards: 20 − 9"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d1o0",
+     "type": "mc",
+     "q": "A dog and a hen are in the yard. How many legs are there in all?",
+     "choices": [
+      "4",
+      "5",
+      "6",
+      "8",
+      "10"
+     ],
+     "ans": 2,
+     "explain": "Dog: 4 legs. Hen: 2 legs. 4 + 2 = 6."
+    },
+    {
+     "id": "d1o1",
+     "type": "mc",
+     "q": "2 cats and 3 hens. How many legs?",
+     "choices": [
+      "10",
+      "12",
+      "14",
+      "16",
+      "20"
+     ],
+     "ans": 2,
+     "explain": "Cats: 2 × 4 = 8. Hens: 3 × 2 = 6. 8 + 6 = 14."
+    },
+    {
+     "id": "d1o2",
+     "type": "mc",
+     "q": "A spider has 8 legs. How many legs do 3 spiders have?",
+     "choices": [
+      "11",
+      "16",
+      "21",
+      "24",
+      "32"
+     ],
+     "ans": 3,
+     "explain": "3 × 8 = 24."
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "date": "2026-11-02",
+   "theme": "Working backwards",
+   "warm": [
+    {
+     "id": "d2w0",
+     "type": "num",
+     "q": "300 + 500 = ?",
+     "ans": 800,
+     "hint": "3 hundreds + 5 hundreds"
+    },
+    {
+     "id": "d2w1",
+     "type": "num",
+     "q": "700 − 400 = ?",
+     "ans": 300,
+     "hint": "7 hundreds − 4 hundreds"
+    },
+    {
+     "id": "d2w2",
+     "type": "num",
+     "q": "7 × 8 = ?",
+     "ans": 56,
+     "hint": "7 × 4 = 28, then double: 56"
+    },
+    {
+     "id": "d2w3",
+     "type": "num",
+     "q": "9 × 6 = ?",
+     "ans": 54,
+     "hint": "10 × 6 − 6 = 60 − 6"
+    }
+   ],
+   "review": [
+    {
+     "id": "d2r0",
+     "type": "num",
+     "q": "1/4 (one fourth) of a number is 6. What is the number?",
+     "ans": 24,
+     "hint": "The whole has 4 parts: 4 × 6"
+    },
+    {
+     "id": "d2r1",
+     "type": "num",
+     "q": "Time: 3:50 → 4:15. How many minutes?",
+     "ans": 25,
+     "hint": "3:50 → 4:00 is 10 min, then 15 more"
+    },
+    {
+     "id": "d2r2",
+     "type": "num",
+     "q": "A rectangle is 5 cm by 4 cm. What is its area in square cm?",
+     "ans": 20,
+     "hint": "Area = 5 × 4"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d2o0",
+     "type": "mc",
+     "q": "I thought of a number. I added 5, then added 5 again. I got 20. What was my number?",
+     "choices": [
+      "5",
+      "10",
+      "15",
+      "20",
+      "30"
+     ],
+     "ans": 1,
+     "explain": "Backwards: 20 − 5 = 15, 15 − 5 = 10."
+    },
+    {
+     "id": "d2o1",
+     "type": "mc",
+     "q": "Mia had some stickers. She gave away 4 and has 9 left. How many did she have?",
+     "choices": [
+      "5",
+      "9",
+      "12",
+      "13",
+      "14"
+     ],
+     "ans": 3,
+     "explain": "Backwards: 9 + 4 = 13."
+    },
+    {
+     "id": "d2o2",
+     "type": "mc",
+     "q": "I thought of a number. I multiplied it by 2 and got 16. What was my number?",
+     "choices": [
+      "4",
+      "6",
+      "8",
+      "14",
+      "32"
+     ],
+     "ans": 2,
+     "explain": "Backwards: 16 ÷ 2 = 8."
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "date": "2026-11-03",
+   "theme": "Odd and even",
+   "warm": [
+    {
+     "id": "d3w0",
+     "type": "num",
+     "q": "20 × 3 = ?",
+     "ans": 60,
+     "hint": "2 tens × 3 = 6 tens"
+    },
+    {
+     "id": "d3w1",
+     "type": "num",
+     "q": "100 − 40 = ?",
+     "ans": 60,
+     "hint": "10 tens − 4 tens"
+    },
+    {
+     "id": "d3w2",
+     "type": "num",
+     "q": "8 × 7 = ?",
+     "ans": 56,
+     "hint": "Same as 7 × 8"
+    },
+    {
+     "id": "d3w3",
+     "type": "num",
+     "q": "6 × 6 = ?",
+     "ans": 36,
+     "hint": "5 × 6 + 6"
+    }
+   ],
+   "review": [
+    {
+     "id": "d3r0",
+     "type": "num",
+     "q": "2/3 (two thirds) of 15 = ?",
+     "ans": 10,
+     "hint": "One third: 15 ÷ 3 = 5. Two thirds: 5 + 5"
+    },
+    {
+     "id": "d3r1",
+     "type": "num",
+     "q": "452 − 178 = ?",
+     "ans": 274,
+     "hint": "Borrow twice: ones, then tens"
+    },
+    {
+     "id": "d3r2",
+     "type": "num",
+     "q": "I thought of a number. I took away 7 and got 13. What was my number?",
+     "ans": 20,
+     "hint": "Go backwards: 13 + 7"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d3o0",
+     "type": "mc",
+     "q": "Which number is even?",
+     "choices": [
+      "13",
+      "25",
+      "37",
+      "48",
+      "51"
+     ],
+     "ans": 3,
+     "explain": "Even numbers end in 0, 2, 4, 6 or 8. 48 ends in 8."
+    },
+    {
+     "id": "d3o1",
+     "type": "mc",
+     "q": "Which number is odd?",
+     "choices": [
+      "10",
+      "24",
+      "36",
+      "42",
+      "57"
+     ],
+     "ans": 4,
+     "explain": "57 ends in 7, so it is odd."
+    },
+    {
+     "id": "d3o2",
+     "type": "mc",
+     "q": "Odd + odd is always…",
+     "choices": [
+      "odd",
+      "even",
+      "zero",
+      "10",
+      "we cannot tell"
+     ],
+     "ans": 1,
+     "explain": "3 + 5 = 8, 7 + 9 = 16: always even."
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "date": "2026-11-04",
+   "theme": "Counting shapes",
+   "warm": [
+    {
+     "id": "d4w0",
+     "type": "num",
+     "q": "60 + 40 = ?",
+     "ans": 100,
+     "hint": "6 tens + 4 tens = 10 tens"
+    },
+    {
+     "id": "d4w1",
+     "type": "num",
+     "q": "500 − 200 = ?",
+     "ans": 300,
+     "hint": "5 hundreds − 2 hundreds"
+    },
+    {
+     "id": "d4w2",
+     "type": "num",
+     "q": "9 × 7 = ?",
+     "ans": 63,
+     "hint": "10 × 7 − 7 = 70 − 7"
+    },
+    {
+     "id": "d4w3",
+     "type": "num",
+     "q": "7 × 7 = ?",
+     "ans": 49,
+     "hint": "7 × 5 + 7 × 2 = 35 + 14"
+    }
+   ],
+   "review": [
+    {
+     "id": "d4r0",
+     "type": "num",
+     "q": "1/5 (one fifth) of 30 = ?",
+     "ans": 6,
+     "hint": "30 ÷ 5"
+    },
+    {
+     "id": "d4r1",
+     "type": "num",
+     "q": "Time: 1 hour 10 minutes = how many minutes?",
+     "ans": 70,
+     "hint": "60 + 10"
+    },
+    {
+     "id": "d4r2",
+     "type": "num",
+     "q": "A square has sides of 6 cm. What is its perimeter in cm?",
+     "ans": 24,
+     "hint": "6 + 6 + 6 + 6"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d4o0",
+     "type": "mc",
+     "q": "How many sides do 2 triangles and 1 square have in all?",
+     "choices": [
+      "5",
+      "7",
+      "9",
+      "10",
+      "12"
+     ],
+     "ans": 3,
+     "explain": "Triangles: 2 × 3 = 6. Square: 4. 6 + 4 = 10."
+    },
+    {
+     "id": "d4o1",
+     "type": "mc",
+     "q": "A rectangle is cut into 2 squares. How many squares can you see in all?",
+     "choices": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+     ],
+     "ans": 1,
+     "explain": "Only 2: the rectangle itself is not a square."
+    },
+    {
+     "id": "d4o2",
+     "type": "mc",
+     "q": "How many corners do 3 triangles have?",
+     "choices": [
+      "3",
+      "6",
+      "8",
+      "9",
+      "12"
+     ],
+     "ans": 3,
+     "explain": "Each triangle has 3 corners: 3 × 3 = 9."
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "date": "2026-11-05",
+   "theme": "Patterns",
+   "warm": [
+    {
+     "id": "d5w0",
+     "type": "num",
+     "q": "30 × 2 = ?",
+     "ans": 60,
+     "hint": "3 tens × 2 = 6 tens"
+    },
+    {
+     "id": "d5w1",
+     "type": "num",
+     "q": "800 − 300 = ?",
+     "ans": 500,
+     "hint": "8 hundreds − 3 hundreds"
+    },
+    {
+     "id": "d5w2",
+     "type": "num",
+     "q": "6 × 8 = ?",
+     "ans": 48,
+     "hint": "5 × 8 + 8 = 40 + 8"
+    },
+    {
+     "id": "d5w3",
+     "type": "num",
+     "q": "9 × 9 = ?",
+     "ans": 81,
+     "hint": "10 × 9 − 9"
+    }
+   ],
+   "review": [
+    {
+     "id": "d5r0",
+     "type": "num",
+     "q": "1/3 (one third) of a number is 8. What is the number?",
+     "ans": 24,
+     "hint": "The whole has 3 parts: 3 × 8"
+    },
+    {
+     "id": "d5r1",
+     "type": "num",
+     "q": "631 − 257 = ?",
+     "ans": 374,
+     "hint": "Borrow for the ones, then for the tens"
+    },
+    {
+     "id": "d5r2",
+     "type": "num",
+     "q": "Time: 6:45 + 30 minutes → minutes past 7?",
+     "ans": 15,
+     "hint": "6:45 → 7:00 is 15 min, 15 more → 7:15"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d5o0",
+     "type": "mc",
+     "q": "2, 4, 6, 8, … What comes next?",
+     "choices": [
+      "9",
+      "10",
+      "11",
+      "12",
+      "16"
+     ],
+     "ans": 1,
+     "explain": "Add 2 each time: 8 + 2 = 10."
+    },
+    {
+     "id": "d5o1",
+     "type": "mc",
+     "q": "5, 10, 15, 20, … What comes next?",
+     "choices": [
+      "21",
+      "22",
+      "25",
+      "30",
+      "40"
+     ],
+     "ans": 2,
+     "explain": "Add 5 each time."
+    },
+    {
+     "id": "d5o2",
+     "type": "mc",
+     "q": "30, 27, 24, 21, … What comes next?",
+     "choices": [
+      "20",
+      "19",
+      "18",
+      "17",
+      "15"
+     ],
+     "ans": 2,
+     "explain": "Take away 3 each time: 21 − 3 = 18."
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "date": "2026-11-06",
+   "theme": "Logic and order",
+   "warm": [
+    {
+     "id": "d6w0",
+     "type": "num",
+     "q": "50 + 50 = ?",
+     "ans": 100,
+     "hint": "5 tens + 5 tens"
+    },
+    {
+     "id": "d6w1",
+     "type": "num",
+     "q": "400 + 300 = ?",
+     "ans": 700,
+     "hint": "4 hundreds + 3 hundreds"
+    },
+    {
+     "id": "d6w2",
+     "type": "num",
+     "q": "7 × 6 = ?",
+     "ans": 42,
+     "hint": "Same as 6 × 7"
+    },
+    {
+     "id": "d6w3",
+     "type": "num",
+     "q": "8 × 8 = ?",
+     "ans": 64,
+     "hint": "8 × 4 = 32, double it"
+    }
+   ],
+   "review": [
+    {
+     "id": "d6r0",
+     "type": "num",
+     "q": "3/4 (three fourths) of 20 = ?",
+     "ans": 15,
+     "hint": "One fourth: 20 ÷ 4 = 5. Three fourths: 3 × 5"
+    },
+    {
+     "id": "d6r1",
+     "type": "num",
+     "q": "500 − 236 = ?",
+     "ans": 264,
+     "hint": "500 = 4 hundreds 9 tens 10 ones"
+    },
+    {
+     "id": "d6r2",
+     "type": "num",
+     "q": "A rectangle is 7 m by 3 m. What is its perimeter in m?",
+     "ans": 20,
+     "hint": "7 + 3 + 7 + 3"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d6o0",
+     "type": "mc",
+     "q": "Ann is taller than Ben. Ben is taller than Cal. Who is the shortest?",
+     "choices": [
+      "Ann",
+      "Ben",
+      "Cal",
+      "Ann and Ben",
+      "we cannot tell"
+     ],
+     "ans": 2,
+     "explain": "Ann > Ben > Cal, so Cal is the shortest."
+    },
+    {
+     "id": "d6o1",
+     "type": "mc",
+     "q": "5 kids stand in a line. Mia is in the middle. How many kids are in front of her?",
+     "choices": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5"
+     ],
+     "ans": 1,
+     "explain": "Middle of 5 is place 3, so 2 kids are in front."
+    },
+    {
+     "id": "d6o2",
+     "type": "mc",
+     "q": "Tom is 3rd in a line from the front and 3rd from the back. How many kids are in the line?",
+     "choices": [
+      "3",
+      "4",
+      "5",
+      "6",
+      "7"
+     ],
+     "ans": 2,
+     "explain": "2 kids in front, Tom, 2 behind: 5."
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "date": "2026-11-08",
+   "theme": "Divisible by 2 and 10",
+   "warm": [
+    {
+     "id": "d7w0",
+     "type": "num",
+     "q": "40 × 2 = ?",
+     "ans": 80,
+     "hint": "4 tens × 2 = 8 tens"
+    },
+    {
+     "id": "d7w1",
+     "type": "num",
+     "q": "70 × 4 = ?",
+     "ans": 280,
+     "hint": "7 × 4 = 28, so 28 tens"
+    },
+    {
+     "id": "d7w2",
+     "type": "num",
+     "q": "9 × 8 = ?",
+     "ans": 72,
+     "hint": "10 × 8 − 8"
+    },
+    {
+     "id": "d7w3",
+     "type": "num",
+     "q": "6 × 9 = ?",
+     "ans": 54,
+     "hint": "5 × 9 + 9"
+    }
+   ],
+   "review": [
+    {
+     "id": "d7r0",
+     "type": "num",
+     "q": "2/5 (two fifths) of 25 = ?",
+     "ans": 10,
+     "hint": "One fifth: 25 ÷ 5 = 5. Two fifths: 5 + 5"
+    },
+    {
+     "id": "d7r1",
+     "type": "num",
+     "q": "724 − 368 = ?",
+     "ans": 356,
+     "hint": "Borrow for the ones, then for the tens"
+    },
+    {
+     "id": "d7r2",
+     "type": "num",
+     "q": "I thought of a number. I multiplied it by 3 and got 27. What was my number?",
+     "ans": 9,
+     "hint": "Go backwards: 27 ÷ 3"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d7o0",
+     "type": "mc",
+     "q": "Which number is divisible by 10?",
+     "choices": [
+      "105",
+      "230",
+      "312",
+      "47",
+      "99"
+     ],
+     "ans": 1,
+     "explain": "Divisible by 10 means the last digit is 0."
+    },
+    {
+     "id": "d7o1",
+     "type": "mc",
+     "q": "Which number is divisible by 2 but NOT by 10?",
+     "choices": [
+      "20",
+      "40",
+      "56",
+      "70",
+      "90"
+     ],
+     "ans": 2,
+     "explain": "56 ends in 6: even, but not 0."
+    },
+    {
+     "id": "d7o2",
+     "type": "mc",
+     "q": "How many numbers from 1 to 50 are divisible by 10?",
+     "choices": [
+      "4",
+      "5",
+      "6",
+      "10",
+      "50"
+     ],
+     "ans": 1,
+     "explain": "10, 20, 30, 40, 50: five numbers."
+    }
+   ]
+  },
+  {
+   "day": 8,
+   "date": "2026-11-09",
+   "theme": "Balance scales",
+   "warm": [
+    {
+     "id": "d8w0",
+     "type": "num",
+     "q": "80 − 30 = ?",
+     "ans": 50,
+     "hint": "8 tens − 3 tens"
+    },
+    {
+     "id": "d8w1",
+     "type": "num",
+     "q": "600 + 300 = ?",
+     "ans": 900,
+     "hint": "6 hundreds + 3 hundreds"
+    },
+    {
+     "id": "d8w2",
+     "type": "num",
+     "q": "50 × 3 = ?",
+     "ans": 150,
+     "hint": "5 × 3 = 15, so 15 tens"
+    },
+    {
+     "id": "d8w3",
+     "type": "num",
+     "q": "7 × 9 = ?",
+     "ans": 63,
+     "hint": "Same as 9 × 7"
+    }
+   ],
+   "review": [
+    {
+     "id": "d8r0",
+     "type": "num",
+     "q": "2/3 (two thirds) of a number is 12. What is the number?",
+     "ans": 18,
+     "hint": "One third: 12 ÷ 2 = 6. Whole: 3 × 6"
+    },
+    {
+     "id": "d8r1",
+     "type": "num",
+     "q": "Time: 10:40 → 11:20. How many minutes?",
+     "ans": 40,
+     "hint": "10:40 → 11:00 is 20 min, then 20 more"
+    },
+    {
+     "id": "d8r2",
+     "type": "num",
+     "q": "803 − 465 = ?",
+     "ans": 338,
+     "hint": "Borrow through the zero"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d8o0",
+     "type": "mc",
+     "q": "1 apple weighs the same as 3 plums. How many plums weigh the same as 2 apples?",
+     "choices": [
+      "3",
+      "4",
+      "5",
+      "6",
+      "9"
+     ],
+     "ans": 3,
+     "explain": "2 × 3 = 6 plums."
+    },
+    {
+     "id": "d8o1",
+     "type": "mc",
+     "q": "A box and a 5 kg weight balance a 12 kg weight. How heavy is the box?",
+     "choices": [
+      "5 kg",
+      "6 kg",
+      "7 kg",
+      "12 kg",
+      "17 kg"
+     ],
+     "ans": 2,
+     "explain": "Box + 5 = 12, so box = 7 kg."
+    },
+    {
+     "id": "d8o2",
+     "type": "mc",
+     "q": "2 cubes balance 1 ball. 1 ball balances 4 rings. How many rings balance 1 cube?",
+     "choices": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "8"
+     ],
+     "ans": 1,
+     "explain": "2 cubes = 4 rings, so 1 cube = 2 rings."
+    }
+   ]
+  },
+  {
+   "day": 9,
+   "date": "2026-11-10",
+   "theme": "Steps and jumps",
+   "warm": [
+    {
+     "id": "d9w0",
+     "type": "num",
+     "q": "20 × 5 = ?",
+     "ans": 100,
+     "hint": "2 tens × 5 = 10 tens"
+    },
+    {
+     "id": "d9w1",
+     "type": "num",
+     "q": "1,000 − 300 = ?",
+     "ans": 700,
+     "hint": "10 hundreds − 3 hundreds"
+    },
+    {
+     "id": "d9w2",
+     "type": "num",
+     "q": "8 × 6 = ?",
+     "ans": 48,
+     "hint": "Same as 6 × 8"
+    },
+    {
+     "id": "d9w3",
+     "type": "num",
+     "q": "9 × 4 = ?",
+     "ans": 36,
+     "hint": "10 × 4 − 4"
+    }
+   ],
+   "review": [
+    {
+     "id": "d9r0",
+     "type": "num",
+     "q": "1/4 (one fourth) of 32 = ?",
+     "ans": 8,
+     "hint": "32 ÷ 4"
+    },
+    {
+     "id": "d9r1",
+     "type": "num",
+     "q": "A rectangle has area 24 sq cm. One side is 4 cm. How long is the other side in cm?",
+     "ans": 6,
+     "hint": "4 × ? = 24"
+    },
+    {
+     "id": "d9r2",
+     "type": "num",
+     "q": "I thought of a number. I added 25 and got 60. What was my number?",
+     "ans": 35,
+     "hint": "Go backwards: 60 − 25"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d9o0",
+     "type": "mc",
+     "q": "A frog jumps 10 steps each time, starting at 0. Where is it after 6 jumps?",
+     "choices": [
+      "16",
+      "50",
+      "60",
+      "66",
+      "70"
+     ],
+     "ans": 2,
+     "explain": "6 × 10 = 60."
+    },
+    {
+     "id": "d9o1",
+     "type": "mc",
+     "q": "A rabbit jumps 2 steps at a time from 0. Which number will it land on?",
+     "choices": [
+      "7",
+      "11",
+      "15",
+      "18",
+      "21"
+     ],
+     "ans": 3,
+     "explain": "It lands only on even numbers: 18."
+    },
+    {
+     "id": "d9o2",
+     "type": "mc",
+     "q": "A kangaroo jumps 5 steps forward and 2 steps back. After 3 such turns, where is it (starting at 0)?",
+     "choices": [
+      "3",
+      "6",
+      "9",
+      "15",
+      "21"
+     ],
+     "ans": 2,
+     "explain": "Each turn: +5 − 2 = 3. 3 × 3 = 9."
+    }
+   ]
+  },
+  {
+   "day": 10,
+   "date": "2026-11-11",
+   "theme": "Mini Kangaroo",
+   "warm": [
+    {
+     "id": "d10w0",
+     "type": "num",
+     "q": "90 − 60 = ?",
+     "ans": 30,
+     "hint": "9 tens − 6 tens"
+    },
+    {
+     "id": "d10w1",
+     "type": "num",
+     "q": "60 × 3 = ?",
+     "ans": 180,
+     "hint": "6 × 3 = 18, so 18 tens"
+    },
+    {
+     "id": "d10w2",
+     "type": "num",
+     "q": "7 × 8 = ?",
+     "ans": 56,
+     "hint": "5, 6, 7, 8: 56 = 7 × 8"
+    },
+    {
+     "id": "d10w3",
+     "type": "num",
+     "q": "6 × 7 = ?",
+     "ans": 42,
+     "hint": "5 × 7 + 7"
+    }
+   ],
+   "review": [
+    {
+     "id": "d10r0",
+     "type": "num",
+     "q": "3/5 (three fifths) of 40 = ?",
+     "ans": 24,
+     "hint": "One fifth: 40 ÷ 5 = 8. Three fifths: 3 × 8"
+    },
+    {
+     "id": "d10r1",
+     "type": "num",
+     "q": "915 − 648 = ?",
+     "ans": 267,
+     "hint": "Borrow for the ones, then for the tens"
+    },
+    {
+     "id": "d10r2",
+     "type": "num",
+     "q": "Time: 2:30 → 4:00. How many minutes?",
+     "ans": 90,
+     "hint": "2:30 → 3:00 is 30 min, then 60 more"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d10o0",
+     "type": "mc",
+     "q": "There are 4 rows of chairs with 5 chairs in each row. 3 chairs are empty. How many children are sitting?",
+     "choices": [
+      "12",
+      "15",
+      "17",
+      "20",
+      "23"
+     ],
+     "ans": 2,
+     "explain": "4 × 5 = 20 chairs, 20 − 3 = 17."
+    },
+    {
+     "id": "d10o1",
+     "type": "mc",
+     "q": "Which number is both even AND divisible by 10?",
+     "choices": [
+      "15",
+      "22",
+      "35",
+      "60",
+      "99"
+     ],
+     "ans": 3,
+     "explain": "60 ends in 0: even and divisible by 10."
+    },
+    {
+     "id": "d10o2",
+     "type": "mc",
+     "q": "Mia has 3 coins of 10 cents and 4 coins of 5 cents. How many cents is that?",
+     "choices": [
+      "35",
+      "40",
+      "45",
+      "50",
+      "70"
+     ],
+     "ans": 3,
+     "explain": "30 + 20 = 50 cents."
+    }
+   ]
+  }
+ ]
+}
