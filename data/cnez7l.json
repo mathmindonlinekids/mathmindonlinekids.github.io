@@ -1,0 +1,1027 @@
+{
+ "kid": "cnez7l",
+ "grade": "4 · FL",
+ "feedback": true,
+ "days": [
+  {
+   "day": 1,
+   "date": "2026-11-01",
+   "theme": "Working backwards",
+   "warm": [
+    {
+     "id": "d1w0",
+     "type": "num",
+     "q": "25 × 7 × 4 = ?",
+     "ans": 700,
+     "hint": "Magic pair: 25 × 4 = 100"
+    },
+    {
+     "id": "d1w1",
+     "type": "num",
+     "q": "8 × 60 = ?",
+     "ans": 480,
+     "hint": "8 × 6 = 48, so 48 tens"
+    },
+    {
+     "id": "d1w2",
+     "type": "num",
+     "q": "7 × 9 = ?",
+     "ans": 63,
+     "hint": "10 × 7 − 7"
+    },
+    {
+     "id": "d1w3",
+     "type": "num",
+     "q": "400 − 1 = ?",
+     "ans": 399,
+     "hint": "One less than 400"
+    }
+   ],
+   "review": [
+    {
+     "id": "d1r0",
+     "type": "num",
+     "q": "38 ÷ 5 = 7 R ?  (What is the remainder?)",
+     "ans": 3,
+     "hint": "5 × 7 = 35, 38 − 35 = 3"
+    },
+    {
+     "id": "d1r1",
+     "type": "num",
+     "q": "34 × 6 = ?",
+     "ans": 204,
+     "hint": "Area model: 30 × 6 + 4 × 6 = 180 + 24"
+    },
+    {
+     "id": "d1r2",
+     "type": "num",
+     "q": "Solve: 3 × (x + 2) = 27. x = ?",
+     "ans": 7,
+     "hint": "x + 2 = 27 ÷ 3 = 9"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d1o0",
+     "type": "mc",
+     "q": "I think of a number. I multiply by 3, then add 4. I get 31. What is my number?",
+     "choices": [
+      "7",
+      "9",
+      "11",
+      "27",
+      "35"
+     ],
+     "ans": 1,
+     "explain": "Backwards: 31 − 4 = 27, 27 ÷ 3 = 9."
+    },
+    {
+     "id": "d1o1",
+     "type": "mc",
+     "q": "Mia had some cards. She gave away half, then got 6 more. Now she has 20. How many did she have at first?",
+     "choices": [
+      "13",
+      "14",
+      "26",
+      "28",
+      "40"
+     ],
+     "ans": 3,
+     "explain": "Backwards: 20 − 6 = 14. Half was 14, so at first 28."
+    },
+    {
+     "id": "d1o2",
+     "type": "mc",
+     "q": "A number is doubled, then 10 is taken away. The result is 30. What is the number?",
+     "choices": [
+      "10",
+      "15",
+      "20",
+      "25",
+      "40"
+     ],
+     "ans": 2,
+     "explain": "Backwards: 30 + 10 = 40, 40 ÷ 2 = 20."
+    }
+   ]
+  },
+  {
+   "day": 2,
+   "date": "2026-11-03",
+   "theme": "Factors and primes",
+   "warm": [
+    {
+     "id": "d2w0",
+     "type": "num",
+     "q": "2 × 13 × 5 = ?",
+     "ans": 130,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d2w1",
+     "type": "num",
+     "q": "9 × 70 = ?",
+     "ans": 630,
+     "hint": "9 × 7 = 63 tens"
+    },
+    {
+     "id": "d2w2",
+     "type": "num",
+     "q": "8 × 7 = ?",
+     "ans": 56,
+     "hint": "8 × 7 = 56"
+    },
+    {
+     "id": "d2w3",
+     "type": "num",
+     "q": "6 × 12 = ?",
+     "ans": 72,
+     "hint": "6 × 10 + 6 × 2"
+    }
+   ],
+   "review": [
+    {
+     "id": "d2r0",
+     "type": "num",
+     "q": "How many factors does 12 have? (1, 2, …)",
+     "ans": 6,
+     "hint": "1, 2, 3, 4, 6, 12"
+    },
+    {
+     "id": "d2r1",
+     "type": "num",
+     "q": "Which number is prime: 21, 27, 29, 33? Type it.",
+     "ans": 29,
+     "hint": "29 has only 2 factors: 1 and 29"
+    },
+    {
+     "id": "d2r2",
+     "type": "num",
+     "q": "Prime factorization: 30 = 2 × 3 × ?",
+     "ans": 5,
+     "hint": "30 ÷ 2 = 15, 15 ÷ 3 = 5"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d2o0",
+     "type": "mc",
+     "q": "How many prime numbers are between 10 and 20?",
+     "choices": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+     ],
+     "ans": 2,
+     "explain": "11, 13, 17, 19: four primes."
+    },
+    {
+     "id": "d2o1",
+     "type": "mc",
+     "q": "Which number has exactly 3 factors?",
+     "choices": [
+      "6",
+      "8",
+      "9",
+      "10",
+      "12"
+     ],
+     "ans": 2,
+     "explain": "9: 1, 3, 9."
+    },
+    {
+     "id": "d2o2",
+     "type": "mc",
+     "q": "The product of two prime numbers is 35. What is their sum?",
+     "choices": [
+      "8",
+      "10",
+      "12",
+      "14",
+      "36"
+     ],
+     "ans": 2,
+     "explain": "35 = 5 × 7, 5 + 7 = 12."
+    }
+   ]
+  },
+  {
+   "day": 3,
+   "date": "2026-11-05",
+   "theme": "Division with remainders",
+   "warm": [
+    {
+     "id": "d3w0",
+     "type": "num",
+     "q": "125 × 8 = ?",
+     "ans": 1000,
+     "hint": "Magic pair: 125 × 8 = 1,000"
+    },
+    {
+     "id": "d3w1",
+     "type": "num",
+     "q": "5 × 80 = ?",
+     "ans": 400,
+     "hint": "5 × 8 = 40 tens"
+    },
+    {
+     "id": "d3w2",
+     "type": "num",
+     "q": "9 × 6 = ?",
+     "ans": 54,
+     "hint": "10 × 6 − 6"
+    },
+    {
+     "id": "d3w3",
+     "type": "num",
+     "q": "63 ÷ 9 = ?",
+     "ans": 7,
+     "hint": "9 × 7 = 63"
+    }
+   ],
+   "review": [
+    {
+     "id": "d3r0",
+     "type": "num",
+     "q": "84 ÷ 4 = ?",
+     "ans": 21,
+     "hint": "Divide by parts: 80 ÷ 4 + 4 ÷ 4"
+    },
+    {
+     "id": "d3r1",
+     "type": "num",
+     "q": "96 ÷ 3 = ?",
+     "ans": 32,
+     "hint": "90 ÷ 3 + 6 ÷ 3"
+    },
+    {
+     "id": "d3r2",
+     "type": "num",
+     "q": "47 ÷ 6 = 7 R ?  (remainder)",
+     "ans": 5,
+     "hint": "6 × 7 = 42, 47 − 42 = 5"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d3o0",
+     "type": "mc",
+     "q": "29 kids go on a trip. Each car takes 4 kids. How many cars are needed?",
+     "choices": [
+      "6",
+      "7",
+      "8",
+      "9",
+      "29"
+     ],
+     "ans": 2,
+     "explain": "29 ÷ 4 = 7 R 1. The last kid needs a car too: 8."
+    },
+    {
+     "id": "d3o1",
+     "type": "mc",
+     "q": "What is the biggest remainder you can get when you divide by 6?",
+     "choices": [
+      "1",
+      "4",
+      "5",
+      "6",
+      "7"
+     ],
+     "ans": 2,
+     "explain": "The remainder is always less than the divisor: 5."
+    },
+    {
+     "id": "d3o2",
+     "type": "mc",
+     "q": "Which number gives remainder 2 when divided by 5?",
+     "choices": [
+      "20",
+      "22",
+      "23",
+      "25",
+      "30"
+     ],
+     "ans": 1,
+     "explain": "22 = 5 × 4 + 2."
+    }
+   ]
+  },
+  {
+   "day": 4,
+   "date": "2026-11-08",
+   "theme": "Divide by parts",
+   "warm": [
+    {
+     "id": "d4w0",
+     "type": "num",
+     "q": "4 × 9 × 25 = ?",
+     "ans": 900,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d4w1",
+     "type": "num",
+     "q": "60 × 7 = ?",
+     "ans": 420,
+     "hint": "6 × 7 = 42 tens"
+    },
+    {
+     "id": "d4w2",
+     "type": "num",
+     "q": "7 × 7 = ?",
+     "ans": 49,
+     "hint": "7 × 7"
+    },
+    {
+     "id": "d4w3",
+     "type": "num",
+     "q": "72 ÷ 8 = ?",
+     "ans": 9,
+     "hint": "8 × 9 = 72"
+    }
+   ],
+   "review": [
+    {
+     "id": "d4r0",
+     "type": "num",
+     "q": "369 ÷ 3 = ?",
+     "ans": 123,
+     "hint": "300 ÷ 3 + 60 ÷ 3 + 9 ÷ 3"
+    },
+    {
+     "id": "d4r1",
+     "type": "num",
+     "q": "648 ÷ 2 = ?",
+     "ans": 324,
+     "hint": "600 ÷ 2 + 40 ÷ 2 + 8 ÷ 2"
+    },
+    {
+     "id": "d4r2",
+     "type": "num",
+     "q": "Solve: 5 × (y − 3) = 40. y = ?",
+     "ans": 11,
+     "hint": "y − 3 = 8"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d4o0",
+     "type": "mc",
+     "q": "A ribbon 96 cm long is cut into 4 equal pieces. How long is each piece?",
+     "choices": [
+      "22 cm",
+      "23 cm",
+      "24 cm",
+      "26 cm",
+      "32 cm"
+     ],
+     "ans": 2,
+     "explain": "96 ÷ 4 = 80 ÷ 4 + 16 ÷ 4 = 20 + 4 = 24."
+    },
+    {
+     "id": "d4o1",
+     "type": "mc",
+     "q": "Which is the same as 156 ÷ 3?",
+     "choices": [
+      "150 ÷ 3 + 6 ÷ 3",
+      "100 ÷ 3 + 56",
+      "156 − 3",
+      "15 ÷ 3 + 6 ÷ 3",
+      "150 + 6 ÷ 3"
+     ],
+     "ans": 0,
+     "explain": "Split 156 into 150 + 6, divide each part."
+    },
+    {
+     "id": "d4o2",
+     "type": "mc",
+     "q": "72 ÷ 4 = ?",
+     "choices": [
+      "16",
+      "17",
+      "18",
+      "19",
+      "28"
+     ],
+     "ans": 2,
+     "explain": "40 ÷ 4 + 32 ÷ 4 = 10 + 8 = 18."
+    }
+   ]
+  },
+  {
+   "day": 5,
+   "date": "2026-11-10",
+   "theme": "Patterns",
+   "warm": [
+    {
+     "id": "d5w0",
+     "type": "num",
+     "q": "50 × 9 × 2 = ?",
+     "ans": 900,
+     "hint": "Magic pair: 50 × 2 = 100"
+    },
+    {
+     "id": "d5w1",
+     "type": "num",
+     "q": "3 × 400 = ?",
+     "ans": 1200,
+     "hint": "3 × 4 = 12 hundreds"
+    },
+    {
+     "id": "d5w2",
+     "type": "num",
+     "q": "8 × 8 = ?",
+     "ans": 64,
+     "hint": "8 × 8"
+    },
+    {
+     "id": "d5w3",
+     "type": "num",
+     "q": "56 ÷ 7 = ?",
+     "ans": 8,
+     "hint": "7 × 8 = 56"
+    }
+   ],
+   "review": [
+    {
+     "id": "d5r0",
+     "type": "num",
+     "q": "426 ÷ 2 = ?",
+     "ans": 213,
+     "hint": "400 ÷ 2 + 20 ÷ 2 + 6 ÷ 2"
+    },
+    {
+     "id": "d5r1",
+     "type": "num",
+     "q": "58 × 3 = ?",
+     "ans": 174,
+     "hint": "50 × 3 + 8 × 3 = 150 + 24"
+    },
+    {
+     "id": "d5r2",
+     "type": "num",
+     "q": "1/4 of a number is 9. What is the number?",
+     "ans": 36,
+     "hint": "4 × 9"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d5o0",
+     "type": "mc",
+     "q": "3, 7, 11, 15, … What is the 6th number?",
+     "choices": [
+      "19",
+      "21",
+      "23",
+      "25",
+      "27"
+     ],
+     "ans": 2,
+     "explain": "Add 4: 19, 23."
+    },
+    {
+     "id": "d5o1",
+     "type": "mc",
+     "q": "1, 2, 4, 8, 16, … What comes next?",
+     "choices": [
+      "18",
+      "20",
+      "24",
+      "30",
+      "32"
+     ],
+     "ans": 4,
+     "explain": "Double each time: 32."
+    },
+    {
+     "id": "d5o2",
+     "type": "mc",
+     "q": "Squares: 1, 4, 9, 16, … What comes next?",
+     "choices": [
+      "20",
+      "23",
+      "25",
+      "32",
+      "36"
+     ],
+     "ans": 2,
+     "explain": "1×1, 2×2, 3×3, 4×4, 5×5 = 25."
+    }
+   ]
+  },
+  {
+   "day": 6,
+   "date": "2026-11-12",
+   "theme": "Logic",
+   "warm": [
+    {
+     "id": "d6w0",
+     "type": "num",
+     "q": "20 × 17 × 5 = ?",
+     "ans": 1700,
+     "hint": "Magic pair: 20 × 5 = 100"
+    },
+    {
+     "id": "d6w1",
+     "type": "num",
+     "q": "7 × 300 = ?",
+     "ans": 2100,
+     "hint": "7 × 3 = 21 hundreds"
+    },
+    {
+     "id": "d6w2",
+     "type": "num",
+     "q": "6 × 9 = ?",
+     "ans": 54,
+     "hint": "6 × 9"
+    },
+    {
+     "id": "d6w3",
+     "type": "num",
+     "q": "81 ÷ 9 = ?",
+     "ans": 9,
+     "hint": "9 × 9 = 81"
+    }
+   ],
+   "review": [
+    {
+     "id": "d6r0",
+     "type": "num",
+     "q": "84 ÷ 7 = ?",
+     "ans": 12,
+     "hint": "70 ÷ 7 + 14 ÷ 7"
+    },
+    {
+     "id": "d6r1",
+     "type": "num",
+     "q": "Solve: 2 × (k + 5) = 30. k = ?",
+     "ans": 10,
+     "hint": "k + 5 = 15"
+    },
+    {
+     "id": "d6r2",
+     "type": "num",
+     "q": "3/5 of 40 = ?",
+     "ans": 24,
+     "hint": "1/5 of 40 = 8, 3 × 8"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d6o0",
+     "type": "mc",
+     "q": "Ann, Ben and Cal have a cat, a dog and a fish. Ann has no pet with fur. Ben does not have the dog. Who has the dog?",
+     "choices": [
+      "Ann",
+      "Ben",
+      "Cal",
+      "nobody",
+      "we cannot tell"
+     ],
+     "ans": 2,
+     "explain": "Ann has the fish (no fur). Ben not dog → Cal has the dog."
+    },
+    {
+     "id": "d6o1",
+     "type": "mc",
+     "q": "In a row of 9 houses, Mia lives in the middle. Which house is it from the left?",
+     "choices": [
+      "3rd",
+      "4th",
+      "5th",
+      "6th",
+      "9th"
+     ],
+     "ans": 2,
+     "explain": "4 houses on each side: 5th."
+    },
+    {
+     "id": "d6o2",
+     "type": "mc",
+     "q": "Today is Tuesday. What day will it be in 10 days?",
+     "choices": [
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+     ],
+     "ans": 3,
+     "explain": "7 days → Tuesday again, 3 more → Friday."
+    }
+   ]
+  },
+  {
+   "day": 7,
+   "date": "2026-11-15",
+   "theme": "3-digit ÷ 1-digit",
+   "warm": [
+    {
+     "id": "d7w0",
+     "type": "num",
+     "q": "4 × 18 × 25 = ?",
+     "ans": 1800,
+     "hint": "Magic pair: 4 × 25 = 100"
+    },
+    {
+     "id": "d7w1",
+     "type": "num",
+     "q": "6 × 70 = ?",
+     "ans": 420,
+     "hint": "6 × 7 = 42 tens"
+    },
+    {
+     "id": "d7w2",
+     "type": "num",
+     "q": "9 × 8 = ?",
+     "ans": 72,
+     "hint": "10 × 8 − 8"
+    },
+    {
+     "id": "d7w3",
+     "type": "num",
+     "q": "48 ÷ 6 = ?",
+     "ans": 8,
+     "hint": "6 × 8 = 48"
+    }
+   ],
+   "review": [
+    {
+     "id": "d7r0",
+     "type": "num",
+     "q": "756 ÷ 7 = ?",
+     "ans": 108,
+     "hint": "700 ÷ 7 + 56 ÷ 7 = 100 + 8"
+    },
+    {
+     "id": "d7r1",
+     "type": "num",
+     "q": "525 ÷ 5 = ?",
+     "ans": 105,
+     "hint": "500 ÷ 5 + 25 ÷ 5"
+    },
+    {
+     "id": "d7r2",
+     "type": "num",
+     "q": "52 ÷ 8 = 6 R ?  (remainder)",
+     "ans": 4,
+     "hint": "8 × 6 = 48, 52 − 48 = 4"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d7o0",
+     "type": "mc",
+     "q": "A farmer packs 128 eggs into boxes of 4. How many boxes?",
+     "choices": [
+      "22",
+      "30",
+      "32",
+      "34",
+      "124"
+     ],
+     "ans": 2,
+     "explain": "120 ÷ 4 + 8 ÷ 4 = 30 + 2 = 32."
+    },
+    {
+     "id": "d7o1",
+     "type": "mc",
+     "q": "Which division has NO remainder?",
+     "choices": [
+      "47 ÷ 5",
+      "58 ÷ 6",
+      "63 ÷ 7",
+      "74 ÷ 8",
+      "29 ÷ 3"
+     ],
+     "ans": 2,
+     "explain": "63 = 7 × 9."
+    },
+    {
+     "id": "d7o2",
+     "type": "mc",
+     "q": "Which is bigger: 480 ÷ 4 or 360 ÷ 3?",
+     "choices": [
+      "480 ÷ 4",
+      "360 ÷ 3",
+      "they are equal",
+      "cannot tell",
+      "480 ÷ 3"
+     ],
+     "ans": 2,
+     "explain": "480 ÷ 4 = 120 and 360 ÷ 3 = 120: equal."
+    }
+   ]
+  },
+  {
+   "day": 8,
+   "date": "2026-11-17",
+   "theme": "Area puzzles",
+   "warm": [
+    {
+     "id": "d8w0",
+     "type": "num",
+     "q": "2 × 47 × 5 = ?",
+     "ans": 470,
+     "hint": "Magic pair: 2 × 5 = 10"
+    },
+    {
+     "id": "d8w1",
+     "type": "num",
+     "q": "8 × 500 = ?",
+     "ans": 4000,
+     "hint": "8 × 5 = 40 hundreds"
+    },
+    {
+     "id": "d8w2",
+     "type": "num",
+     "q": "7 × 6 = ?",
+     "ans": 42,
+     "hint": "7 × 6"
+    },
+    {
+     "id": "d8w3",
+     "type": "num",
+     "q": "64 ÷ 8 = ?",
+     "ans": 8,
+     "hint": "8 × 8 = 64"
+    }
+   ],
+   "review": [
+    {
+     "id": "d8r0",
+     "type": "num",
+     "q": "A rectangle is 23 cm by 4 cm. What is its area in sq cm?",
+     "ans": 92,
+     "hint": "20 × 4 + 3 × 4"
+    },
+    {
+     "id": "d8r1",
+     "type": "num",
+     "q": "A rectangle has area 72 sq m and width 6 m. What is its length in m?",
+     "ans": 12,
+     "hint": "72 ÷ 6"
+    },
+    {
+     "id": "d8r2",
+     "type": "num",
+     "q": "936 ÷ 3 = ?",
+     "ans": 312,
+     "hint": "900 ÷ 3 + 30 ÷ 3 + 6 ÷ 3"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d8o0",
+     "type": "mc",
+     "q": "A square has a perimeter of 36 cm. What is its area?",
+     "choices": [
+      "36 sq cm",
+      "49 sq cm",
+      "64 sq cm",
+      "81 sq cm",
+      "144 sq cm"
+     ],
+     "ans": 3,
+     "explain": "Side = 36 ÷ 4 = 9, area = 9 × 9 = 81."
+    },
+    {
+     "id": "d8o1",
+     "type": "mc",
+     "q": "A rectangle has area 24 sq cm. Its sides are whole numbers. Which perimeter is NOT possible?",
+     "choices": [
+      "20 cm",
+      "22 cm",
+      "28 cm",
+      "50 cm",
+      "24 cm"
+     ],
+     "ans": 4,
+     "explain": "Sides 4×6 → 20, 3×8 → 22, 2×12 → 28, 1×24 → 50. 24 is not possible."
+    },
+    {
+     "id": "d8o2",
+     "type": "mc",
+     "q": "Two squares of side 5 cm are put side by side to make a rectangle. What is the perimeter of the rectangle?",
+     "choices": [
+      "20 cm",
+      "25 cm",
+      "30 cm",
+      "40 cm",
+      "50 cm"
+     ],
+     "ans": 2,
+     "explain": "Rectangle 10 by 5: 10 + 5 + 10 + 5 = 30."
+    }
+   ]
+  },
+  {
+   "day": 9,
+   "date": "2026-11-19",
+   "theme": "Part and whole",
+   "warm": [
+    {
+     "id": "d9w0",
+     "type": "num",
+     "q": "25 × 12 × 4 = ?",
+     "ans": 1200,
+     "hint": "Magic pair: 25 × 4 = 100"
+    },
+    {
+     "id": "d9w1",
+     "type": "num",
+     "q": "90 × 4 = ?",
+     "ans": 360,
+     "hint": "9 × 4 = 36 tens"
+    },
+    {
+     "id": "d9w2",
+     "type": "num",
+     "q": "9 × 7 = ?",
+     "ans": 63,
+     "hint": "10 × 7 − 7"
+    },
+    {
+     "id": "d9w3",
+     "type": "num",
+     "q": "54 ÷ 9 = ?",
+     "ans": 6,
+     "hint": "9 × 6 = 54"
+    }
+   ],
+   "review": [
+    {
+     "id": "d9r0",
+     "type": "num",
+     "q": "2/3 of a number is 18. What is the number?",
+     "ans": 27,
+     "hint": "1/3 = 9, whole = 3 × 9"
+    },
+    {
+     "id": "d9r1",
+     "type": "num",
+     "q": "848 ÷ 4 = ?",
+     "ans": 212,
+     "hint": "800 ÷ 4 + 40 ÷ 4 + 8 ÷ 4"
+    },
+    {
+     "id": "d9r2",
+     "type": "num",
+     "q": "Solve: 4 × (n + 3) = 36. n = ?",
+     "ans": 6,
+     "hint": "n + 3 = 9"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d9o0",
+     "type": "mc",
+     "q": "Mia read 1/4 of a book on Monday and 2/4 on Tuesday. 10 pages are left. How many pages are in the book?",
+     "choices": [
+      "20",
+      "30",
+      "40",
+      "50",
+      "60"
+     ],
+     "ans": 2,
+     "explain": "1/4 + 2/4 = 3/4 read, 1/4 = 10 pages, whole = 40."
+    },
+    {
+     "id": "d9o1",
+     "type": "mc",
+     "q": "3/5 of the class are girls. There are 12 girls. How many boys?",
+     "choices": [
+      "4",
+      "6",
+      "8",
+      "10",
+      "20"
+     ],
+     "ans": 2,
+     "explain": "1/5 = 4, boys = 2/5 = 8."
+    },
+    {
+     "id": "d9o2",
+     "type": "mc",
+     "q": "Which is bigger: 1/3 of 24 or 1/4 of 36?",
+     "choices": [
+      "1/3 of 24",
+      "1/4 of 36",
+      "equal",
+      "cannot tell",
+      "both are 6"
+     ],
+     "ans": 1,
+     "explain": "1/3 of 24 = 8, 1/4 of 36 = 9."
+    }
+   ]
+  },
+  {
+   "day": 10,
+   "date": "2026-11-22",
+   "theme": "Mini Kangaroo",
+   "warm": [
+    {
+     "id": "d10w0",
+     "type": "num",
+     "q": "5 × 19 × 20 = ?",
+     "ans": 1900,
+     "hint": "Magic pair: 5 × 20 = 100"
+    },
+    {
+     "id": "d10w1",
+     "type": "num",
+     "q": "4 × 600 = ?",
+     "ans": 2400,
+     "hint": "4 × 6 = 24 hundreds"
+    },
+    {
+     "id": "d10w2",
+     "type": "num",
+     "q": "8 × 6 = ?",
+     "ans": 48,
+     "hint": "8 × 6"
+    },
+    {
+     "id": "d10w3",
+     "type": "num",
+     "q": "42 ÷ 7 = ?",
+     "ans": 6,
+     "hint": "7 × 6 = 42"
+    }
+   ],
+   "review": [
+    {
+     "id": "d10r0",
+     "type": "num",
+     "q": "615 ÷ 5 = ?",
+     "ans": 123,
+     "hint": "500 ÷ 5 + 100 ÷ 5 + 15 ÷ 5"
+    },
+    {
+     "id": "d10r1",
+     "type": "num",
+     "q": "67 ÷ 8 = 8 R ?  (remainder)",
+     "ans": 3,
+     "hint": "8 × 8 = 64, 67 − 64 = 3"
+    },
+    {
+     "id": "d10r2",
+     "type": "num",
+     "q": "How many factors does 18 have?",
+     "ans": 6,
+     "hint": "1, 2, 3, 6, 9, 18"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d10o0",
+     "type": "mc",
+     "q": "A clock shows 3:00. How many degrees is the smaller angle between the hands?",
+     "choices": [
+      "30",
+      "45",
+      "60",
+      "90",
+      "180"
+     ],
+     "ans": 3,
+     "explain": "3:00 is a right angle: 90°."
+    },
+    {
+     "id": "d10o1",
+     "type": "mc",
+     "q": "5 friends shake hands, each with each other once. How many handshakes?",
+     "choices": [
+      "5",
+      "8",
+      "10",
+      "20",
+      "25"
+     ],
+     "ans": 2,
+     "explain": "4 + 3 + 2 + 1 = 10."
+    },
+    {
+     "id": "d10o2",
+     "type": "mc",
+     "q": "The digits of a 2-digit number add up to 9, and it is divisible by 4. Which can it be?",
+     "choices": [
+      "18",
+      "27",
+      "36",
+      "45",
+      "54"
+     ],
+     "ans": 2,
+     "explain": "36: 3 + 6 = 9 and 36 = 4 × 9."
+    }
+   ]
+  }
+ ]
+}
