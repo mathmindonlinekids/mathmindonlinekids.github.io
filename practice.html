@@ -69,7 +69,7 @@
     let ctl= it.type==='mc'
       ? '<div class="row" id="'+it.id+'_c">'+it.choices.map((c,j)=>'<button class="btn ghost small" data-j="'+j+'">('+'ABCDE'[j]+') '+c+'</button>').join('')+'</div>'
       : '<div class="row"><input class="num" id="'+it.id+'_i" inputmode="numeric" autocomplete="off" aria-label="Answer"><button class="btn small" id="'+it.id+'_b">Check</button></div>';
-    return '<div class="item">'+n+'<div class="b"><div class="q">'+it.q+'</div>'+ctl+'<div class="fb" id="'+it.id+'_f"></div><div class="hint" id="'+it.id+'_h" hidden></div></div></div>';
+    return '<div class="item">'+n+'<div class="b"><div class="q">'+it.q+(it.pic||'')+'</div>'+ctl+'<div class="fb" id="'+it.id+'_f"></div><div class="hint" id="'+it.id+'_h" hidden></div></div></div>';
   }
 
   function wire(it,section){

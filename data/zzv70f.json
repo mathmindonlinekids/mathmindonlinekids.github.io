@@ -261,6 +261,21 @@
      "q": "1/2 = □/8. □ = ?",
      "ans": 4,
      "hint": "Cut each half into 4 pieces."
+    },
+    {
+     "id": "d3r3",
+     "type": "mc",
+     "q": "What fraction of the rectangle is shaded?",
+     "choices": [
+      "1/4",
+      "1/3",
+      "3/4",
+      "4/3",
+      "3/1"
+     ],
+     "ans": 2,
+     "explain": "4 equal parts, 3 are shaded: 3/4.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"180\" height=\"100\" viewBox=\"0 0 180 100\" role=\"img\" aria-label=\"picture\"><rect x=\"10\" y=\"10\" width=\"40\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><rect x=\"50\" y=\"10\" width=\"40\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><rect x=\"90\" y=\"10\" width=\"40\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><rect x=\"130\" y=\"10\" width=\"40\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"/></svg></div>"
     }
    ],
    "oly": [
@@ -295,16 +310,16 @@
     {
      "id": "d3o2",
      "type": "mc",
-     "q": "What is the smallest 3-digit number with all different digits?",
+     "q": "A big cube is painted red and cut into 8 equal small cubes (2 × 2 × 2). How many small cubes have exactly 3 red faces?",
      "choices": [
-      "100",
-      "101",
-      "102",
-      "120",
-      "123"
+      "0",
+      "4",
+      "6",
+      "8",
+      "12"
      ],
-     "ans": 2,
-     "explain": "1, 0, 2: the hundreds digit cannot be 0."
+     "ans": 3,
+     "explain": "Every small cube sits in a corner of the big cube, and a corner has 3 painted faces. All 8!"
     }
    ],
    "date": "2026-11-03"
@@ -363,6 +378,20 @@
      "q": "Solve: 5n − n + 9 = 45. n = ?",
      "ans": 9,
      "hint": "Collect: 4n + 9 = 45."
+    },
+    {
+     "id": "d4r3",
+     "type": "mc",
+     "q": "A shape has 4 equal sides and 4 right angles. What is it?",
+     "choices": [
+      "a trapezoid",
+      "a square",
+      "a triangle",
+      "a pentagon",
+      "a rectangle that is not a square"
+     ],
+     "ans": 1,
+     "explain": "4 right angles + 4 equal sides = a square. A square is also a rectangle and a rhombus!"
     }
    ],
    "oly": [
@@ -465,6 +494,14 @@
      "q": "2/3 = □/6. □ = ?",
      "ans": 4,
      "hint": "Each third becomes 2 sixths."
+    },
+    {
+     "id": "d5r3",
+     "type": "num",
+     "q": "How many edges does a cube have?",
+     "ans": 12,
+     "hint": "Count: 4 on top, 4 on the bottom, 4 standing up.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"120\" height=\"120\" viewBox=\"0 0 120 120\" role=\"img\" aria-label=\"picture\"><g fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"><rect x=\"10\" y=\"40\" width=\"70\" height=\"70\"/><polygon points=\"10,40 40,10 110,10 80,40\"/><polygon points=\"80,40 110,10 110,80 80,110\"/></g></svg></div>"
     }
    ],
    "oly": [
@@ -567,6 +604,20 @@
      "q": "Solve: 2(a + 5) + 3a = 40. a = ?",
      "ans": 6,
      "hint": "Open the brackets: 2a + 10 + 3a."
+    },
+    {
+     "id": "d6r3",
+     "type": "mc",
+     "q": "Which shape is a quadrilateral?",
+     "choices": [
+      "a triangle",
+      "a pentagon",
+      "a trapezoid",
+      "a hexagon",
+      "a circle"
+     ],
+     "ans": 2,
+     "explain": "Quadrilateral = 4 sides. A trapezoid has 4 sides."
     }
    ],
    "oly": [
@@ -587,16 +638,16 @@
     {
      "id": "d6o1",
      "type": "mc",
-     "q": "Five kids stand in a line. Mia is third. Leo is right behind Mia. Sam is first. Zoe is not last. Where is Tom?",
+     "q": "How many lines of symmetry does a rectangle (not a square) have?",
      "choices": [
-      "1st",
-      "2nd",
-      "4th",
-      "5th",
-      "Cannot tell"
+      "0",
+      "1",
+      "2",
+      "4",
+      "8"
      ],
-     "ans": 3,
-     "explain": "Sam 1, Mia 3, Leo 4. Zoe is not last, so Zoe is 2 and Tom is 5th."
+     "ans": 2,
+     "explain": "Fold it top to bottom or left to right: 2 lines. The diagonals do not work!"
     },
     {
      "id": "d6o2",
@@ -669,6 +720,21 @@
      "q": "Find 3/5 of 40.",
      "ans": 24,
      "hint": "One part: 40 ÷ 5 = 8. Take 3 parts."
+    },
+    {
+     "id": "d7r3",
+     "type": "mc",
+     "q": "What fraction of the circle is shaded?",
+     "choices": [
+      "1/2",
+      "1/3",
+      "1/4",
+      "2/3",
+      "3/1"
+     ],
+     "ans": 1,
+     "explain": "The circle is cut into 3 equal parts, 1 is shaded: 1/3.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"120\" height=\"120\" viewBox=\"0 0 120 120\" role=\"img\" aria-label=\"picture\"><circle cx=\"60\" cy=\"60\" r=\"50\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/><path d=\"M60 60 L60 10 A50 50 0 0 1 103.3 85 Z\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><line x1=\"60\" y1=\"60\" x2=\"16.7\" y2=\"85\" stroke=\"currentColor\" stroke-width=\"2\"/></svg></div>"
     }
    ],
    "oly": [
@@ -771,6 +837,19 @@
      "q": "2/7 of a number is 10. What is the number?",
      "ans": 35,
      "hint": "One part: 10 ÷ 2 = 5. The whole has 7 parts."
+    },
+    {
+     "id": "d8r3",
+     "type": "mc",
+     "q": "Is the shaded part 1/2 of the rectangle?",
+     "choices": [
+      "Yes",
+      "No, the two parts are not equal",
+      "Yes, because there are 2 parts"
+     ],
+     "ans": 1,
+     "explain": "Halves must be EQUAL parts. Here one part is bigger, so it is not 1/2.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"180\" height=\"100\" viewBox=\"0 0 180 100\" role=\"img\" aria-label=\"picture\"><rect x=\"10\" y=\"10\" width=\"110\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><rect x=\"120\" y=\"10\" width=\"50\" height=\"80\" stroke=\"currentColor\" stroke-width=\"2\" fill=\"none\"/></svg></div>"
     }
    ],
    "oly": [
@@ -791,16 +870,16 @@
     {
      "id": "d8o1",
      "type": "mc",
-     "q": "Kangaroo jumps 5 m each time. Rabbit jumps 3 m each time. They start together. After how many jumps (each) is the kangaroo 12 m ahead?",
+     "q": "How many lines of symmetry does a square have?",
      "choices": [
+      "1",
+      "2",
+      "3",
       "4",
-      "5",
-      "6",
-      "10",
-      "12"
+      "8"
      ],
-     "ans": 2,
-     "explain": "Each jump the kangaroo gains 2 m. 12 ÷ 2 = 6."
+     "ans": 3,
+     "explain": "Up-down, left-right and the 2 diagonals: 4 lines."
     },
     {
      "id": "d8o2",
@@ -873,6 +952,13 @@
      "q": "Solve: 4(m + 3) − m = 33. m = ?",
      "ans": 7,
      "hint": "Open the brackets: 4m + 12 − m = 3m + 12."
+    },
+    {
+     "id": "d9r3",
+     "type": "num",
+     "q": "A square pyramid has a square base and triangles on the sides. How many faces does it have?",
+     "ans": 5,
+     "hint": "1 square on the bottom + 4 triangles."
     }
    ],
    "oly": [
@@ -975,22 +1061,29 @@
      "q": "Solve: 5(y + 2) − 2y = 31. y = ?",
      "ans": 7,
      "hint": "Open the brackets: 5y + 10 − 2y = 3y + 10."
+    },
+    {
+     "id": "d10r3",
+     "type": "num",
+     "q": "How many squares do you need to fold a net of a cube?",
+     "ans": 6,
+     "hint": "A cube has 6 faces, so the net has 6 squares."
     }
    ],
    "oly": [
     {
      "id": "d10o0",
      "type": "mc",
-     "q": "Which number is the largest?",
+     "q": "A big cube is built from small cubes: 3 cubes long, 3 wide and 3 tall. How many small cubes are used?",
      "choices": [
-      "2 + 0 + 2 + 6",
-      "2 × 0 × 2 × 6",
-      "2 + 0 × 2 + 6",
-      "20 − 2 × 6",
-      "2 × 0 + 26"
+      "9",
+      "18",
+      "21",
+      "27",
+      "36"
      ],
-     "ans": 4,
-     "explain": "Values: 10, 0, 8, 8, 26."
+     "ans": 3,
+     "explain": "One layer is 3 × 3 = 9 cubes. 3 layers: 27."
     },
     {
      "id": "d10o1",
