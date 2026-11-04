@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind: My Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+<script src="config.js"></script>
+<style>
+.task{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 0;border-bottom:1px solid var(--line)}
+.task:last-child{border-bottom:none}
+.task .b{display:flex;flex-direction:column;gap:2px;min-width:0}
+.task a.btn{text-decoration:none;display:inline-block}
+.now{border:2px solid var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div>
+    <span class="eyebrow">MathMind Online</span>
+    <h1 id="hello">Hi!</h1>
+  </div>
+  <p class="muted" id="err" hidden></p>
+  <section class="card now" id="nowCard" hidden>
+    <h2>Homework now</h2>
+    <div id="now"></div>
+  </section>
+  <section class="card" id="practiceCard" hidden>
+    <div class="task"><div class="b"><h2>Daily practice</h2><span class="muted">15–20 minutes a day</span></div><a class="btn" id="practice">Open</a></div>
+  </section>
+  <section class="card" id="pastCard" hidden>
+    <h2>Earlier homework</h2>
+    <div id="past"></div>
+  </section>
+  <p class="muted">Для родителей: это постоянная страница, новые задания появляются здесь сами. Сохраните её в закладки или на экран телефона. Ссылка личная, не передавайте её другим.</p>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const P=new URLSearchParams(location.search); const KID=(P.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(P.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||'';
+  const fail=m=>{ $('#err').hidden=false; $('#err').textContent=m; };
+  if(NAME) $('#hello').textContent='Hi, '+NAME+'! ★';
+  if(!KID){ fail('This link is missing a student code. Ask your teacher for your personal link.'); return; }
+  const q='?k='+encodeURIComponent(KID)+(NAME?'&n='+encodeURIComponent(NAME):'');
+  const row=(h,id)=>'<div class="task"><div class="b"><b>Homework '+h.no+': '+h.title+'</b><span class="muted" id="'+id+'">&nbsp;</span></div><a class="btn" href="'+h.file+q+'">Open</a></div>';
+  function status(h,id){ if(!URL_) return; fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw=hw'+h.no).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return; const n=Object.keys(d.answers).length; $('#'+id).textContent=n?n+' answers saved':'Not started yet'; }).catch(()=>{}); }
+  $('#practice').href='practice.html'+q; $('#practiceCard').hidden=false;
+  fetch('data/hw-'+KID+'.json',{cache:'no-cache'}).then(r=>{ if(!r.ok) throw 0; return r.json(); }).then(d=>{
+    const list=(d.hw||[]).slice().reverse(); if(!list.length) return;
+    $('#now').innerHTML=row(list[0],'st0'); $('#nowCard').hidden=false; status(list[0],'st0');
+    const past=list.slice(1); if(past.length){ $('#past').innerHTML=past.map((h,i)=>row(h,'st'+(i+1))).join(''); $('#pastCard').hidden=false; past.forEach((h,i)=>status(h,'st'+(i+1))); }
+  }).catch(()=>fail('Your homework list is not ready yet. Ask your teacher.'));
+})();
+</script>
+</body>
+</html>
