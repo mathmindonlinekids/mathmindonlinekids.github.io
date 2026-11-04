@@ -982,16 +982,16 @@
     {
      "id": "d10o0",
      "type": "mc",
-     "q": "A clock shows 3:00. How many degrees is the smaller angle between the hands?",
+     "q": "A movie starts at 3:00 and lasts 1 hour 45 minutes. When does it end?",
      "choices": [
-      "30",
-      "45",
-      "60",
-      "90",
-      "180"
+      "3:45",
+      "4:15",
+      "4:45",
+      "5:00",
+      "5:45"
      ],
      "ans": 3,
-     "explain": "3:00 is a right angle: 90°."
+     "explain": "3:00 + 1 hour = 4:00, then + 45 minutes = 4:45."
     },
     {
      "id": "d10o1",
