@@ -319,6 +319,12 @@ body.teacher .tpanel{display:flex}
   function counts(){ Object.keys(SEC).forEach(s=>{ const its=ITEMS.filter(i=>i.sec==s); $('#c'+s).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
     const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
   counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
   $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
     queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 7',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
     $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };

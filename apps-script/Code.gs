@@ -29,6 +29,14 @@ function doPost(e) {
 }
 
 function doGet(e) {
+  // Student page: brings back this student's saved answers for one homework (answers only, never the correct ones).
+  if (e.parameter && e.parameter.kid && e.parameter.hw) {
+    const answers = {};
+    sheet_('Results', HEAD).getDataRange().getValues().slice(1).forEach(r => {
+      if (String(r[1]) === String(e.parameter.kid) && r[2] === 'hw' && String(r[3]) === String(e.parameter.hw) && !(r[7] instanceof Date)) answers[String(r[4])] = r[7];
+    });
+    return json_({ answers });
+  }
   if (TEACHER_KEY === 'CHANGE-ME' || !e.parameter || e.parameter.key !== TEACHER_KEY) return json_({ error: 'wrong key' });
   const res = sheet_('Results', HEAD).getDataRange().getValues();
   const head = res.shift();
