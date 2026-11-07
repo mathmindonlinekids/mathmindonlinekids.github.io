@@ -623,53 +623,65 @@
     {
      "id": "d7w0",
      "type": "num",
-     "q": "40 × 2 = ?",
-     "ans": 80,
-     "hint": "4 tens × 2 = 8 tens"
+     "q": "60 + 30 = ?",
+     "ans": 90,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d7w1",
      "type": "num",
-     "q": "70 × 4 = ?",
-     "ans": 280,
-     "hint": "7 × 4 = 28, so 28 tens"
+     "q": "800 − 300 = ?",
+     "ans": 500,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d7w2",
      "type": "num",
-     "q": "9 × 8 = ?",
-     "ans": 72,
-     "hint": "10 × 8 − 8"
+     "q": "40 × 3 = ?",
+     "ans": 120,
+     "hint": "40 × 3: multiply the digits, then add the zero"
     },
     {
      "id": "d7w3",
      "type": "num",
-     "q": "6 × 9 = ?",
-     "ans": 54,
-     "hint": "5 × 9 + 9"
+     "q": "30 × 5 = ?",
+     "ans": 150,
+     "hint": "30 × 5: multiply the digits, then add the zero"
     }
    ],
    "review": [
     {
      "id": "d7r0",
-     "type": "num",
-     "q": "2/5 (two fifths) of 25 = ?",
-     "ans": 10,
-     "hint": "One fifth: 25 ÷ 5 = 5. Two fifths: 5 + 5"
+     "type": "mc",
+     "q": "Is 94 divisible by 2?",
+     "choices": [
+      "yes",
+      "no"
+     ],
+     "ans": 0,
+     "explain": "94 ends in 4, an even digit."
     },
     {
      "id": "d7r1",
      "type": "num",
-     "q": "724 − 368 = ?",
-     "ans": 356,
-     "hint": "Borrow for the ones, then for the tens"
+     "q": "Round 34 to the nearest ten.",
+     "ans": 30,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
     },
     {
      "id": "d7r2",
-     "type": "num",
-     "q": "I thought of a number. I multiplied it by 3 and got 27. What was my number?",
-     "ans": 9,
-     "hint": "Go backwards: 27 ÷ 3"
+     "type": "mc",
+     "q": "What is the best name for this shape?",
+     "choices": [
+      "square",
+      "rectangle",
+      "rhombus",
+      "parallelogram",
+      "trapezoid"
+     ],
+     "ans": 1,
+     "explain": "4 right angles, sides not all equal.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"130\" height=\"92\" viewBox=\"0 0 130 92\" role=\"img\" aria-label=\"a quadrilateral\"><polygon points=\"5,20 125,20 125,75 5,75\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><polyline points=\"5.0,29.0 14.0,29.0 14.0,20.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"116.0,20.0 116.0,29.0 125.0,29.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"125.0,66.0 116.0,66.0 116.0,75.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"14.0,75.0 14.0,66.0 5.0,66.0\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></div>"
     }
    ],
    "oly": [
@@ -720,306 +732,561 @@
   {
    "day": 8,
    "date": "2026-11-09",
-   "theme": "Balance scales",
+   "theme": "Counting legs",
    "warm": [
     {
      "id": "d8w0",
      "type": "num",
-     "q": "80 − 30 = ?",
-     "ans": 50,
-     "hint": "8 tens − 3 tens"
+     "q": "50 + 40 = ?",
+     "ans": 90,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d8w1",
      "type": "num",
-     "q": "600 + 300 = ?",
-     "ans": 900,
-     "hint": "6 hundreds + 3 hundreds"
+     "q": "900 − 600 = ?",
+     "ans": 300,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d8w2",
      "type": "num",
-     "q": "50 × 3 = ?",
-     "ans": 150,
-     "hint": "5 × 3 = 15, so 15 tens"
+     "q": "60 × 3 = ?",
+     "ans": 180,
+     "hint": "60 × 3: multiply the digits, then add the zero"
     },
     {
      "id": "d8w3",
      "type": "num",
-     "q": "7 × 9 = ?",
-     "ans": 63,
-     "hint": "Same as 9 × 7"
+     "q": "20 × 7 = ?",
+     "ans": 140,
+     "hint": "20 × 7: multiply the digits, then add the zero"
     }
    ],
    "review": [
     {
      "id": "d8r0",
-     "type": "num",
-     "q": "2/3 (two thirds) of a number is 12. What is the number?",
-     "ans": 18,
-     "hint": "One third: 12 ÷ 2 = 6. Whole: 3 × 6"
+     "type": "mc",
+     "q": "Is 230 divisible by 10?",
+     "choices": [
+      "yes",
+      "no"
+     ],
+     "ans": 0,
+     "explain": "230 ends in 0."
     },
     {
      "id": "d8r1",
      "type": "num",
-     "q": "Time: 10:40 → 11:20. How many minutes?",
-     "ans": 40,
-     "hint": "10:40 → 11:00 is 20 min, then 20 more"
+     "q": "Round 78 to the nearest ten.",
+     "ans": 80,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
     },
     {
      "id": "d8r2",
-     "type": "num",
-     "q": "803 − 465 = ?",
-     "ans": 338,
-     "hint": "Borrow through the zero"
+     "type": "mc",
+     "q": "What is the best name for this shape?",
+     "choices": [
+      "square",
+      "rectangle",
+      "rhombus",
+      "parallelogram",
+      "trapezoid"
+     ],
+     "ans": 4,
+     "explain": "Exactly 1 pair of parallel sides.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"130\" height=\"92\" viewBox=\"0 0 130 92\" role=\"img\" aria-label=\"a quadrilateral\"><polygon points=\"35,15 95,15 125,80 5,80\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" fill=\"#7aa7e8\" fill-opacity=\".75\"/></svg></div>"
     }
    ],
    "oly": [
     {
      "id": "d8o0",
      "type": "mc",
-     "q": "1 apple weighs the same as 3 plums. How many plums weigh the same as 2 apples?",
+     "q": "4 cats and 1 hen. How many legs?",
      "choices": [
-      "3",
-      "4",
-      "5",
-      "6",
-      "9"
+      "10",
+      "14",
+      "18",
+      "20",
+      "22"
      ],
-     "ans": 3,
-     "explain": "2 × 3 = 6 plums."
+     "ans": 2,
+     "explain": "4 × 4 + 2 = 18."
     },
     {
      "id": "d8o1",
      "type": "mc",
-     "q": "A box and a 5 kg weight balance a 12 kg weight. How heavy is the box?",
+     "q": "2 dogs and 4 hens. How many legs?",
      "choices": [
-      "5 kg",
-      "6 kg",
-      "7 kg",
-      "12 kg",
-      "17 kg"
+      "12",
+      "14",
+      "16",
+      "18",
+      "24"
      ],
      "ans": 2,
-     "explain": "Box + 5 = 12, so box = 7 kg."
+     "explain": "2 × 4 + 4 × 2 = 16."
     },
     {
      "id": "d8o2",
      "type": "mc",
-     "q": "2 cubes balance 1 ball. 1 ball balances 4 rings. How many rings balance 1 cube?",
+     "q": "A spider has 8 legs. How many legs do 2 spiders and 1 cat have?",
      "choices": [
-      "1",
-      "2",
-      "3",
-      "4",
-      "8"
+      "12",
+      "16",
+      "18",
+      "20",
+      "24"
      ],
-     "ans": 1,
-     "explain": "2 cubes = 4 rings, so 1 cube = 2 rings."
+     "ans": 3,
+     "explain": "2 × 8 + 4 = 20."
     }
    ]
   },
   {
    "day": 9,
    "date": "2026-11-10",
-   "theme": "Steps and jumps",
+   "theme": "Who am I?",
    "warm": [
     {
      "id": "d9w0",
      "type": "num",
-     "q": "20 × 5 = ?",
-     "ans": 100,
-     "hint": "2 tens × 5 = 10 tens"
+     "q": "70 − 40 = ?",
+     "ans": 30,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d9w1",
      "type": "num",
-     "q": "1,000 − 300 = ?",
-     "ans": 700,
-     "hint": "10 hundreds − 3 hundreds"
+     "q": "200 + 700 = ?",
+     "ans": 900,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d9w2",
      "type": "num",
-     "q": "8 × 6 = ?",
-     "ans": 48,
-     "hint": "Same as 6 × 8"
+     "q": "80 × 3 = ?",
+     "ans": 240,
+     "hint": "80 × 3: multiply the digits, then add the zero"
     },
     {
      "id": "d9w3",
      "type": "num",
-     "q": "9 × 4 = ?",
-     "ans": 36,
-     "hint": "10 × 4 − 4"
+     "q": "90 × 2 = ?",
+     "ans": 180,
+     "hint": "90 × 2: multiply the digits, then add the zero"
     }
    ],
    "review": [
     {
      "id": "d9r0",
-     "type": "num",
-     "q": "1/4 (one fourth) of 32 = ?",
-     "ans": 8,
-     "hint": "32 ÷ 4"
+     "type": "mc",
+     "q": "Which number is divisible by 2 and by 10?",
+     "choices": [
+      "25",
+      "42",
+      "60",
+      "77",
+      "105"
+     ],
+     "ans": 2,
+     "explain": "60 ends in 0."
     },
     {
      "id": "d9r1",
      "type": "num",
-     "q": "A rectangle has area 24 sq cm. One side is 4 cm. How long is the other side in cm?",
-     "ans": 6,
-     "hint": "4 × ? = 24"
+     "q": "Round 145 to the nearest ten.",
+     "ans": 150,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
     },
     {
      "id": "d9r2",
-     "type": "num",
-     "q": "I thought of a number. I added 25 and got 60. What was my number?",
-     "ans": 35,
-     "hint": "Go backwards: 60 − 25"
+     "type": "mc",
+     "q": "What is the best name for this shape?",
+     "choices": [
+      "square",
+      "rectangle",
+      "rhombus",
+      "parallelogram",
+      "trapezoid"
+     ],
+     "ans": 2,
+     "explain": "4 equal sides, no right angles.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"130\" height=\"92\" viewBox=\"0 0 130 92\" role=\"img\" aria-label=\"a quadrilateral\"><polygon points=\"65,18 122,46 65,74 8,46\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" fill=\"#7aa7e8\" fill-opacity=\".75\"/></svg></div>"
     }
    ],
    "oly": [
     {
      "id": "d9o0",
      "type": "mc",
-     "q": "A frog jumps 10 steps each time, starting at 0. Where is it after 6 jumps?",
+     "q": "I am between 60 and 80. I am divisible by 10. Who am I?",
      "choices": [
-      "16",
-      "50",
+      "65",
+      "70",
+      "72",
       "60",
-      "66",
-      "70"
+      "80"
      ],
-     "ans": 2,
-     "explain": "6 × 10 = 60."
+     "ans": 1,
+     "explain": "Between 60 and 80, only 70 ends in 0."
     },
     {
      "id": "d9o1",
      "type": "mc",
-     "q": "A rabbit jumps 2 steps at a time from 0. Which number will it land on?",
+     "q": "I am an even number between 41 and 43. Who am I?",
      "choices": [
-      "7",
-      "11",
-      "15",
-      "18",
-      "21"
+      "40",
+      "41",
+      "42",
+      "43",
+      "44"
      ],
-     "ans": 3,
-     "explain": "It lands only on even numbers: 18."
+     "ans": 2,
+     "explain": "42 is the only number between 41 and 43."
     },
     {
      "id": "d9o2",
      "type": "mc",
-     "q": "A kangaroo jumps 5 steps forward and 2 steps back. After 3 such turns, where is it (starting at 0)?",
+     "q": "I end in 3. Rounded to the nearest ten, I become 50. Who am I?",
      "choices": [
-      "3",
-      "6",
-      "9",
-      "15",
-      "21"
+      "43",
+      "53",
+      "63",
+      "48",
+      "58"
      ],
-     "ans": 2,
-     "explain": "Each turn: +5 − 2 = 3. 3 × 3 = 9."
+     "ans": 1,
+     "explain": "53 is closer to 50."
     }
    ]
   },
   {
    "day": 10,
    "date": "2026-11-11",
-   "theme": "Mini Kangaroo",
+   "theme": "Counting sides",
    "warm": [
     {
      "id": "d10w0",
      "type": "num",
-     "q": "90 − 60 = ?",
-     "ans": 30,
-     "hint": "9 tens − 6 tens"
+     "q": "30 + 60 = ?",
+     "ans": 90,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d10w1",
      "type": "num",
-     "q": "60 × 3 = ?",
-     "ans": 180,
-     "hint": "6 × 3 = 18, so 18 tens"
+     "q": "1,000 − 400 = ?",
+     "ans": 600,
+     "hint": "Think in tens or hundreds"
     },
     {
      "id": "d10w2",
      "type": "num",
-     "q": "7 × 8 = ?",
-     "ans": 56,
-     "hint": "5, 6, 7, 8: 56 = 7 × 8"
+     "q": "70 × 3 = ?",
+     "ans": 210,
+     "hint": "70 × 3: multiply the digits, then add the zero"
     },
     {
      "id": "d10w3",
      "type": "num",
-     "q": "6 × 7 = ?",
-     "ans": 42,
-     "hint": "5 × 7 + 7"
+     "q": "40 × 5 = ?",
+     "ans": 200,
+     "hint": "40 × 5: multiply the digits, then add the zero"
     }
    ],
    "review": [
     {
      "id": "d10r0",
      "type": "num",
-     "q": "3/5 (three fifths) of 40 = ?",
-     "ans": 24,
-     "hint": "One fifth: 40 ÷ 5 = 8. Three fifths: 3 × 8"
+     "q": "How many tens are in 260?",
+     "ans": 26,
+     "hint": "260 = 200 + 60"
     },
     {
      "id": "d10r1",
      "type": "num",
-     "q": "915 − 648 = ?",
-     "ans": 267,
-     "hint": "Borrow for the ones, then for the tens"
+     "q": "Round 263 to the nearest ten.",
+     "ans": 260,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
     },
     {
      "id": "d10r2",
-     "type": "num",
-     "q": "Time: 2:30 → 4:00. How many minutes?",
-     "ans": 90,
-     "hint": "2:30 → 3:00 is 30 min, then 60 more"
+     "type": "mc",
+     "q": "What is the best name for this shape?",
+     "choices": [
+      "square",
+      "rectangle",
+      "rhombus",
+      "parallelogram",
+      "trapezoid"
+     ],
+     "ans": 3,
+     "explain": "2 pairs of parallel sides, no right angles.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"130\" height=\"92\" viewBox=\"0 0 130 92\" role=\"img\" aria-label=\"a quadrilateral\"><polygon points=\"40,15 125,15 90,80 5,80\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" fill=\"#7aa7e8\" fill-opacity=\".75\"/></svg></div>"
     }
    ],
    "oly": [
     {
      "id": "d10o0",
      "type": "mc",
-     "q": "There are 4 rows of chairs with 5 chairs in each row. 3 chairs are empty. How many children are sitting?",
+     "q": "How many sides do 3 squares and 1 triangle have in all?",
      "choices": [
+      "7",
       "12",
+      "13",
       "15",
-      "17",
-      "20",
-      "23"
+      "16"
      ],
-     "ans": 2,
-     "explain": "4 × 5 = 20 chairs, 20 − 3 = 17."
+     "ans": 3,
+     "explain": "3 × 4 + 3 = 15."
     },
     {
      "id": "d10o1",
      "type": "mc",
-     "q": "Which number is both even AND divisible by 10?",
+     "q": "How many sides do 2 pentagons have in all?",
      "choices": [
-      "15",
-      "22",
-      "35",
-      "60",
-      "99"
+      "5",
+      "8",
+      "10",
+      "12",
+      "20"
      ],
-     "ans": 3,
-     "explain": "60 ends in 0: even and divisible by 10."
+     "ans": 2,
+     "explain": "2 × 5 = 10."
     },
     {
      "id": "d10o2",
      "type": "mc",
-     "q": "Mia has 3 coins of 10 cents and 4 coins of 5 cents. How many cents is that?",
+     "q": "A square and a triangle: how many corners in all?",
      "choices": [
-      "35",
-      "40",
-      "45",
-      "50",
-      "70"
+      "4",
+      "5",
+      "6",
+      "7",
+      "8"
      ],
      "ans": 3,
-     "explain": "30 + 20 = 50 cents."
+     "explain": "4 + 3 = 7."
+    }
+   ]
+  },
+  {
+   "day": 11,
+   "date": "2026-11-12",
+   "theme": "Digit puzzles",
+   "warm": [
+    {
+     "id": "d11w0",
+     "type": "num",
+     "q": "90 − 20 = ?",
+     "ans": 70,
+     "hint": "Think in tens or hundreds"
+    },
+    {
+     "id": "d11w1",
+     "type": "num",
+     "q": "400 + 500 = ?",
+     "ans": 900,
+     "hint": "Think in tens or hundreds"
+    },
+    {
+     "id": "d11w2",
+     "type": "num",
+     "q": "50 × 6 = ?",
+     "ans": 300,
+     "hint": "50 × 6: multiply the digits, then add the zero"
+    },
+    {
+     "id": "d11w3",
+     "type": "num",
+     "q": "60 × 4 = ?",
+     "ans": 240,
+     "hint": "60 × 4: multiply the digits, then add the zero"
+    }
+   ],
+   "review": [
+    {
+     "id": "d11r0",
+     "type": "mc",
+     "q": "Every number divisible by 10 is even. True or false?",
+     "choices": [
+      "true",
+      "false"
+     ],
+     "ans": 0,
+     "explain": "It ends in 0, and 0 is an even digit."
+    },
+    {
+     "id": "d11r1",
+     "type": "num",
+     "q": "Round 407 to the nearest ten.",
+     "ans": 410,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
+    },
+    {
+     "id": "d11r2",
+     "type": "num",
+     "q": "A rectangle has sides 6 cm and 2 cm. What is its perimeter in cm?",
+     "ans": 16,
+     "hint": "Add all 4 sides."
+    }
+   ],
+   "oly": [
+    {
+     "id": "d11o0",
+     "type": "mc",
+     "q": "What is the smallest digit for □ so that 63□ is even?",
+     "choices": [
+      "0",
+      "1",
+      "2",
+      "3",
+      "8"
+     ],
+     "ans": 0,
+     "explain": "630 ends in 0, an even digit."
+    },
+    {
+     "id": "d11o1",
+     "type": "mc",
+     "q": "Use the digits 2, 7, 9 once each. What is the biggest even number?",
+     "choices": [
+      "972",
+      "792",
+      "927",
+      "279",
+      "729"
+     ],
+     "ans": 1,
+     "explain": "It must end in 2. Then 9 comes first."
+    },
+    {
+     "id": "d11o2",
+     "type": "mc",
+     "q": "How many even numbers are between 41 and 51?",
+     "choices": [
+      "4",
+      "5",
+      "6",
+      "9",
+      "10"
+     ],
+     "ans": 1,
+     "explain": "42, 44, 46, 48, 50."
+    }
+   ]
+  },
+  {
+   "day": 12,
+   "date": "2026-11-13",
+   "theme": "Mini Kangaroo",
+   "warm": [
+    {
+     "id": "d12w0",
+     "type": "num",
+     "q": "100 − 30 = ?",
+     "ans": 70,
+     "hint": "Think in tens or hundreds"
+    },
+    {
+     "id": "d12w1",
+     "type": "num",
+     "q": "600 + 400 = ?",
+     "ans": 1000,
+     "hint": "Think in tens or hundreds"
+    },
+    {
+     "id": "d12w2",
+     "type": "num",
+     "q": "30 × 8 = ?",
+     "ans": 240,
+     "hint": "30 × 8: multiply the digits, then add the zero"
+    },
+    {
+     "id": "d12w3",
+     "type": "num",
+     "q": "80 × 2 = ?",
+     "ans": 160,
+     "hint": "80 × 2: multiply the digits, then add the zero"
+    }
+   ],
+   "review": [
+    {
+     "id": "d12r0",
+     "type": "mc",
+     "q": "Is 1,005 divisible by 10?",
+     "choices": [
+      "yes",
+      "no"
+     ],
+     "ans": 1,
+     "explain": "1,005 ends in 5. A 0 in the middle does not count."
+    },
+    {
+     "id": "d12r1",
+     "type": "num",
+     "q": "Round 198 to the nearest ten.",
+     "ans": 200,
+     "hint": "Which ten is closer? Ones digit 5 or more: round up."
+    },
+    {
+     "id": "d12r2",
+     "type": "mc",
+     "q": "What is the best name for this shape?",
+     "choices": [
+      "square",
+      "rectangle",
+      "rhombus",
+      "parallelogram",
+      "trapezoid"
+     ],
+     "ans": 0,
+     "explain": "4 right angles and 4 equal sides. A turned square is still a square.",
+     "pic": "<div style=\"margin:8px 0\"><svg width=\"130\" height=\"92\" viewBox=\"0 0 130 92\" role=\"img\" aria-label=\"a quadrilateral\"><polygon points=\"65,5 105,45 65,85 25,45\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" fill=\"#7aa7e8\" fill-opacity=\".75\"/><polyline points=\"58.6,11.4 65.0,17.7 71.4,11.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"98.6,38.6 92.3,45.0 98.6,51.4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"71.4,78.6 65.0,72.3 58.6,78.6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/><polyline points=\"31.4,51.4 37.7,45.0 31.4,38.6\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"/></svg></div>"
+    }
+   ],
+   "oly": [
+    {
+     "id": "d12o0",
+     "type": "mc",
+     "q": "A rhombus has a side of 7 cm. What is its perimeter?",
+     "choices": [
+      "14 cm",
+      "21 cm",
+      "28 cm",
+      "35 cm",
+      "49 cm"
+     ],
+     "ans": 2,
+     "explain": "4 equal sides: 4 × 7 = 28."
+    },
+    {
+     "id": "d12o1",
+     "type": "mc",
+     "q": "5 cats and 5 hens. How many legs?",
+     "choices": [
+      "10",
+      "20",
+      "25",
+      "30",
+      "40"
+     ],
+     "ans": 3,
+     "explain": "5 × 4 + 5 × 2 = 30."
+    },
+    {
+     "id": "d12o2",
+     "type": "mc",
+     "q": "Round 84 and 86 to the nearest ten, then add the two answers.",
+     "choices": [
+      "160",
+      "170",
+      "180",
+      "190",
+      "200"
+     ],
+     "ans": 1,
+     "explain": "80 + 90 = 170."
     }
    ]
   }

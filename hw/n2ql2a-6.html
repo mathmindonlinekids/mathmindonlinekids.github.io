@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 6</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:"Grandstander",sans-serif;font-size:21px;line-height:1.05;margin:0 4px}
+.frac i{font-style:normal;border-top:2px solid var(--ink);padding-top:1px}
+.am svg,.it svg{max-width:100%;height:auto}
+.train{font-family:"Grandstander",sans-serif;font-size:22px}
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+[hidden]{display:none!important}
+.hint{font-size:14px;color:var(--muted)}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.shape{border:1.5px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 6</span>
+    <h1>Divisible by 2 and 10, Rounding and Shapes</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <p class="lead"><b>Do one day at a time (10–15 minutes):</b> Day 1 = parts 1–2, Day 2 = parts 3–4, Day 3 = parts 5–7.</p>
+    <nav class="jump" aria-label="Sections"><a href="#s1">1 Mental math</a><a href="#s2">2 Divisible by 2</a><a href="#s3">3 Divisible by 10</a><a href="#s4">4 × tens</a><a href="#s5">5 Rounding</a><a href="#s6">6 Quadrilaterals</a><a href="#s7">7 Olympiad</a><a href="#s8">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <p class="hint" style="margin:0;font-weight:700">Day 1 · Sunday</p>
+    <div class="head"><h2>1. Mental Math: Round Numbers</h2><span class="cnt" id="c1"></span></div>
+    <div class="method">Think in <b>tens</b> and <b>hundreds</b>: 60 + 20 → 6 tens + 2 tens = 8 tens = <b>80</b>.</div>
+    <div class="list" id="mm"></div><div class="list" id="tr"></div>
+  </section>
+
+  <section class="card" id="s2">
+    <p class="hint" style="margin:0;font-weight:700">Day 1 · Sunday</p>
+    <div class="head"><h2>2. Divisible by 2</h2><span class="cnt" id="c2"></span></div>
+    <div class="method">A number is <b>divisible by 2</b> (even) if its <b>last digit</b> is <b>0, 2, 4, 6 or 8</b>.</div>
+    <div class="list" id="e1"></div><div class="list" id="e2"></div>
+  </section>
+
+  <section class="card" id="s3">
+    <p class="hint" style="margin:0;font-weight:700">Day 2 · Monday</p>
+    <div class="head"><h2>3. Divisible by 10</h2><span class="cnt" id="c3"></span></div>
+    <div class="method">A number is <b>divisible by 10</b> if its <b>last digit is 0</b>.</div>
+    <div class="list" id="t1"></div><div class="list" id="t2"></div><div class="method">Sort each number: divisible by <b>2 and 10</b>, by <b>2 only</b>, or <b>neither</b>?</div><div class="list" id="t3"></div>
+  </section>
+
+  <section class="card" id="s4">
+    <p class="hint" style="margin:0;font-weight:700">Day 2 · Monday</p>
+    <div class="head"><h2>4. Multiply by Tens</h2><span class="cnt" id="c4"></span></div>
+    <div class="method">4 × 30 = 4 × 3 <b>tens</b> = 12 tens = <b>120</b>. Use the fact, then add the zero.</div>
+    <div class="list" id="mt"></div>
+  </section>
+
+  <section class="card" id="s5">
+    <p class="hint" style="margin:0;font-weight:700">Day 3 · Tuesday</p>
+    <div class="head"><h2>5. Round to the Nearest Ten</h2><span class="cnt" id="c5"></span></div>
+    <div class="method">Which ten is <b>closer</b>? If the ones digit is <b>5 or more</b>, round <b>up</b>.</div>
+    <div class="list" id="rd"></div>
+  </section>
+
+  <section class="card" id="s6">
+    <p class="hint" style="margin:0;font-weight:700">Day 3 · Tuesday</p>
+    <div class="head"><h2>6. Quadrilaterals</h2><span class="cnt" id="c6"></span></div>
+    <div class="method">A <b>quadrilateral</b> has <b>4 straight sides</b>. Ask 3 questions: <b>Right angles?</b> <b>Equal sides?</b> <b>Parallel sides?</b></div>
+    <div class="shapes" id="qref"></div><div class="list" id="qs"></div><div class="list" id="qn"></div><div class="list" id="qt"></div><div class="list" id="qp"></div>
+  </section>
+
+  <section class="card" id="s7">
+    <p class="hint" style="margin:0;font-weight:700">Day 3 · Tuesday</p>
+    <div class="head"><h2>7. Olympiad Problems</h2><span class="cnt" id="c7"></span></div>
+    <div class="method">Draw a picture if it helps!</div>
+    <div class="list" id="ol"></div>
+  </section>
+
+  <section class="card done" id="s8">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={1:'Mental math',2:'Divisible by 2',3:'Divisible by 10',4:'× tens',5:'Rounding',6:'Quadrilaterals',7:'Olympiad'};
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const tx=s=>String(s).replace(/<[^>]+>/g,'').trim();
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).innerHTML=items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(tx(f[0])||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join('');
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],(it.lab||('#'+(k+1)))+(it.f.length>1?' ('+(tx(f[0])||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){ start=start||0;
+    $(host).innerHTML=items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+opts.map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join('');
+    items.forEach((p,k)=>add(pref+k,sec,p[1],p[2],1));
+  }
+  const X=(s,a)=>({q:s+' =',cls:'ex',f:[['',a]],lab:s});
+  function rline(a,b,x){ const L=300,x0=20,n=b-a; let g='<line x1="'+x0+'" y1="40" x2="'+(x0+L)+'" y2="40" stroke="var(--ink)" stroke-width="2.5"/>';
+    for(let i=0;i<=n;i++){ const xx=x0+L*i/n, big=(i===0||i===n||i===n/2); g+='<line x1="'+xx+'" y1="'+(big?28:33)+'" x2="'+xx+'" y2="'+(big?52:47)+'" stroke="var(--ink)" stroke-width="2"/>'; if(big) g+='<text x="'+xx+'" y="70" text-anchor="middle" font-size="15" fill="var(--ink)">'+(a+i)+'</text>'; }
+    const dx=x0+L*(x-a)/n; g+='<circle cx="'+dx+'" cy="40" r="7" fill="var(--warm)" stroke="var(--ink)" stroke-width="1.5"/><text x="'+dx+'" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="var(--warm)">'+x+'</text>';
+    return '<svg viewBox="0 0 340 78" width="340" role="img" aria-label="number line from '+a+' to '+b+' with '+x+' marked" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  const SHP={square:'10,10 80,10 80,80 10,80',rectangle:'5,20 125,20 125,75 5,75',rect2:'30,5 90,5 90,88 30,88',rhombus:'65,18 122,46 65,74 8,46',trapezoid:'35,15 95,15 125,80 5,80',trap2:'40,15 100,15 125,80 15,80',parallelogram:'40,15 125,15 90,80 5,80',para2:'5,15 90,15 125,80 40,80',turned:'65,5 105,45 65,85 25,45',tri3:'65,8 120,82 10,82',pent5:'65,6 122,40 100,86 30,86 8,40'};
+  const qpoly=(k,hl)=>{ const P=SHP[k].split(' ').map(t=>t.split(',').map(Number)), N=P.length; let m='';
+    if(N===4) P.forEach((v,i)=>{ const a=P[(i+3)%4], c=P[(i+1)%4], u=[a[0]-v[0],a[1]-v[1]], w=[c[0]-v[0],c[1]-v[1]], lu=Math.hypot(u[0],u[1]), lw=Math.hypot(w[0],w[1]);
+      if(Math.abs(u[0]*w[0]+u[1]*w[1])/(lu*lw)<0.03){ const d=9, p1=[v[0]+d*u[0]/lu,v[1]+d*u[1]/lu], p3=[v[0]+d*w[0]/lw,v[1]+d*w[1]/lw], p2=[p1[0]+d*w[0]/lw,p1[1]+d*w[1]/lw];
+        m+='<polyline points="'+[p1,p2,p3].map(q=>q.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>'; } });
+    (hl||[]).forEach(h=>{ const a=P[h[0]], c=P[(h[0]+1)%N]; m+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+c[0]+'" y2="'+c[1]+'" stroke="'+h[1]+'" stroke-width="5" stroke-linecap="round"/>'; });
+    return '<svg viewBox="0 0 130 92" width="130" role="img" aria-label="a shape" style="display:block"><polygon points="'+SHP[k]+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>'+m+'</svg>'; };
+  const CW='var(--warm)', CO='var(--acc)', opp=[[0,CW],[2,CW],[1,CO],[3,CO]];
+  $('#qref').innerHTML=[['square',opp,'4 right angles, 4 equal sides, 2 pairs of parallel sides'],['rectangle',opp,'4 right angles, 2 pairs of parallel sides'],['rhombus',opp,'4 equal sides, 2 pairs of parallel sides'],['parallelogram',opp,'2 pairs of parallel sides'],['trapezoid',[[0,CW],[2,CW]],'exactly 1 pair of parallel sides']].map(c=>'<div class="shape">'+qpoly(c[0],c[1])+'<b>'+c[0]+'</b><span class="hint">'+c[2]+'</span></div>').join('');
+
+  /* 1 */
+  rows('#mm',1,'m',[X('50 + 30',80),X('700 − 200',500),X('90 − 60',30),X('400 + 500',900),X('30 × 3',90)]);
+  rows('#tr',1,'r',[{q:'⭐ Number train. Start: <b>30</b>',cls:'q',f:[['+ 70 →',100],['− 40 →',60],['× 2 →',120],['− 20 →',100]],lab:'train 30'}],5);
+  /* 2 */
+  const YN=['yes','no'];
+  picks('#e1',2,'pe',[['Is <b>46</b> divisible by 2?','yes','46'],['Is <b>91</b> divisible by 2?','no','91'],['Is <b>1,357</b> divisible by 2?','no','1,357'],['Is <b>6,000</b> divisible by 2?','yes','6,000']],YN);
+  rows('#e2',2,'g',[{q:'Use the digits <b>4, 7, 1</b> once each. Make the <b>biggest even</b> number.',f:[['number =',714]],lab:'digits 4,7,1'},{q:'How many <b>even</b> numbers are between <b>31</b> and <b>41</b>?',f:[['how many =',5]],lab:'even 31–41'}],4);
+  /* 3 */
+  picks('#t1',3,'pt',[['Is <b>60</b> divisible by 10?','yes','60'],['Is <b>205</b> divisible by 10?','no','205'],['Is <b>800</b> divisible by 10?','yes','800'],['Is <b>1,450</b> divisible by 10?','yes','1,450']],YN);
+  rows('#t2',3,'u',[X('50 ÷ 10',5),{q:'How many <b>tens</b> are in <b>270</b>?',f:[['tens =',27]],lab:'tens in 270'}],4);
+  picks('#t3',3,'pv',[['<b>70</b>','2 and 10','70'],['<b>48</b>','2 only','48'],['<b>35</b>','neither','35']],['2 and 10','2 only','neither']);
+  /* 4 */
+  rows('#mt',4,'x',[X('3 × 50',150),X('60 × 3',180),X('20 × 8',160),X('40 × 5',200),X('7 × 30',210),X('90 × 4',360)]);
+  /* 5 */
+  rows('#rd',5,'d',[{q:rline(50,60,52)+'Round <b>52</b> to the nearest ten.',f:[['≈',50]],lab:'round 52'},{q:rline(30,40,38)+'Round <b>38</b> to the nearest ten.',f:[['≈',40]],lab:'round 38'},{q:rline(70,80,75)+'Round <b>75</b> to the nearest ten.',f:[['≈',80]],lab:'round 75'},{q:'Round <b>144</b> to the nearest ten.',f:[['≈',140]],lab:'round 144'},{q:'⭐ Round <b>397</b> to the nearest ten.',f:[['≈',400]],lab:'round 397'}]);
+  /* 6 */
+  picks('#qs',6,'pa',[[qpoly('tri3')+'This shape is a…','triangle','triangle'],[qpoly('pent5')+'This shape is a…','pentagon','pentagon']],['triangle','quadrilateral','pentagon']);
+  const QN=['square','rectangle','rhombus','parallelogram','trapezoid'];
+  picks('#qn',6,'pb',[[qpoly('trap2')+'Best name?','trapezoid','trapezoid'],[qpoly('rect2')+'Best name?','rectangle','rectangle'],[qpoly('para2')+'Best name?','parallelogram','parallelogram'],[qpoly('rhombus')+'Best name?','rhombus','rhombus'],[qpoly('turned')+'⭐ Best name? (Look at the corner marks.)','square','turned square']],QN,2);
+  picks('#qt',6,'pc',[['A <b>rhombus</b> always has 4 equal sides.','true','rhombus 4 equal'],['A <b>trapezoid</b> has 2 pairs of parallel sides.','false','trapezoid 2 pairs']],['true','false'],7);
+  rows('#qp',6,'p',[{q:'A <b>rhombus</b> has a side of <b>9 cm</b>. What is its perimeter?',f:[['P =',36,'cm']],lab:'rhombus 9'},{q:'A <b>rectangle</b> has sides <b>7 cm</b> and <b>2 cm</b>. What is its perimeter?',f:[['P =',18,'cm']],lab:'rectangle 7×2'}],9);
+  /* 7 */
+  rows('#ol',7,'o',[{q:'In a yard there are <b>3 cats</b> and <b>4 hens</b>. How many <b>legs</b> are there in all?',f:[['legs =',20]],lab:'3 cats 4 hens'},{q:'I am a number <b>between 70 and 90</b>. I am <b>divisible by 10</b>. Who am I?',f:[['number =',80]],lab:'between 70 and 90'}]);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw6';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 6'; }
+  const SK='mm-hw6-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ Object.keys(SEC).forEach(s=>{ const its=ITEMS.filter(i=>i.sec==s); $('#c'+s).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 6',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
