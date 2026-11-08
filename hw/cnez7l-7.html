@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 7</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+.sub{margin:0;font-size:18px;font-family:"Grandstander",sans-serif}
+.rbw{overflow-x:auto;padding-bottom:4px}
+.rb{display:inline-flex;flex-direction:column}
+.rb svg{display:block}
+.rbrow{display:flex}
+.rbrow > *{width:52px;margin:0 3px;flex:none}
+.rbrow input.num{width:52px;font-size:17px;padding:4px 2px}
+.rbrow .giv{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:10px;border:2px solid var(--ink);font-weight:700;font-size:18px;background:var(--gold-soft)}
+.tree svg{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 7</span>
+    <h1>Divisibility, Stories, Equations and Angles</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later on this computer.</p><p class="lead" id="hi" hidden></p>
+    <nav class="jump" aria-label="Sections"><a href="#s1">1 Warm-up</a><a href="#s2">2 Puzzle</a><a href="#s3">3 Divisibility</a><a href="#s4">4 Story to math</a><a href="#s5">5 Equations</a><a href="#s6">6 Prime factors</a><a href="#s7">7 Angles</a><a href="#s8">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <div class="head"><h2>1. Warm-up: Facts to 12</h2><span class="cnt" id="c1"></span></div>
+    <div class="method">Say the answer fast, then type it.</div>
+    <div class="list" id="w"></div>
+  </section>
+
+  <section class="card" id="s2">
+    <div class="head"><h2>2. Puzzle: Remainders</h2><span class="cnt" id="c2"></span></div>
+    <div class="method">Try the numbers one by one. Divide and check <b>both</b> remainders.</div>
+    <div class="list" id="pz"></div>
+  </section>
+
+  <section class="card" id="s3">
+    <div class="head"><h2>3. Divisibility Rules</h2><span class="cnt" id="c3"></span></div>
+    <div class="method"><b>÷ 10:</b> last digit 0. <b>÷ 5:</b> last digit 0 or 5. <b>÷ 3:</b> the sum of the digits divides by 3. <b>÷ 4:</b> the last two digits divide by 4.</div>
+    <div class="list" id="dv"></div>
+  </section>
+
+  <section class="card" id="s4">
+    <div class="head"><h2>4. Story to Math</h2><span class="cnt" id="c4"></span></div>
+    <div class="method">Read carefully: who has <b>more</b>? “A dress costs <b>4 times as much</b> as a hat” means the hat is the <b>smaller</b> one: 4 hats = 1 dress, so hat = dress <b>÷ 4</b>. Draw a bar if you are not sure!</div>
+    <div class="list" id="st"></div>
+  </section>
+
+  <section class="card" id="s5">
+    <div class="head"><h2>5. Equations with Brackets</h2><span class="cnt" id="c5"></span></div>
+    <div class="method">① Open the brackets: 3(x + 1) = 3x + 3. ② Letters on <b>both sides</b>? Take away the same letters from both sides: 3x + 3 = x + 13 → 2x + 3 = 13. ③ Remove the number, divide. ④ Check!</div>
+    <div class="list" id="eq"></div>
+  </section>
+
+  <section class="card" id="s6">
+    <div class="head"><h2>6. Prime Factors</h2><span class="cnt" id="c6"></span></div>
+    <div class="method">Break the number into <b>prime</b> numbers only (2, 3, 5, 7, 11…). Use the divisibility rules to find a factor fast!</div>
+    <div class="list" id="pf"></div>
+  </section>
+
+  <section class="card" id="s7">
+    <div class="head"><h2>7. Angles</h2><span class="cnt" id="c7"></span></div>
+    <div class="method"><b>Acute</b> &lt; 90°, <b>right</b> = 90°, <b>obtuse</b> between 90° and 180°, <b>straight</b> = 180°, <b>reflex</b> &gt; 180°. A full turn = 360°.</div>
+    <div class="list" id="an"></div>
+  </section>
+
+  <section class="card done" id="s8">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={1:'Warm-up',2:'Puzzle',3:'Divisibility',4:'Story to math',5:'Equations',6:'Prime factors',7:'Angles'};
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const fr=(a,b)=>'<sup>'+a+'</sup>⁄<sub>'+b+'</sub>';
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).insertAdjacentHTML('beforeend',items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(f[0]||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join(''));
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],(it.lab||('#'+(start+k+1)))+(it.f.length>1?' ('+(f[0]||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){
+    $(host).insertAdjacentHTML('beforeend',items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+opts.map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join(''));
+    items.forEach((p,k)=>add(pref+k,sec,p[1],p[2]||('#'+(start+k+1)),1));
+  }
+  function tape(n,k){ const W=300, w=W/n; let g='';
+    for(let i=0;i<n;i++) g+='<rect x="'+(10+i*w)+'" y="8" width="'+w+'" height="34" fill="'+(i<k?'var(--gold-soft)':'var(--acc-soft)')+'" stroke="var(--ink)" stroke-width="2"/>';
+    return '<svg viewBox="0 0 320 50" width="320" role="img" aria-label="bar in '+n+' equal parts, '+k+' shaded" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  const R=(a,b)=>[['',Math.floor(a/b)],['R',a%b]];
+
+  const EX=(host,sec,pref,list)=>rows(host,sec,pref,list.map(e=>({q:e[0]+' =',cls:'ex',f:[['',e[1]]],lab:e[0].replace('⭐ ','')})));
+  /* 1 */ EX('#w',1,'w',[['12 × 8',96],['84 ÷ 7',12],['11 × 11',121],['132 ÷ 12',11],['9 × 12',108],['144 ÷ 12',12],['7 × 11',77],['12 × 6',72]]);
+  /* 2 */ rows('#pz',2,'z',[{q:'I am a number <b>less than 20</b>. Divided by <b>3</b>, the remainder is <b>2</b>. Divided by <b>5</b>, the remainder is <b>4</b>. What number am I?',f:[['',14]],lab:'<20, R2 by 3, R4 by 5'},
+    {q:'⭐ I am a number <b>less than 20</b>. Divided by <b>4</b>, the remainder is <b>3</b>. Divided by <b>6</b>, the remainder is <b>5</b>. What number am I?',f:[['',11]],lab:'<20, R3 by 4, R5 by 6'}]);
+  /* 3 */ picks('#dv',3,'pd',[['Is <b>735</b> divisible by <b>5</b>?','Yes','735÷5?'],['Is <b>412</b> divisible by <b>3</b>?','No','412÷3?'],['Is <b>528</b> divisible by <b>4</b>?','Yes','528÷4?'],['Is <b>3,690</b> divisible by <b>10</b>?','Yes','3690÷10?'],['Is <b>734</b> divisible by <b>4</b>?','No','734÷4?']],['Yes','No'],0);
+          rows('#dv',3,'dm',[{q:'<b>61□</b> is divisible by <b>3</b>. What is the <b>smallest</b> digit □?',f:[['□ =',2]],lab:'61□ ÷ 3, smallest'}],5);
+  /* 4 */ const OPS=['+','−','×','÷'];
+  const ST=[['A bike costs <b>$144</b>. That is <b>6 times as much</b> as a helmet. How much does the helmet cost?','÷',24,'$'],
+    ['Mia has <b>9</b> bracelets. Her sister has <b>4 times as many</b>. How many bracelets does her sister have?','×',36,'bracelets'],
+    ['A tablet costs <b>$252</b>. It costs <b>3 times as much</b> as the headphones. How much do the headphones cost?','÷',84,'$'],
+    ['Leo read <b>56</b> pages. That is <b>7 times as many</b> pages as Sam read. How many pages did Sam read?','÷',8,'pages'],
+    ['The red ribbon is <b>15</b> inches long. The blue ribbon is <b>5 times as long</b>. How long is the blue ribbon?','×',75,'inches'],
+    ['A concert ticket costs <b>$48</b>. A movie ticket costs <b>$36</b>. <b>How much more</b> is the concert ticket?','−',12,'$']];
+  ST.forEach((p,k)=>{ picks('#st',4,'ps'+k,[[p[0]+'<br><span class="hint">Which action?</span>',p[1],'story '+(k+1)+' sign']],OPS,k); rows('#st',4,'sa'+k,[{q:'<span class="hint">Answer for story '+(k+1)+':</span>',f:[['',p[2],p[3]]],lab:'story '+(k+1)+' answer'}],k); });
+  document.querySelectorAll('#st .it').forEach((el,k)=>{ if(k%2) { el.querySelector('.n').textContent=''; } });
+  rows('#st',4,'sb',[{q:'⭐ A coat costs <b>$120</b>. That is <b>4 times as much</b> as a scarf. How much do the coat and the scarf cost <b>together</b>?',f:[['scarf: $',30],['together: $',150]],lab:'coat + scarf'}],6);
+  /* 5 */ const EQ=[['4(x + 3) = 44','x',8],['3(y − 2) = 27','y',11],['5(a + 2) − a = 30','a',5],['2(n + 5) = n + 16','n',6],['3(x + 1) = x + 13','x',5],['4(m − 1) = 2m + 6','m',5],['5k + 3 = 2(k + 12)','k',7],['⭐ 2(y + 4) + y = y + 20','y',6]];
+  rows('#eq',5,'q',EQ.map(e=>({q:e[0],cls:'ex',f:[[e[1]+' =',e[2]]],lab:e[0].replace('⭐ ','')})));
+  /* 6 */ const EX6=[['24 = 2 × 2 × 2 × □',3],['45 = 3 × 3 × □',5],['70 = 2 × □ × 7',5],['84 = 2 × 2 × □ × 7',3],['90 = 2 × 3 × 3 × □',5]];
+  rows('#pf',6,'f',EX6.map(e=>({q:e[0],cls:'ex',f:[['□ =',e[1]]],lab:e[0]})));
+  picks('#pf',6,'pp',[['Which is the <b>prime factorization</b> of <b>20</b>?','2 × 2 × 5','factorization of 20']],['4 × 5','2 × 10','2 × 2 × 5','1 × 20'],5);
+  picks('#pf',6,'pq',[['Which is the <b>prime factorization</b> of <b>30</b>?','2 × 3 × 5','factorization of 30']],['5 × 6','2 × 15','3 × 10','2 × 3 × 5'],6);
+  rows('#pf',6,'g',[{q:'⭐ 330 = 2 × 3 × 5 × □',cls:'ex',f:[['□ =',11]],lab:'330 = 2×3×5×□'}],7);
+  /* 7 */ function ang(d){ const cx=75,cy=75,r=60,a=d*Math.PI/180, x=cx+r*Math.cos(a), y=cy-r*Math.sin(a), q=22, ax=cx+q*Math.cos(a), ay=cy-q*Math.sin(a);
+    const arc=d===90?'<path d="M'+(cx+14)+' '+cy+' L'+(cx+14)+' '+(cy-14)+' L'+cx+' '+(cy-14)+'" fill="none" stroke="var(--warm)" stroke-width="2.5"/>':'<path d="M'+(cx+q)+' '+cy+' A'+q+' '+q+' 0 '+(d>180?1:0)+' 0 '+ax.toFixed(1)+' '+ay.toFixed(1)+'" fill="none" stroke="var(--warm)" stroke-width="2.5"/>';
+    return '<svg viewBox="0 0 150 '+(d>180?150:90)+'" width="150" role="img" aria-label="an angle" style="display:block;max-width:100%;height:auto"><line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+r)+'" y2="'+cy+'" stroke="var(--ink)" stroke-width="3"/><line x1="'+cx+'" y1="'+cy+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="var(--ink)" stroke-width="3"/>'+arc+'<circle cx="'+cx+'" cy="'+cy+'" r="3.5" fill="var(--ink)"/></svg>'; }
+  const KIND=['acute','right','obtuse','straight','reflex'];
+  [[70,'acute'],[140,'obtuse'],[90,'right'],[220,'reflex']].forEach((p,k)=>picks('#an',7,'pa'+k,[[ang(p[0])+'What kind of angle is this?',p[1],'angle '+(k+1)+' kind']],KIND,k));
+  rows('#an',7,'ag',[{q:'A right angle is split into two angles. One is <b>25°</b>. How big is the other one?',f:[['□ =',65,'°']],lab:'right angle − 25°'},
+    {q:'A straight angle is split into two angles. One is <b>135°</b>. How big is the other one?',f:[['□ =',45,'°']],lab:'straight angle − 135°'},
+    {q:'Two right angles together make a □ angle. How many degrees?',f:[['□ =',180,'°']],lab:'two right angles'},
+    {q:'⭐ A full turn is cut into <b>3 equal</b> angles. How big is each angle?',f:[['□ =',120,'°']],lab:'360° ÷ 3'}],4);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw7';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 7'; }
+  const SK='mm-hw7-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ Object.keys(SEC).forEach(s=>{ const its=ITEMS.filter(i=>i.sec==s); $('#c'+s).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 7',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
