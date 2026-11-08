@@ -22,8 +22,10 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     const cut = v => String(v == null ? '' : v).slice(0, 300);
-    sheet_('Results', HEAD).appendRow([new Date(), cut(d.kid), cut(d.type), cut(d.day), cut(d.item), cut(d.section), cut(d.q),
-      cut(d.answer), d.correct === true, d.firstTry === true, cut(d.tries), cut(d.seconds), cut(d.score), cut(d.total)]);
+    // Plain numbers stay numbers; everything else ("+", "5 4", "5/2", "= x") is stored as text, so the sheet does not turn it into a formula (#ERROR!) or a date.
+    const txt = v => { const s = cut(v); return (s === '' || /^-?\d+(\.\d+)?$/.test(s)) ? s : "'" + s; };
+    sheet_('Results', HEAD).appendRow([new Date(), cut(d.kid), cut(d.type), cut(d.day), txt(d.item), txt(d.section), txt(d.q),
+      txt(d.answer), d.correct === true, d.firstTry === true, cut(d.tries), cut(d.seconds), cut(d.score), cut(d.total)]);
   } finally { lock.releaseLock(); }
   return ContentService.createTextOutput('ok');
 }
