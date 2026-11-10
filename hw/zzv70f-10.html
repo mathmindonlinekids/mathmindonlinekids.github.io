@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 10</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2; --oly:#7A5BD6; --oly-soft:#E9E3FA;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+[hidden]{display:none!important}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.shape{border:1.5px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+.hint{font-size:14px;color:var(--muted)}
+.day{font-family:"Grandstander",sans-serif;font-size:15px;color:var(--warm);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+h3{margin:8px 0 0;font-size:19px;font-family:"Grandstander",sans-serif;border-top:2px dashed var(--line);padding-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 10</span>
+    <h1>Shapes, Solids, Graphs and Bar Models</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking and for drawing bar models. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <p class="lead"><b>One day at a time (about 20 minutes):</b> every day has 5 parts: order of operations, quadrilaterals, 3D shapes, graphs and bar models.</p>
+    <nav class="jump" aria-label="Days"><a href="#s1">Day 1 · Tue</a><a href="#s2">Day 2 · Wed</a><a href="#s3">Day 3 · Thu</a><a href="#s4">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <p class="day">Day 1 · Tuesday</p>
+    <div class="head"><h2>Day 1</h2><span class="cnt" id="c1"></span></div>
+    <h3>1. Spiral: Order and Smart Steps</h3><div class="method">Order: ( ) → × ÷ → + −. Look for a smart way first.</div><div class="list" id="d1t0a"></div><div class="list" id="d1t0b"></div>
+    <h3>2. Quadrilaterals</h3><div class="method">Ask: <b>right angles? equal sides? parallel sides?</b> Same color = parallel. Tick marks = equal sides.</div><div class="shapes" id="qref"></div><div class="list" id="d1t1a"></div><div class="list" id="d1t1b"></div>
+    <h3>3. 3D Shapes</h3><div class="method">In a cube net, <b>opposite faces never touch</b>. Prism: count the sides of the base.</div><div class="list" id="d1t2a"></div><div class="list" id="d1t2b"></div>
+    <h3>4. Graphs</h3><div class="method">Read the <b>scale</b> or the <b>key</b> first.</div><div id="gr1"></div><div class="list" id="d1t3a"></div><div class="list" id="d1t3b"></div>
+    <h3>5. Bar Models</h3><div class="method"><b>Draw</b> the bars on paper first, then solve.</div><div class="list" id="d1t4a"></div><div class="list" id="d1t4b"></div>
+  </section>
+
+  <section class="card" id="s2">
+    <p class="day">Day 2 · Wednesday</p>
+    <div class="head"><h2>Day 2</h2><span class="cnt" id="c2"></span></div>
+    <h3>1. Spiral: Order and Smart Steps</h3><div class="method">Order: ( ) → × ÷ → + −. Look for a smart way first.</div><div class="list" id="d2t0a"></div><div class="list" id="d2t0b"></div>
+    <h3>2. Quadrilaterals</h3><div class="method">Ask: <b>right angles? equal sides? parallel sides?</b> Same color = parallel. Tick marks = equal sides.</div><div class="list" id="d2t1a"></div><div class="list" id="d2t1b"></div>
+    <h3>3. 3D Shapes</h3><div class="method">In a cube net, <b>opposite faces never touch</b>. Prism: count the sides of the base.</div><div class="list" id="d2t2a"></div><div class="list" id="d2t2b"></div>
+    <h3>4. Graphs</h3><div class="method">Read the <b>scale</b> or the <b>key</b> first.</div><div id="gr2"></div><div class="list" id="d2t3a"></div><div class="list" id="d2t3b"></div>
+    <h3>5. Bar Models</h3><div class="method"><b>Draw</b> the bars on paper first, then solve.</div><div class="list" id="d2t4a"></div><div class="list" id="d2t4b"></div>
+  </section>
+
+  <section class="card" id="s3">
+    <p class="day">Day 3 · Thursday</p>
+    <div class="head"><h2>Day 3</h2><span class="cnt" id="c3"></span></div>
+    <h3>1. Spiral: Order and Smart Steps</h3><div class="method">Order: ( ) → × ÷ → + −. Look for a smart way first.</div><div class="list" id="d3t0a"></div><div class="list" id="d3t0b"></div>
+    <h3>2. Quadrilaterals</h3><div class="method">Ask: <b>right angles? equal sides? parallel sides?</b> Same color = parallel. Tick marks = equal sides.</div><div class="list" id="d3t1a"></div><div class="list" id="d3t1b"></div>
+    <h3>3. 3D Shapes</h3><div class="method">In a cube net, <b>opposite faces never touch</b>. Prism: count the sides of the base.</div><div class="list" id="d3t2a"></div><div class="list" id="d3t2b"></div>
+    <h3>4. Graphs</h3><div class="method">Read the <b>scale</b> or the <b>key</b> first.</div><div id="gr3"></div><div class="list" id="d3t3a"></div><div class="list" id="d3t3b"></div>
+    <h3>5. Bar Models</h3><div class="method"><b>Draw</b> the bars on paper first, then solve.</div><div class="list" id="d3t4a"></div><div class="list" id="d3t4b"></div>
+  </section>
+
+  <section class="card done" id="s4">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={1:'Order & smart steps',2:'Quadrilaterals',3:'3D shapes',4:'Graphs',5:'Bar models'}; let DAY=1;
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick,day:DAY});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const tx=s=>String(s).replace(/<[^>]+>/g,'').trim();
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).innerHTML=items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(tx(f[0])||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join('');
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],'Day '+DAY+': '+(it.lab||('#'+(k+1)))+(it.f.length>1?' ('+(tx(f[0])||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){ start=start||0;
+    $(host).innerHTML=items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+(p[3]||opts).map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join('');
+    items.forEach((p,k)=>add(pref+k,sec,p[1],'Day '+DAY+': '+p[2],1));
+  }
+  const X=(s,a)=>({q:s+' =',cls:'ex',f:[['',a]],lab:s});
+  const Q=(q,f,lab)=>({q,f,lab});
+  function iso(h){ const s=26, k=s*0.866; let cubes=[];
+    h.forEach((row,r)=>row.forEach((t,c)=>{ for(let z=0;z<t;z++) cubes.push([c,r,z]); }));
+    cubes.sort((a,b)=>(a[0]+a[1])-(b[0]+b[1])||a[2]-b[2]);
+    const R=h.length, C=Math.max(...h.map(x=>x.length)), Z=Math.max(...h.flat());
+    const ox=R*k+6, oy=Z*s+6, P=(c,r,z)=>((c-r)*k+ox).toFixed(1)+','+((c+r)*s/2-z*s+oy).toFixed(1);
+    const f=(pts,col)=>'<polygon points="'+pts.join(' ')+'" fill="'+col+'" stroke="var(--ink)" stroke-width="2" stroke-linejoin="round"/>';
+    let g=''; cubes.forEach(([c,r,z])=>{ g+=f([P(c,r,z+1),P(c+1,r,z+1),P(c+1,r+1,z+1),P(c,r+1,z+1)],'var(--acc-soft)')+f([P(c,r+1,z),P(c+1,r+1,z),P(c+1,r+1,z+1),P(c,r+1,z+1)],'var(--card)')+f([P(c+1,r,z),P(c+1,r+1,z),P(c+1,r+1,z+1),P(c+1,r,z+1)],'var(--gold-soft)'); });
+    const W=(R+C)*k+12, H=(R+C)*s/2+Z*s+12;
+    return '<svg viewBox="0 0 '+W.toFixed(0)+' '+H.toFixed(0)+'" width="'+Math.min(220,W).toFixed(0)+'" role="img" aria-label="a stack of cubes" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  /* net of squares: cells [[col,row],...] */
+  function netPic(cells){ const s=30; let g=''; cells.forEach(([c,r])=>g+='<rect x="'+(4+c*s)+'" y="'+(4+r*s)+'" width="'+s+'" height="'+s+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5"/>');
+    const C=Math.max(...cells.map(x=>x[0]))+1, R=Math.max(...cells.map(x=>x[1]))+1;
+    return '<svg viewBox="0 0 '+(C*s+8)+' '+(R*s+8)+'" width="'+(C*s+8)+'" role="img" aria-label="a net made of squares" style="display:block">'+g+'</svg>'; }
+  const SOL={
+    cube:'<polygon points="15,45 45,15 115,15 85,45"/><polygon points="85,45 115,15 115,85 85,115"/><rect x="15" y="45" width="70" height="70"/>',
+    prism:'<polygon points="5,50 35,25 155,25 125,50"/><polygon points="125,50 155,25 155,85 125,110"/><rect x="5" y="50" width="120" height="60"/>',
+    pyramid:'<polygon points="15,95 115,95 82,10"/><polygon points="115,95 150,70 82,10"/><polyline points="15,95 50,70 150,70" fill="none" stroke-dasharray="5 4"/><line x1="50" y1="70" x2="82" y2="10" stroke-dasharray="5 4"/>',
+    triprism:'<polygon points="10,105 45,40 80,105"/><polygon points="45,40 135,20 170,85 80,105"/><polyline points="10,105 100,85 170,85" fill="none" stroke-dasharray="5 4"/><line x1="100" y1="85" x2="135" y2="20" stroke-dasharray="5 4"/>',
+    cylinder:'<path d="M20 30 L20 95 A45 14 0 0 0 110 95 L110 30"/><ellipse cx="65" cy="30" rx="45" ry="14"/>'};
+  const solid=k=>'<svg viewBox="0 0 175 120" width="160" role="img" aria-label="a 3D shape" style="display:block"><g fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round">'+SOL[k]+'</g></svg>';
+
+  /* 1 */
+  const QP={square:'15,12 83,12 83,80 15,80',rectangle:'5,22 125,22 125,72 5,72',rhombus:'65,14 122,46 65,78 8,46',trapezoid:'35,15 95,15 125,80 5,80',parallelogram:'40,15 125,15 90,80 5,80',kite:'65,5 100,35 65,88 30,35',rect2:'35,5 95,5 95,88 35,88',trap2:'10,15 90,15 120,80 10,80',para2:'5,15 90,15 125,80 40,80',turned:'65,5 105,45 65,85 25,45',rhomb2:'40,10 118,10 83,80 5,80'};
+  const qpoly=(k,hl,ticks)=>{ const P=QP[k].split(' ').map(t=>t.split(',').map(Number)); let m='';
+    P.forEach((v,i)=>{ const a=P[(i+3)%4], c=P[(i+1)%4], u=[a[0]-v[0],a[1]-v[1]], w=[c[0]-v[0],c[1]-v[1]], lu=Math.hypot(u[0],u[1]), lw=Math.hypot(w[0],w[1]);
+      if(Math.abs(u[0]*w[0]+u[1]*w[1])/(lu*lw)<0.03){ const d=9, p1=[v[0]+d*u[0]/lu,v[1]+d*u[1]/lu], p3=[v[0]+d*w[0]/lw,v[1]+d*w[1]/lw], p2=[p1[0]+d*w[0]/lw,p1[1]+d*w[1]/lw];
+        m+='<polyline points="'+[p1,p2,p3].map(q=>q.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>'; } });
+    (hl||[]).forEach(h=>{ const a=P[h[0]], c=P[(h[0]+1)%4]; m+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+c[0]+'" y2="'+c[1]+'" stroke="'+h[1]+'" stroke-width="5" stroke-linecap="round"/>'; });
+    if(ticks) P.forEach((a,i)=>{ const c=P[(i+1)%4], mx=(a[0]+c[0])/2, my=(a[1]+c[1])/2, dx=c[0]-a[0], dy=c[1]-a[1], l=Math.hypot(dx,dy), nx=-dy/l*7, ny=dx/l*7; m+='<line x1="'+(mx-nx).toFixed(1)+'" y1="'+(my-ny).toFixed(1)+'" x2="'+(mx+nx).toFixed(1)+'" y2="'+(my+ny).toFixed(1)+'" stroke="var(--ink)" stroke-width="2.5"/>'; });
+    return '<svg viewBox="0 0 130 92" width="130" role="img" aria-label="a quadrilateral" style="display:block"><polygon points="'+QP[k]+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>'+m+'</svg>'; };
+  /* net with letters */
+  function netL(cells,labs){ const s=38; let g=''; cells.forEach(([c,r],i)=>g+='<rect x="'+(4+c*s)+'" y="'+(4+r*s)+'" width="'+s+'" height="'+s+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5"/><text x="'+(4+c*s+s/2)+'" y="'+(4+r*s+s/2+6)+'" text-anchor="middle" font-size="18" font-weight="700" fill="var(--ink)">'+labs[i]+'</text>');
+    const C=Math.max(...cells.map(x=>x[0]))+1, R=Math.max(...cells.map(x=>x[1]))+1;
+    return '<svg viewBox="0 0 '+(C*s+8)+' '+(R*s+8)+'" width="'+(C*s+8)+'" role="img" aria-label="a cube net with letters" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  /* scaled bar graph, drawn to scale */
+  function bgraph(labels,vals,step,max,ylabel){ const H=200,x0=52,y0=H+30,bw=62,gap=26; let g='';
+    for(let v=0;v<=max;v+=step){ const y=y0-v*H/max; g+='<line x1="'+x0+'" y1="'+y+'" x2="'+(x0+labels.length*(bw+gap)+gap)+'" y2="'+y+'" stroke="var(--line)" stroke-width="1"/><text x="'+(x0-8)+'" y="'+(y+5)+'" text-anchor="end" font-size="13" fill="var(--ink)">'+v+'</text>'; }
+    labels.forEach((t,i)=>{ const x=x0+gap+i*(bw+gap), h=vals[i]*H/max; g+='<rect x="'+x+'" y="'+(y0-h)+'" width="'+bw+'" height="'+h+'" fill="var(--acc)" stroke="var(--ink)" stroke-width="1.5"/><text x="'+(x+bw/2)+'" y="'+(y0+20)+'" text-anchor="middle" font-size="14" fill="var(--ink)">'+t+'</text>'; });
+    g+='<line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="30" stroke="var(--ink)" stroke-width="2"/><line x1="'+x0+'" y1="'+y0+'" x2="'+(x0+labels.length*(bw+gap)+gap)+'" y2="'+y0+'" stroke="var(--ink)" stroke-width="2"/><text x="14" y="14" font-size="13" fill="var(--muted)">'+ylabel+'</text>';
+    const W=x0+labels.length*(bw+gap)+gap+6; return '<svg viewBox="0 0 '+W+' '+(y0+30)+'" width="'+W+'" role="img" aria-label="bar graph, each line is '+step+'" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  /* picture graph: rows [name, whole icons, half?] */
+  function pgraph(rows,val,unit){ const c=14; let g=''; rows.forEach((r,i)=>{ const y=26+i*38; g+='<text x="6" y="'+(y+5)+'" font-size="15" font-weight="700" fill="var(--ink)">'+r[0]+'</text>'; for(let k=0;k<r[1];k++) g+='<circle cx="'+(80+k*36)+'" cy="'+y+'" r="'+c+'" fill="var(--warm)" stroke="var(--ink)" stroke-width="1.5"/>'; if(r[2]){ const cx=80+r[1]*36; g+='<path d="M'+cx+' '+(y-c)+' A'+c+' '+c+' 0 0 0 '+cx+' '+(y+c)+' Z" fill="var(--warm)" stroke="var(--ink)" stroke-width="1.5"/>'; } });
+    const yk=26+rows.length*38+4; g+='<circle cx="20" cy="'+yk+'" r="11" fill="var(--warm)" stroke="var(--ink)" stroke-width="1.5"/><text x="38" y="'+(yk+5)+'" font-size="14" font-weight="700" fill="var(--ink)">= '+val+' '+unit+'</text>';
+    return '<svg viewBox="0 0 360 '+(yk+20)+'" width="360" role="img" aria-label="picture graph, one circle is '+val+' '+unit+'" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  /* bar model: rows of [label, [segment texts], unit width] */
+  function tape(rows,total){ let g='', y=8; const u=46;
+    rows.forEach(r=>{ g+='<text x="4" y="'+(y+22)+'" font-size="14" font-weight="700" fill="var(--ink)">'+r[0]+'</text>'; let x=60;
+      r[1].forEach(t=>{ g+='<rect x="'+x+'" y="'+y+'" width="'+u+'" height="32" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2"/><text x="'+(x+u/2)+'" y="'+(y+21)+'" text-anchor="middle" font-size="14" fill="var(--ink)">'+t+'</text>'; x+=u; }); y+=42; });
+    if(total){ const w=Math.max(...rows.map(r=>r[1].length))*u; g+='<path d="M60 '+(y-4)+' q0 10 10 10 L'+(50+w/2)+' '+(y+6)+' l10 8 l10 -8 L'+(50+w)+' '+(y+6)+' q10 0 10 -10" fill="none" stroke="var(--warm)" stroke-width="2"/><text x="'+(60+w/2)+'" y="'+(y+32)+'" text-anchor="middle" font-size="15" font-weight="700" fill="var(--warm)">'+total+'</text>'; y+=38; }
+    const W=60+Math.max(...rows.map(r=>r[1].length))*u+12;
+    return '<svg viewBox="0 0 '+W+' '+(y+4)+'" width="'+W+'" role="img" aria-label="bar model" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+
+  const CW='var(--warm)', CO='var(--oly)', opp=[[0,CW],[2,CW],[1,CO],[3,CO]];
+  $('#qref').innerHTML=[['square',opp,1,'4 right angles, 4 equal sides, 2 pairs of parallel sides'],['rectangle',opp,0,'4 right angles, 2 pairs of parallel sides'],['rhombus',opp,1,'4 equal sides, 2 pairs of parallel sides'],['parallelogram',opp,0,'2 pairs of parallel sides'],['trapezoid',[[0,CW],[2,CW]],0,'exactly 1 pair of parallel sides']].map(c=>'<div class="shape">'+qpoly(c[0],c[1],c[2])+'<b>'+c[0]+'</b><span class="hint">'+c[3]+'</span></div>').join('');
+  const QN=['square','rectangle','rhombus','trapezoid','parallelogram','just a quadrilateral'], ASN=['always','sometimes','never'], YN=['yes','no'];
+  const CT=['right angles =','pairs of parallel sides ='];
+  const LT=['A','B','C','D','E','F'], CROSS=[[1,0],[1,1],[1,2],[1,3],[0,1],[2,1]], HOOK=[[0,0],[0,1],[1,1],[2,1],[3,1],[3,2]];
+  const FB=['F','B','V','E','A','C'];
+  const SPORT=['soccer','basketball','swimming','running'], SV=[70,40,25,55];
+  const APL=[['Mon',4,0],['Tue',2,1],['Wed',5,1],['Thu',3,0]];
+
+  /* ===== Day 1 ===== */
+  DAY=1;
+  rows('#d1t0a',1,'a1',[X('72 ÷ (5 + 3) × 4',36),X('(14 − 6) × (3 + 7)',80),X('700 − 438',262)]);
+  picks('#d1t0b',1,'pa1',[['Where do the brackets go so that the answer is <b>70</b>?','(9 + 5) × 5','brackets = 70'],['⭐ Where do the brackets go so that the answer is <b>3</b>?','45 ÷ (9 + 6)','brackets = 3',['(45 ÷ 9) + 6','45 ÷ (9 + 6)']]],['(9 + 5) × 5','9 + (5 × 5)'],3);
+  rows('#d1t1a',2,'b1',[{q:qpoly('trap2')+'Count for this shape.',f:[[CT[0],2],[CT[1],1]],lab:'right trapezoid'},{q:qpoly('rhomb2',null,1)+'Count for this shape.',f:[[CT[0],0],[CT[1],2]],lab:'rhombus'}]);
+  picks('#d1t1b',2,'pb1',[[qpoly('kite')+'Best name?','just a quadrilateral','kite']],QN,2);
+  picks('#d1t2a',3,'pc1',[[netL(CROSS,LT)+'Fold this net into a cube. Which face is opposite <b>B</b>?','D','cross net: opposite B'],[netL(HOOK,LT)+'⭐ A new net. Which face is opposite <b>A</b>?','F','hook net: opposite A']],['A','B','C','D','E','F']);
+  rows('#d1t2b',3,'c1',[{q:solid('triprism')+'A <b>triangular prism</b>. Count carefully: hidden edges count too!',f:[['faces',5],['edges',9],['vertices',6]],lab:'triangular prism'}],2);
+  $('#gr1').innerHTML=bgraph(SPORT,SV,10,80,'students')+'<p class="hint">Favorite sport of the students in grade 3. Each line is 10 students.</p>';
+  rows('#d1t3a',4,'g1',[Q('How many students chose <b>basketball</b>?',[['students =',40]],'basketball'),Q('How many students chose <b>swimming</b>? (Careful: between two lines!)',[['students =',25]],'swimming'),Q('How many <b>more</b> students chose soccer than swimming?',[['more =',45]],'soccer − swimming')]);
+  rows('#d1t4a',5,'e1',[{q:tape([['Mia',['15']],['Lena',['15','15','15']]],'?')+'Mia has 15 stickers. Lena has <b>3 times as many</b>. How many stickers do they have <b>together</b>?',f:[['Lena =',45],['together =',60]],lab:'15 and 3 times as many'},{q:'A box has <b>9 rows of 8</b> crayons. <b>15</b> crayons are broken. How many crayons are <b>not</b> broken?',f:[['crayons =',57]],lab:'9×8 − 15'}]);
+
+  /* ===== Day 2 ===== */
+  DAY=2;
+  rows('#d2t0a',1,'a2',[X('800 − 456',344),X('6 × 25 × 4',600),X('120 − (8 + 7) × 6',30)]);
+  rows('#d2t0b',1,'a2b',[X('⭐ (60 − 4 × 9) ÷ 3',8)],3);
+  picks('#d2t1a',2,'pb2',[['A <b>square</b> is a rhombus.','always','square is rhombus'],['A <b>parallelogram</b> has 4 right angles.','sometimes','parallelogram right angles'],['A <b>trapezoid</b> has 2 pairs of parallel sides.','never','trapezoid 2 pairs']],ASN);
+  picks('#d2t1b',2,'pb2b',[[qpoly('turned',null,1)+'⭐ Best name?','square','turned square']],QN,3);
+  rows('#d2t2a',3,'c2',[{q:'A box is <b>3 layers</b> tall. Each layer is <b>2 rows of 5</b> cubes. How many cubes?',f:[['cubes =',30]],lab:'3 layers of 2×5'},{q:iso([[3,2,1],[2,1,1]])+'How many cubes?',f:[['cubes =',10]],lab:'stack 3,2,1,2,1,1'},{q:'A <b>rectangular prism</b> (a box) has a base with 4 sides.',f:[['faces',6],['edges',12],['vertices',8]],lab:'rectangular prism'}]);
+  $('#gr2').innerHTML=pgraph(APL,6,'apples')+'<p class="hint">Apples picked each day. Half a circle is half of 6.</p>';
+  rows('#d2t3a',4,'g2',[Q('How many apples were picked on <b>Tuesday</b>?',[['apples =',15]],'Tuesday'),Q('How many <b>more</b> apples were picked on Wednesday than on Thursday?',[['more =',15]],'Wed − Thu')]);
+  picks('#d2t3b',4,'pg2',[['Look at the sports graph from Day 1. Which two sports <b>together</b> got <b>80</b> students?','swimming and running','two sports = 80',['soccer and basketball','swimming and running','basketball and running']]],[],2);
+  rows('#d2t4a',5,'e2',[{q:tape([['ribbon',['','','','','','','','']]],'56 cm')+'A ribbon of <b>56 cm</b> is cut into <b>8</b> equal pieces. <b>3</b> pieces are used. How many cm are <b>left</b>?',f:[['1 piece =',7],['left =',35]],lab:'56 cm in 8, 3 used'},{q:'Tom has <b>24</b> marbles. That is <b>4 times as many</b> as Ann has. How many marbles does Ann have? How many <b>more</b> does Tom have?',f:[['Ann =',6],['more =',18]],lab:'24 is 4 times Ann'}]);
+
+  /* ===== Day 3 ===== */
+  DAY=3;
+  rows('#d3t0a',1,'a3',[X('1,000 − 627',373),X('5 × 17 × 2',170),X('⭐ 64 ÷ (12 − 4) + 9 × (10 − 3)',71)]);
+  picks('#d3t0b',1,'pa3',[['Where do the brackets go so that the answer is <b>36</b>?','(2 + 4) × 6','brackets = 36',['(2 + 4) × 6','2 + (4 × 6)']]],[],3);
+  rows('#d3t1a',2,'b3',[{q:qpoly('square')+'This square has a perimeter of <b>28 cm</b>. How long is one side?',f:[['side =',7,'cm']],lab:'square P 28'},{q:qpoly('rectangle')+'This rectangle has a perimeter of <b>30 cm</b>. A long side is <b>10 cm</b>. How long is a short side?',f:[['short =',5,'cm']],lab:'rectangle P 30, long 10'}]);
+  picks('#d3t1b',2,'pb3',[['I have 4 sides and 4 right angles, but my sides are <b>not</b> all equal. Best name?','rectangle','riddle rectangle']],QN,2);
+  rows('#d3t2a',3,'c3',[{q:iso([[2,2,1],[1,1,0]])+'⭐ How many <b>more</b> cubes do you need to fill a box 3 wide, 2 deep and 2 tall?',f:[['more =',5]],lab:'fill 3×2×2'},{q:'A <b>hexagonal prism</b> has a base with 6 sides.',f:[['faces',8],['edges',18],['vertices',12]],lab:'hexagonal prism'},{q:'⭐ A prism has <b>10 vertices</b>. How many sides does its base have?',f:[['sides =',5]],lab:'prism 10 vertices'}]);
+  $('#gr3').innerHTML='<p class="hint">Use the apple picture graph from Day 2.</p>';
+  rows('#d3t3a',4,'g3',[Q('How many apples were picked on all 4 days together?',[['apples =',90]],'apples total'),Q('Monday: how many apples?',[['apples =',24]],'Monday'),Q('⭐ On Friday they picked <b>12</b> apples. How many circles should be drawn for Friday?',[['circles =',2]],'Friday 12 → circles')]);
+  rows('#d3t4a',5,'e3',[{q:'Ana had some stickers. She gave away <b>12</b>, then got <b>25</b>. Now she has <b>40</b>. How many did she have at first?',f:[['at first =',27]],lab:'work backwards 40'},{q:tape([['small',['?']],['big',['?','?','?','?','?']]],'48')+'⭐ Two numbers make <b>48</b> together. The big number is <b>5 times</b> the small number. Find both.',f:[['small =',8],['big =',40]],lab:'48, 5 times'}]);
+  picks('#d3t4b',5,'pe3',[['There are <b>7 bags</b> of <b>8 apples</b>. <b>9</b> apples are rotten. Which equation shows how many apples are <b>good</b>?','7 × 8 − 9 = a','choose equation',['7 × 8 − 9 = a','7 + 8 − 9 = a','7 × (8 − 9) = a','7 × 8 + 9 = a']]],[],2);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw10';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 10'; }
+  const SK='mm-hw10-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ [1,2,3].forEach(d=>{ const its=ITEMS.filter(i=>i.day===d); $('#c'+d).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 10',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
