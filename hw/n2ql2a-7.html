@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 7</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:"Grandstander",sans-serif;font-size:21px;line-height:1.05;margin:0 4px}
+.frac i{font-style:normal;border-top:2px solid var(--ink);padding-top:1px}
+.am svg,.it svg{max-width:100%;height:auto}
+.train{font-family:"Grandstander",sans-serif;font-size:22px}
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+[hidden]{display:none!important}
+.hint{font-size:14px;color:var(--muted)}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.shape{border:1.5px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 7</span>
+    <h1>Parts, Wholes, Shapes and Mental Math</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <p class="lead"><b>Do one day at a time (20–30 minutes):</b> Sunday to Friday. Next lesson: Saturday!</p>
+    <nav class="jump" aria-label="Days"><a href="#s1">Day 1 · Sun</a><a href="#s2">Day 2 · Mon</a><a href="#s3">Day 3 · Tue</a><a href="#s4">Day 4 · Wed</a><a href="#s5">Day 5 · Thu</a><a href="#s6">Day 6 · Fri</a><a href="#s7">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <div class="head"><h2>Day 1 · Sunday</h2><span class="cnt" id="c1"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d1mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d1pk"></div><div class="list" id="d1pt"></div><div class="list" id="d1wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b> <div class="qref" id="qref" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px"></div></div><div class="list" id="d1sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d1es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d1th"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d1ol"></div>
+  </section>
+
+  <section class="card" id="s2">
+    <div class="head"><h2>Day 2 · Monday</h2><span class="cnt" id="c2"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d2mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d2pk"></div><div class="list" id="d2pt"></div><div class="list" id="d2wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b></div><div class="list" id="d2sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d2es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d2th"></div><h3 style="margin:10px 0 0;font-size:18px">Divisible by 2 and 10</h3><div class="method"><b>÷ 2</b>: last digit 0, 2, 4, 6, 8. <b>÷ 10</b>: last digit 0.</div><div class="list" id="d2ex"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d2ol"></div>
+  </section>
+
+  <section class="card" id="s3">
+    <div class="head"><h2>Day 3 · Tuesday</h2><span class="cnt" id="c3"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d3mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d3pk"></div><div class="list" id="d3pt"></div><div class="list" id="d3wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b></div><div class="list" id="d3sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d3es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d3th"></div><h3 style="margin:10px 0 0;font-size:18px">Facts</h3><div class="list" id="d3ex"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d3ol"></div>
+  </section>
+
+  <section class="card" id="s4">
+    <div class="head"><h2>Day 4 · Wednesday</h2><span class="cnt" id="c4"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d4mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d4pk"></div><div class="list" id="d4pt"></div><div class="list" id="d4wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b></div><div class="list" id="d4sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d4es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d4th"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d4ol"></div>
+  </section>
+
+  <section class="card" id="s5">
+    <div class="head"><h2>Day 5 · Thursday</h2><span class="cnt" id="c5"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d5mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d5pk"></div><div class="list" id="d5pt"></div><div class="list" id="d5wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b></div><div class="list" id="d5sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d5es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d5th"></div><h3 style="margin:10px 0 0;font-size:18px">Divisible by 2 and 10</h3><div class="method"><b>÷ 2</b>: last digit 0, 2, 4, 6, 8. <b>÷ 10</b>: last digit 0.</div><div class="list" id="d5ex"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d5ol"></div>
+  </section>
+
+  <section class="card" id="s6">
+    <div class="head"><h2>Day 6 · Friday</h2><span class="cnt" id="c6"></span></div>
+    <h3 style="margin:10px 0 0;font-size:18px">Mental math</h3><div class="method">Think in <b>hundreds</b>: 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = <b>800</b>. 900 − 450 → 900 − 400 = 500, then − 50 = 450.</div><div class="list" id="d6mm"></div><h3 style="margin:10px 0 0;font-size:18px">Part or whole?</h3><div class="method"><b>Part</b>: we know the whole number → <b>divide</b>. <b>Whole</b>: we know one part → <b>multiply</b>. First decide which one!</div><div class="list" id="d6pk"></div><div class="list" id="d6pt"></div><div class="list" id="d6wh"></div><h3 style="margin:10px 0 0;font-size:18px">Shapes</h3><div class="method">Ask 3 questions: <b>Right angles? Equal sides? Parallel sides?</b></div><div class="list" id="d6sh"></div><h3 style="margin:10px 0 0;font-size:18px">Estimate, then solve</h3><div class="method">Round each number to the nearest ten, solve in your head. Then solve exactly. Are the answers close?</div><div class="list" id="d6es"></div><h3 style="margin:10px 0 0;font-size:18px">I thought of a number</h3><div class="method">Go <b>backwards</b>: undo each step. × → ÷, + → −, − → +.</div><div class="list" id="d6th"></div><h3 style="margin:10px 0 0;font-size:18px">Facts</h3><div class="list" id="d6ex"></div><h3 style="margin:10px 0 0;font-size:18px">⭐ Olympiad</h3><div class="method">Easy puzzle! Draw a picture if it helps.</div><div class="list" id="d6ol"></div>
+  </section>
+
+  <section class="card done" id="s7">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={1:'Day 1: Sunday',2:'Day 2: Monday',3:'Day 3: Tuesday',4:'Day 4: Wednesday',5:'Day 5: Thursday',6:'Day 6: Friday'};
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const tx=s=>String(s).replace(/<[^>]+>/g,'').trim();
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).innerHTML=items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(tx(f[0])||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join('');
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],(it.lab||('#'+(k+1)))+(it.f.length>1?' ('+(tx(f[0])||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){ start=start||0;
+    $(host).innerHTML=items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+opts.map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join('');
+    items.forEach((p,k)=>add(pref+k,sec,p[1],p[2],1));
+  }
+  const X=(s,a)=>({q:s+' =',cls:'ex',f:[['',a]],lab:s});
+  function rline(a,b,x){ const L=300,x0=20,n=b-a; let g='<line x1="'+x0+'" y1="40" x2="'+(x0+L)+'" y2="40" stroke="var(--ink)" stroke-width="2.5"/>';
+    for(let i=0;i<=n;i++){ const xx=x0+L*i/n, big=(i===0||i===n||i===n/2); g+='<line x1="'+xx+'" y1="'+(big?28:33)+'" x2="'+xx+'" y2="'+(big?52:47)+'" stroke="var(--ink)" stroke-width="2"/>'; if(big) g+='<text x="'+xx+'" y="70" text-anchor="middle" font-size="15" fill="var(--ink)">'+(a+i)+'</text>'; }
+    const dx=x0+L*(x-a)/n; g+='<circle cx="'+dx+'" cy="40" r="7" fill="var(--warm)" stroke="var(--ink)" stroke-width="1.5"/><text x="'+dx+'" y="18" text-anchor="middle" font-size="15" font-weight="700" fill="var(--warm)">'+x+'</text>';
+    return '<svg viewBox="0 0 340 78" width="340" role="img" aria-label="number line from '+a+' to '+b+' with '+x+' marked" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  const SHP={square:'10,10 80,10 80,80 10,80',rectangle:'5,20 125,20 125,75 5,75',rect2:'30,5 90,5 90,88 30,88',rhombus:'65,18 122,46 65,74 8,46',trapezoid:'35,15 95,15 125,80 5,80',trap2:'40,15 100,15 125,80 15,80',parallelogram:'40,15 125,15 90,80 5,80',para2:'5,15 90,15 125,80 40,80',turned:'65,5 105,45 65,85 25,45',tri3:'65,8 120,82 10,82',pent5:'65,6 122,40 100,86 30,86 8,40'};
+  const qpoly=(k,hl)=>{ const P=SHP[k].split(' ').map(t=>t.split(',').map(Number)), N=P.length; let m='';
+    if(N===4) P.forEach((v,i)=>{ const a=P[(i+3)%4], c=P[(i+1)%4], u=[a[0]-v[0],a[1]-v[1]], w=[c[0]-v[0],c[1]-v[1]], lu=Math.hypot(u[0],u[1]), lw=Math.hypot(w[0],w[1]);
+      if(Math.abs(u[0]*w[0]+u[1]*w[1])/(lu*lw)<0.03){ const d=9, p1=[v[0]+d*u[0]/lu,v[1]+d*u[1]/lu], p3=[v[0]+d*w[0]/lw,v[1]+d*w[1]/lw], p2=[p1[0]+d*w[0]/lw,p1[1]+d*w[1]/lw];
+        m+='<polyline points="'+[p1,p2,p3].map(q=>q.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>'; } });
+    (hl||[]).forEach(h=>{ const a=P[h[0]], c=P[(h[0]+1)%N]; m+='<line x1="'+a[0]+'" y1="'+a[1]+'" x2="'+c[0]+'" y2="'+c[1]+'" stroke="'+h[1]+'" stroke-width="5" stroke-linecap="round"/>'; });
+    return '<svg viewBox="0 0 130 92" width="130" role="img" aria-label="a shape" style="display:block"><polygon points="'+SHP[k]+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>'+m+'</svg>'; };
+  const CW='var(--warm)', CO='var(--acc)', opp=[[0,CW],[2,CW],[1,CO],[3,CO]];
+  $('#qref').innerHTML=[['square',opp,'4 right angles, 4 equal sides, 2 pairs of parallel sides'],['rectangle',opp,'4 right angles, 2 pairs of parallel sides'],['rhombus',opp,'4 equal sides, 2 pairs of parallel sides'],['parallelogram',opp,'2 pairs of parallel sides'],['trapezoid',[[0,CW],[2,CW]],'exactly 1 pair of parallel sides']].map(c=>'<div class="shape">'+qpoly(c[0],c[1])+'<b>'+c[0]+'</b><span class="hint">'+c[2]+'</span></div>').join('');
+
+  /* append versions: several calls share one host */
+  function rowsA(host,sec,pref,items,start){ const tmp=document.createElement('div'); tmp.id='tmp_'+pref; document.body.appendChild(tmp); rows('#tmp_'+pref,sec,pref,items,start); $(host).append(...tmp.childNodes); tmp.remove(); }
+  function picksA(host,sec,pref,items,opts,start){ const tmp=document.createElement('div'); tmp.id='tmp_'+pref; document.body.appendChild(tmp); picks('#tmp_'+pref,sec,pref,items,opts,start); $(host).append(...tmp.childNodes); tmp.remove(); }
+  function strip(ws,shade){ let x=4,s=''; ws.forEach((w,i)=>{ s+='<rect x="'+x+'" y="4" width="'+w+'" height="44" fill="'+(shade.includes(i)?'var(--gold)':'var(--card)')+'" stroke="var(--ink)" stroke-width="2.5"/>'; x+=w; });
+    return '<svg viewBox="0 0 '+(x+4)+' 52" width="'+(x+4)+'" role="img" aria-label="strip cut into '+ws.length+' parts" style="display:block;max-width:100%;height:auto">'+s+'</svg>'; }
+  const QN=['square','rectangle','rhombus','parallelogram','trapezoid'], FRS=['1/2','1/3','2/3','1/4','3/4'];
+  /* day 1 */
+  rows('#d1mm',1,'d1m',[{q:'1,400 − 600 =',cls:'ex',f:[['',800]],lab:'Day 1 mental 1,400 − 600'},{q:'800 − 300 =',cls:'ex',f:[['',500]],lab:'Day 1 mental 800 − 300'},{q:'650 + 200 =',cls:'ex',f:[['',850]],lab:'Day 1 mental 650 + 200'},{q:'1,000 − 700 =',cls:'ex',f:[['',300]],lab:'Day 1 mental 1,000 − 700'},{q:'540 − 200 =',cls:'ex',f:[['',340]],lab:'Day 1 mental 540 − 200'}]);
+  picks('#d1pk',1,'d1k',[['<sup>1</sup>⁄<sub>4</sub> (one fourth) of a number is <b>6</b>. What is the number?','find the whole','Day 1 part or whole']],['find the part','find the whole']);
+  rows('#d1pt',1,'d1x',[{q:'Now solve it:',f:[['answer =',24]],lab:'Day 1 part/whole story'}],1);
+  rows('#d1wh',1,'d1p',[{q:'<sup>1</sup>⁄<sub>2</sub> (one half) of <b>14</b> is ?',f:[['part =',7]],lab:'Day 1 part 1/2 of 14'},{q:'<sup>1</sup>⁄<sub>3</sub> (one third) of <b>15</b> is ?',f:[['part =',5]],lab:'Day 1 part 1/3 of 15'},{q:'<sup>1</sup>⁄<sub>2</sub> (one half) of a number is <b>9</b>. What is the number?',f:[['whole =',18]],lab:'Day 1 whole: 1/2 is 9'},{q:'<sup>1</sup>⁄<sub>4</sub> (one fourth) of a number is <b>3</b>. What is the number?',f:[['whole =',12]],lab:'Day 1 whole: 1/4 is 3'}],2);
+  picksA('#d1sh',1,'d1n0',[[qpoly('trapezoid')+'Best name?','trapezoid','Day 1 shape name']],QN,0);
+  picksA('#d1sh',1,'d1n1',[[qpoly('rhombus')+'Best name?','rhombus','Day 1 shape name']],QN,1);
+  picksA('#d1sh',1,'d1n2',[['True or false? A <b>square</b> is also a <b>rectangle</b>.','true','Day 1 true/false']],['true','false'],2);
+  picksA('#d1sh',1,'d1n3',[[strip([80, 80, 80],[0])+'What fraction is shaded?','1/3','Day 1 fraction shaded']],FRS,3);
+  rows('#d1es',1,'d1e',[{q:'<b>52 + 29</b>: estimate first, then solve exactly.',f:[['estimate =',80],['exact =',81]],lab:'Day 1 estimate 52 + 29'}]);
+  rows('#d1th',1,'d1t',[{q:'I thought of a number. I <b>multiplied it by 4</b> and got <b>28</b>. What was my number?',f:[['number =',7]],lab:'Day 1 thought: multiplied it by 4 → 28'},{q:'I thought of a number. I <b>added 15</b> and got <b>40</b>. What was my number?',f:[['number =',25]],lab:'Day 1 thought: added 15 → 40'}]);
+  rows('#d1ol',1,'d1o',[{q:'In a yard there are <b>2 dogs</b> and <b>3 chickens</b>. How many <b>legs</b> are there in all?',f:[['legs =',14]],lab:'Day 1 olympiad'}]);
+  /* day 2 */
+  rows('#d2mm',2,'d2m',[{q:'1,200 − 500 =',cls:'ex',f:[['',700]],lab:'Day 2 mental 1,200 − 500'},{q:'900 − 450 =',cls:'ex',f:[['',450]],lab:'Day 2 mental 900 − 450'},{q:'370 + 400 =',cls:'ex',f:[['',770]],lab:'Day 2 mental 370 + 400'},{q:'1,400 − 800 =',cls:'ex',f:[['',600]],lab:'Day 2 mental 1,400 − 800'},{q:'760 − 300 =',cls:'ex',f:[['',460]],lab:'Day 2 mental 760 − 300'}]);
+  picks('#d2pk',2,'d2k',[['<sup>1</sup>⁄<sub>3</sub> (one third) of <b>24</b> is ?','find the part','Day 2 part or whole']],['find the part','find the whole']);
+  rows('#d2pt',2,'d2x',[{q:'Now solve it:',f:[['answer =',8]],lab:'Day 2 part/whole story'}],1);
+  rows('#d2wh',2,'d2p',[{q:'<sup>1</sup>⁄<sub>5</sub> (one fifth) of <b>20</b> is ?',f:[['part =',4]],lab:'Day 2 part 1/5 of 20'},{q:'<sup>2</sup>⁄<sub>3</sub> (two thirds) of <b>12</b> is ?',f:[['part =',8]],lab:'Day 2 part 2/3 of 12'},{q:'<sup>1</sup>⁄<sub>3</sub> (one third) of a number is <b>7</b>. What is the number?',f:[['whole =',21]],lab:'Day 2 whole: 1/3 is 7'},{q:'<sup>1</sup>⁄<sub>5</sub> (one fifth) of a number is <b>2</b>. What is the number?',f:[['whole =',10]],lab:'Day 2 whole: 1/5 is 2'}],2);
+  picksA('#d2sh',2,'d2n0',[[qpoly('parallelogram')+'Best name?','parallelogram','Day 2 shape name']],QN,0);
+  picksA('#d2sh',2,'d2n1',[[qpoly('rect2')+'Best name?','rectangle','Day 2 shape name']],QN,1);
+  picksA('#d2sh',2,'d2n2',[['True or false? A <b>trapezoid</b> has <b>2 pairs</b> of parallel sides.','false','Day 2 true/false']],['true','false'],2);
+  rowsA('#d2sh',2,'d2n3',[{q:'A <b>square</b> has a side of <b>6 cm</b>. What is its perimeter?',f:[['P =',24,'cm']],lab:'Day 2 perimeter'}],3);
+  rows('#d2es',2,'d2e',[{q:'<b>71 − 38</b>: estimate first, then solve exactly.',f:[['estimate =',30],['exact =',33]],lab:'Day 2 estimate 71 − 38'}]);
+  rows('#d2th',2,'d2t',[{q:'I thought of a number. I <b>took away 12</b> and got <b>30</b>. What was my number?',f:[['number =',42]],lab:'Day 2 thought: took away 12 → 30'},{q:'I thought of a number. I <b>multiplied it by 6</b> and got <b>54</b>. What was my number?',f:[['number =',9]],lab:'Day 2 thought: multiplied it by 6 → 54'}]);
+  picks('#d2ex',2,'d2v',[['Divisible by 2? By 10? <b>64</b>','2 only','Day 2 divisible 64'],['Divisible by 2? By 10? <b>120</b>','2 and 10','Day 2 divisible 120']],['2 and 10','2 only','neither']);
+  rows('#d2ol',2,'d2o',[{q:'I am a number <b>between 35 and 45</b>. I am <b>divisible by 10</b>. Who am I?',f:[['number =',40]],lab:'Day 2 olympiad'}]);
+  /* day 3 */
+  rows('#d3mm',3,'d3m',[{q:'1,500 − 700 =',cls:'ex',f:[['',800]],lab:'Day 3 mental 1,500 − 700'},{q:'600 − 250 =',cls:'ex',f:[['',350]],lab:'Day 3 mental 600 − 250'},{q:'480 + 300 =',cls:'ex',f:[['',780]],lab:'Day 3 mental 480 + 300'},{q:'1,100 − 400 =',cls:'ex',f:[['',700]],lab:'Day 3 mental 1,100 − 400'},{q:'830 − 500 =',cls:'ex',f:[['',330]],lab:'Day 3 mental 830 − 500'}]);
+  picks('#d3pk',3,'d3k',[['Mia ate <sup>1</sup>⁄<sub>3</sub> (one third) of the cookies. She ate <b>4</b> cookies. How many cookies were there?','find the whole','Day 3 part or whole']],['find the part','find the whole']);
+  rows('#d3pt',3,'d3x',[{q:'Now solve it:',f:[['answer =',12]],lab:'Day 3 part/whole story'}],1);
+  rows('#d3wh',3,'d3p',[{q:'<sup>1</sup>⁄<sub>4</sub> (one fourth) of <b>16</b> is ?',f:[['part =',4]],lab:'Day 3 part 1/4 of 16'},{q:'<sup>3</sup>⁄<sub>4</sub> (three fourths) of <b>16</b> is ?',f:[['part =',12]],lab:'Day 3 part 3/4 of 16'},{q:'<sup>1</sup>⁄<sub>2</sub> (one half) of a number is <b>12</b>. What is the number?',f:[['whole =',24]],lab:'Day 3 whole: 1/2 is 12'},{q:'<sup>1</sup>⁄<sub>6</sub> (one sixth) of a number is <b>3</b>. What is the number?',f:[['whole =',18]],lab:'Day 3 whole: 1/6 is 3'}],2);
+  picksA('#d3sh',3,'d3n0',[[qpoly('turned')+'⭐ (Look at the corner marks.) Best name?','square','Day 3 shape name']],QN,0);
+  picksA('#d3sh',3,'d3n1',[[qpoly('trap2')+'Best name?','trapezoid','Day 3 shape name']],QN,1);
+  picksA('#d3sh',3,'d3n2',[['True or false? A <b>rhombus</b> always has <b>4 right angles</b>.','false','Day 3 true/false']],['true','false'],2);
+  picksA('#d3sh',3,'d3n3',[[strip([60, 60, 60, 60],[0, 1, 2])+'What fraction is shaded?','3/4','Day 3 fraction shaded']],FRS,3);
+  rows('#d3es',3,'d3e',[{q:'<b>248 + 131</b>: estimate first, then solve exactly.',f:[['estimate =',380],['exact =',379]],lab:'Day 3 estimate 248 + 131'}]);
+  rows('#d3th',3,'d3t',[{q:'I thought of a number. I <b>added 28</b> and got <b>50</b>. What was my number?',f:[['number =',22]],lab:'Day 3 thought: added 28 → 50'},{q:'I thought of a number. I <b>multiplied it by 3</b> and got <b>27</b>. What was my number?',f:[['number =',9]],lab:'Day 3 thought: multiplied it by 3 → 27'}]);
+  rows('#d3ex',3,'d3f',[{q:'7 × 8 =',cls:'ex',f:[['',56]],lab:'Day 3 fact 7 × 8'},{q:'54 ÷ 9 =',cls:'ex',f:[['',6]],lab:'Day 3 fact 54 ÷ 9'},{q:'6 × 7 =',cls:'ex',f:[['',42]],lab:'Day 3 fact 6 × 7'}]);
+  rows('#d3ol',3,'d3o',[{q:'A square has a side of <b>6 cm</b>. It is cut into <b>2 equal rectangles</b>. What is the perimeter of <b>one</b> rectangle?',f:[['P =',18]],lab:'Day 3 olympiad'}]);
+  /* day 4 */
+  rows('#d4mm',4,'d4m',[{q:'1,300 − 900 =',cls:'ex',f:[['',400]],lab:'Day 4 mental 1,300 − 900'},{q:'700 − 350 =',cls:'ex',f:[['',350]],lab:'Day 4 mental 700 − 350'},{q:'560 + 340 =',cls:'ex',f:[['',900]],lab:'Day 4 mental 560 + 340'},{q:'1,000 − 650 =',cls:'ex',f:[['',350]],lab:'Day 4 mental 1,000 − 650'},{q:'945 − 400 =',cls:'ex',f:[['',545]],lab:'Day 4 mental 945 − 400'}]);
+  picks('#d4pk',4,'d4k',[['<sup>1</sup>⁄<sub>5</sub> (one fifth) of <b>35</b> is ?','find the part','Day 4 part or whole']],['find the part','find the whole']);
+  rows('#d4pt',4,'d4x',[{q:'Now solve it:',f:[['answer =',7]],lab:'Day 4 part/whole story'}],1);
+  rows('#d4wh',4,'d4p',[{q:'<sup>1</sup>⁄<sub>3</sub> (one third) of <b>21</b> is ?',f:[['part =',7]],lab:'Day 4 part 1/3 of 21'},{q:'<sup>1</sup>⁄<sub>6</sub> (one sixth) of <b>18</b> is ?',f:[['part =',3]],lab:'Day 4 part 1/6 of 18'},{q:'<sup>1</sup>⁄<sub>4</sub> (one fourth) of a number is <b>5</b>. What is the number?',f:[['whole =',20]],lab:'Day 4 whole: 1/4 is 5'},{q:'<sup>1</sup>⁄<sub>3</sub> (one third) of a number is <b>9</b>. What is the number?',f:[['whole =',27]],lab:'Day 4 whole: 1/3 is 9'}],2);
+  picksA('#d4sh',4,'d4n0',[[qpoly('para2')+'Best name?','parallelogram','Day 4 shape name']],QN,0);
+  picksA('#d4sh',4,'d4n1',[[qpoly('square')+'Best name?','square','Day 4 shape name']],QN,1);
+  picksA('#d4sh',4,'d4n2',[['True or false? Every <b>quadrilateral</b> has 4 sides and 4 angles.','true','Day 4 true/false']],['true','false'],2);
+  rowsA('#d4sh',4,'d4n3',[{q:'A <b>rectangle</b> has sides <b>8 cm</b> and <b>3 cm</b>. What is its perimeter?',f:[['P =',22,'cm']],lab:'Day 4 perimeter'}],3);
+  rows('#d4es',4,'d4e',[{q:'<b>463 − 218</b>: estimate first, then solve exactly.',f:[['estimate =',240],['exact =',245]],lab:'Day 4 estimate 463 − 218'}]);
+  rows('#d4th',4,'d4t',[{q:'I thought of a number. I <b>took away 25</b> and got <b>45</b>. What was my number?',f:[['number =',70]],lab:'Day 4 thought: took away 25 → 45'},{q:'I thought of a number. I <b>multiplied it by 7</b> and got <b>49</b>. What was my number?',f:[['number =',7]],lab:'Day 4 thought: multiplied it by 7 → 49'}]);
+  rows('#d4ol',4,'d4o',[{q:'Tom has <b>15</b> candies. He gives <sup>1</sup>⁄<sub>3</sub> (one third) of them to his sister. How many candies does Tom have <b>left</b>?',f:[['left =',10]],lab:'Day 4 olympiad'}]);
+  /* day 5 */
+  rows('#d5mm',5,'d5m',[{q:'1,600 − 800 =',cls:'ex',f:[['',800]],lab:'Day 5 mental 1,600 − 800'},{q:'850 − 400 =',cls:'ex',f:[['',450]],lab:'Day 5 mental 850 − 400'},{q:'250 + 750 =',cls:'ex',f:[['',1000]],lab:'Day 5 mental 250 + 750'},{q:'1,400 − 500 =',cls:'ex',f:[['',900]],lab:'Day 5 mental 1,400 − 500'},{q:'720 − 120 =',cls:'ex',f:[['',600]],lab:'Day 5 mental 720 − 120'}]);
+  picks('#d5pk',5,'d5k',[['Sam spent <sup>1</sup>⁄<sub>4</sub> (one fourth) of his money. He spent <b>$5</b>. How much money did he have?','find the whole','Day 5 part or whole']],['find the part','find the whole']);
+  rows('#d5pt',5,'d5x',[{q:'Now solve it:',f:[['answer =',20]],lab:'Day 5 part/whole story'}],1);
+  rows('#d5wh',5,'d5p',[{q:'<sup>1</sup>⁄<sub>2</sub> (one half) of <b>30</b> is ?',f:[['part =',15]],lab:'Day 5 part 1/2 of 30'},{q:'<sup>2</sup>⁄<sub>5</sub> (two fifths) of <b>10</b> is ?',f:[['part =',4]],lab:'Day 5 part 2/5 of 10'},{q:'<sup>1</sup>⁄<sub>5</sub> (one fifth) of a number is <b>4</b>. What is the number?',f:[['whole =',20]],lab:'Day 5 whole: 1/5 is 4'},{q:'<sup>1</sup>⁄<sub>2</sub> (one half) of a number is <b>15</b>. What is the number?',f:[['whole =',30]],lab:'Day 5 whole: 1/2 is 15'}],2);
+  picksA('#d5sh',5,'d5n0',[[qpoly('rhombus')+'Best name?','rhombus','Day 5 shape name']],QN,0);
+  picksA('#d5sh',5,'d5n1',[[qpoly('rectangle')+'Best name?','rectangle','Day 5 shape name']],QN,1);
+  picksA('#d5sh',5,'d5n2',[['True or false? A <b>rectangle</b> always has <b>4 equal sides</b>.','false','Day 5 true/false']],['true','false'],2);
+  picksA('#d5sh',5,'d5n3',[[strip([50, 90, 100],[0])+'Is this strip cut into <b>equal</b> parts?','no','Day 5 equal parts?']],['yes','no'],3);
+  rows('#d5es',5,'d5e',[{q:'<b>89 + 46</b>: estimate first, then solve exactly.',f:[['estimate =',140],['exact =',135]],lab:'Day 5 estimate 89 + 46'}]);
+  rows('#d5th',5,'d5t',[{q:'I thought of a number. I <b>added 36</b> and got <b>60</b>. What was my number?',f:[['number =',24]],lab:'Day 5 thought: added 36 → 60'},{q:'I thought of a number. I <b>multiplied it by 8</b> and got <b>48</b>. What was my number?',f:[['number =',6]],lab:'Day 5 thought: multiplied it by 8 → 48'}]);
+  picks('#d5ex',5,'d5v',[['Divisible by 2? By 10? <b>57</b>','neither','Day 5 divisible 57'],['Divisible by 2? By 10? <b>390</b>','2 and 10','Day 5 divisible 390']],['2 and 10','2 only','neither']);
+  rows('#d5ol',5,'d5o',[{q:'I am a two-digit number. My two digits are the <b>same</b>, and they add up to <b>8</b>. Who am I?',f:[['number =',44]],lab:'Day 5 olympiad'}]);
+  /* day 6 */
+  rows('#d6mm',6,'d6m',[{q:'1,200 − 700 =',cls:'ex',f:[['',500]],lab:'Day 6 mental 1,200 − 700'},{q:'1,000 − 250 =',cls:'ex',f:[['',750]],lab:'Day 6 mental 1,000 − 250'},{q:'640 + 260 =',cls:'ex',f:[['',900]],lab:'Day 6 mental 640 + 260'},{q:'1,500 − 900 =',cls:'ex',f:[['',600]],lab:'Day 6 mental 1,500 − 900'},{q:'880 − 340 =',cls:'ex',f:[['',540]],lab:'Day 6 mental 880 − 340'}]);
+  picks('#d6pk',6,'d6k',[['<sup>1</sup>⁄<sub>2</sub> (one half) of a number is <b>20</b>. What is the number?','find the whole','Day 6 part or whole']],['find the part','find the whole']);
+  rows('#d6pt',6,'d6x',[{q:'Now solve it:',f:[['answer =',40]],lab:'Day 6 part/whole story'}],1);
+  rows('#d6wh',6,'d6p',[{q:'<sup>1</sup>⁄<sub>4</sub> (one fourth) of <b>28</b> is ?',f:[['part =',7]],lab:'Day 6 part 1/4 of 28'},{q:'<sup>3</sup>⁄<sub>4</sub> (three fourths) of <b>8</b> is ?',f:[['part =',6]],lab:'Day 6 part 3/4 of 8'},{q:'<sup>1</sup>⁄<sub>3</sub> (one third) of a number is <b>8</b>. What is the number?',f:[['whole =',24]],lab:'Day 6 whole: 1/3 is 8'},{q:'<sup>2</sup>⁄<sub>3</sub> (two thirds) of a number is <b>10</b>. What is the number?',f:[['whole =',15]],lab:'Day 6 whole: 2/3 is 10'}],2);
+  picksA('#d6sh',6,'d6n0',[[qpoly('trapezoid')+'Best name?','trapezoid','Day 6 shape name']],QN,0);
+  picksA('#d6sh',6,'d6n1',[[qpoly('pent5')+'This shape is a…','pentagon','Day 6 shape kind']],['triangle','quadrilateral','pentagon'],1);
+  rowsA('#d6sh',6,'d6n2',[{q:'A <b>rhombus</b> has a side of <b>7 cm</b>. What is its perimeter?',f:[['P =',28,'cm']],lab:'Day 6 perimeter'}],2);
+  picksA('#d6sh',6,'d6n3',[[strip([80, 80, 80],[0, 1])+'What fraction is shaded?','2/3','Day 6 fraction shaded']],FRS,3);
+  rows('#d6es',6,'d6e',[{q:'<b>532 − 297</b>: estimate first, then solve exactly.',f:[['estimate =',230],['exact =',235]],lab:'Day 6 estimate 532 − 297'}]);
+  rows('#d6th',6,'d6t',[{q:'I thought of a number. I <b>took away 19</b> and got <b>31</b>. What was my number?',f:[['number =',50]],lab:'Day 6 thought: took away 19 → 31'},{q:'I thought of a number. I <b>multiplied it by 9</b> and got <b>72</b>. What was my number?',f:[['number =',8]],lab:'Day 6 thought: multiplied it by 9 → 72'}]);
+  rows('#d6ex',6,'d6f',[{q:'9 × 6 =',cls:'ex',f:[['',54]],lab:'Day 6 fact 9 × 6'},{q:'48 ÷ 8 =',cls:'ex',f:[['',6]],lab:'Day 6 fact 48 ÷ 8'},{q:'8 × 8 =',cls:'ex',f:[['',64]],lab:'Day 6 fact 8 × 8'}]);
+  rows('#d6ol',6,'d6o',[{q:'In <b>3 years</b> Ann will be <b>10</b>. How old was Ann <b>2 years ago</b>?',f:[['age =',5]],lab:'Day 6 olympiad'}]);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw7';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 7'; }
+  const SK='mm-hw7-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ Object.keys(SEC).forEach(s=>{ const its=ITEMS.filter(i=>i.sec==s); $('#c'+s).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 7',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
