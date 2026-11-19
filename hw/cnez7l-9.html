@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Lesson 13</title>
+<script src="../config.js"></script>
+<style>[hidden]{display:none!important} body{margin:0}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&family=Caveat:wght@500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2; --oly:#7A5BD6; --oly-soft:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE; --note:#FFF7D6; --note-ink:#6B5210;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221; --note:#2F2A17; --note-ink:#F1DC9A;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221; --note:#2F2A17; --note-ink:#F1DC9A;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 48px}
+.wrap{max-width:900px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2,h3{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:25px;font-weight:800} h3{font-size:19px;font-weight:600}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.meta{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;padding:3px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;font-size:14px;color:var(--muted)}
+.toolbar label{display:flex;gap:6px;align-items:center;cursor:pointer}
+nav.steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:6px}
+nav.steps button{font:inherit;font-size:12px;line-height:1.2;padding:7px 4px;border-radius:10px;border:1.5px solid var(--line);background:var(--card);color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.steps button b{font-family:"Grandstander",sans-serif;font-size:17px;color:var(--ink)}
+nav.steps button[aria-current="step"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+nav.steps button[aria-current="step"] b{color:var(--paper)}
+section.stage{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:16px}
+.stage-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px}
+.time{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.lead{font-size:18px;max-width:64ch}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.q{font-size:19px}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.it .n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.it .b{display:flex;flex-direction:column;gap:8px}
+input.num,input.txt,select.op{font:inherit;font-size:20px;font-weight:700;padding:6px 10px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num{width:100px} input.txt{width:150px} select.op{width:70px}
+input:focus,select:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+.right{border-color:var(--ok)!important;background:var(--ok-soft)!important}
+.wrong{border-color:var(--bad)!important;background:var(--bad-soft)!important}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+button:disabled{opacity:.45;cursor:not-allowed}
+.fb{font-size:15px;min-height:1.3em;font-weight:500} .fb.ok{color:var(--ok)} .fb.no{color:var(--bad)}
+.hint{font-size:14px;color:var(--muted)}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.tnote{display:none;background:var(--note);color:var(--note-ink);border-radius:10px;padding:10px 14px;font-family:"Caveat",cursive;font-size:21px;line-height:1.3}
+body.notes .tnote{display:block}
+.tnote::before{content:"Учителю: ";font-weight:700}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+.shape{border:1.5px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px;align-items:center}
+.shape svg{max-width:100%;height:auto}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:86px;font-size:17px;padding:4px 6px}
+.chain{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.box{min-width:70px;height:52px;border:2.5px solid var(--ink);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:"Grandstander",sans-serif;font-size:22px;background:var(--card)}
+.box input{width:66px;border:none;background:transparent;text-align:center;font:inherit;color:var(--ink)}
+.arr{display:flex;flex-direction:column;align-items:center;font-size:14px;color:var(--warm);font-weight:700;min-width:62px}
+.arr span{font-size:22px;line-height:1}
+.udwrap{overflow-x:auto;max-width:100%}
+.ud{position:relative;display:inline-block;padding-bottom:42px}
+.ud .chain{flex-wrap:nowrap}
+.back{position:absolute;bottom:6px;height:30px;border:2.5px solid var(--warm);border-top:none;border-radius:0 0 18px 18px}
+.back::before{content:"▲";position:absolute;left:-9px;top:-12px;color:var(--warm);font-size:14px;line-height:1}
+.backlab{display:flex;justify-content:center;gap:8px;align-items:center;margin-top:8px}
+.frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:"Grandstander",sans-serif;font-size:20px;line-height:1.05;margin:0 4px}
+.frac i{font-style:normal;border-top:2px solid var(--ink);padding-top:1px}
+.draw{border:2px dashed var(--line);border-radius:12px;min-height:110px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;padding:10px}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.summary div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.summary b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.pager{display:flex;justify-content:space-between;gap:10px}
+@media (max-width:480px){ section.stage{padding:16px} .q{font-size:17px} .ex{font-size:21px} }
+.opt{font-family:"Grandstander",sans-serif}
+.pk .btn.ghost{min-width:64px}
+.legend{font-size:15px;color:var(--muted)}
+</style>
+
+
+
+
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow"><span id="eb">MathMind Online · Lesson 13 · Grade 4</span></span>
+    <h1>Money, Feet and Inches, Time (and Angles Again)</h1>
+    <div class="meta"><span class="chip">MA.4.GR.1.2–1.3 angles (review)</span><span class="chip">Review: one of each</span><span class="chip">MA.4.M.2.2 money</span><span class="chip">MA.4.M.1.2 feet · inches · time</span><span class="chip">MA.4.M.2.1 elapsed time</span><span class="chip">Kangaroo style</span></div>
+  </header>
+  <div class="toolbar"><span id="net" class="hint"></span><span id="score"></span></div>
+  <nav class="steps" id="stepsNav" aria-label="Lesson parts"></nav>
+  <section class="stage" data-title="Warm-up">
+    <div class="stage-head"><h2>Warm-up: Facts to 12</h2><span class="time">0–3 min</span></div>
+    <div class="method">Say the answer fast!</div><div class="list" id="warm"></div>
+  </section>
+  <section class="stage" data-title="Angles" hidden>
+    <div class="stage-head"><h2>Angles Again: Measure, Find, Think</h2><span class="time">3–13 min</span></div>
+    <div class="method">Center on the <b>vertex</b>, one side on <b>0</b>. First say: <b>acute or obtuse?</b> Then read. <b>Right = 90°, straight = 180°, full turn = 360°.</b> Missing angle: subtract, then <b>check by adding</b>.</div><h3 style="margin:0;font-size:18px">A. Read the protractor</h3><div class="list" id="mp"></div><h3 style="margin:0;font-size:18px">B. Find the missing angle</h3><div class="list" id="mi"></div>
+  </section>
+  <section class="stage" data-title="Review" hidden>
+    <div class="stage-head"><h2>Review: One of Each</h2><span class="time">13–21 min</span></div>
+    <div class="method">One problem from every topic we learned. Read carefully, then solve.</div><div class="list" id="rv1"></div><div class="list" id="rv2"></div><div class="list" id="rvp"></div>
+  </section>
+  <section class="stage" data-title="Primes" hidden>
+    <div class="stage-head"><h2>Prime Factors: Same Question, New Words</h2><span class="time">21–26 min</span></div>
+    <div class="method">“Prime factorization of 20”, “write 20 as a product of primes”, “which primes multiply to make 20?”, “break 20 into primes” — <b>all the same question!</b> Answer: 20 = 2 × 2 × 5.</div><div class="list" id="pq"></div><div class="list" id="pw"></div>
+  </section>
+  <section class="stage" data-title="Money" hidden>
+    <div class="stage-head"><h2>NEW: Money with Dollars and Cents</h2><span class="time">26–34 min</span></div>
+    <div class="method"><b>$1 = 100¢.</b> A quarter = 25¢, a dime = 10¢, a nickel = 5¢, a penny = 1¢.<br>$3.45 means <b>3 dollars and 45 cents</b>. Line up the <b>dots</b> to add or subtract: dollars under dollars, cents under cents.<br>Change = money you give − price.</div><div class="list" id="mo"></div>
+  </section>
+  <section class="stage" data-title="Feet" hidden>
+    <div class="stage-head"><h2>NEW: Feet and Inches</h2><span class="time">34–42 min</span></div>
+    <div class="method"><b>1 foot = 12 inches. 1 yard = 3 feet.</b><br>Big unit → small unit: <b>× 12</b> (more pieces). Small unit → big unit: <b>÷ 12</b>, and the remainder stays in inches.</div><table style="border-collapse:collapse;font-size:18px;margin:4px 0" id="ftab"></table><div class="list" id="fi"></div>
+  </section>
+  <section class="stage" data-title="Time" hidden>
+    <div class="stage-head"><h2>NEW: Time: Hours, Minutes, Seconds</h2><span class="time">42–52 min</span></div>
+    <div class="method"><b>1 hour = 60 minutes. 1 minute = 60 seconds.</b> 1 day = 24 hours.<br>Elapsed time: jump on a time line — first to the next <b>full hour</b>, then the rest. <b>12:00</b> is where <b>a.m.</b> changes to <b>p.m.</b></div><div class="list" id="tm"></div>
+  </section>
+  <section class="stage" data-title="Olympiad" hidden style="border:2px solid var(--oly)">
+    <div class="stage-head"><h2>Olympiad Problem · Kangaroo style · 4 points</h2><span class="time">52–58 min</span></div>
+    <p class="q">What is the <b>smallest</b> number that can be divided by <b>2, 3, 4 and 5</b> with no remainder?</p><div class="row" id="o3Ch"><button class="btn ghost" data-o="20">(A) 20</button><button class="btn ghost" data-o="30">(B) 30</button><button class="btn ghost" data-o="60">(C) 60</button><button class="btn ghost" data-o="120">(D) 120</button><button class="btn ghost" data-o="40">(E) 40</button></div><div class="fb" id="o3Fb"></div><div class="list" id="ox"></div>
+  </section>
+  <section class="stage" data-title="Summary" hidden>
+    <div class="stage-head"><h2>Summary</h2><span class="time">58–60 min</span></div>
+    <div class="summary" id="sum"></div>
+  </section>
+
+
+  <div class="pager"><button class="btn ghost" id="prevBtn">← Back</button><button class="btn ghost" id="resetBtn">Start over</button><button class="btn" id="nextBtn">Next →</button></div>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw9'; const SK='mm-hw9-'+(KID||'x');
+  let S={queue:[],tries:{},done:0}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function net(){ const el=document.getElementById('net'); if(!el) return; el.textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'Answers are sent to Madina ✓'); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const SECN={w:'Warm-up',mp:'Protractor',mi:'Missing angle',rv1:'Review: story',rv2:'Review: divisibility',rv3:'Review: mix',pq:'Primes: other side',pw:'Primes: new words',mo:'Money',ft:'Feet table',fi:'Feet & inches',tm:'Time',o3:'Olympiad',ox:'Olympiad: more'};
+  function log(id,block,answer,ok,correct){ if(answer==='') return; S.tries[id]=(S.tries[id]||0)+1; save();
+    queue({type:'hw',day:HW,item:id,section:SECN[block]||block,q:'Lesson 13 · '+(SECN[block]||block)+' → верно: '+correct,answer:answer,correct:!!ok,firstTry:S.tries[id]===1,tries:S.tries[id]}); }
+  window.addEventListener('online',flush);
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const fr=(a,b)=>'<span class="frac">'+a+'<i>'+b+'</i></span>';
+  const f=n=>n.toLocaleString('en-US');
+  const right=new Set(), ALL=new Set(), blockOf={};
+  const reg=(k,b)=>{ ALL.add(k); blockOf[k]=b; };
+  const upd=()=>{ $('#score').textContent=right.size+' of '+ALL.size+' correct'; };
+  const win=k=>{ right.add(k); upd(); };
+  const mark=(el,ok)=>{ el.classList.toggle('right',ok); el.classList.toggle('wrong',!ok); };
+  const say=(id,ok,msg)=>{ const el=$('#'+id); el.textContent=msg; el.className='fb '+(ok?'ok':'no'); };
+  /* item: [question, [answers], [labels], okMsg, noMsg, cls, partHint] */
+  function multi(host,block,items){
+    $(host).innerHTML=items.map((it,k)=>{ const id=block+k; return '<div class="it"><span class="n">'+(k+1)+'.</span><div class="b"><div class="'+(it[5]||'q')+'">'+it[0]+'</div><div class="row">'+it[1].map((a,j)=>'<span>'+(it[2][j]||'')+'</span><input class="num" id="'+id+'_'+j+'" inputmode="numeric" aria-label="'+(it[2][j]||'Answer')+'">').join('')+'<button class="btn small" id="'+id+'b">Check</button></div><div class="fb" id="'+id+'Fb"></div></div></div>'; }).join('');
+    items.forEach((it,k)=>{ const id=block+k; reg(id,block); const go=()=>{ const vals=it[1].map((a,j)=>num($('#'+id+'_'+j).value)); it[1].forEach((a,j)=>mark($('#'+id+'_'+j),vals[j]===a)); const ok=vals.every((v,j)=>v===it[1][j]);
+        const partOnly=!ok && it[1].length===2 && vals[0]===it[1][0];
+        say(id+'Fb',ok, ok?(it[3]||'Correct!'):(partOnly&&it[6]?it[6]:(it[4]||'Not yet. Check step by step.'))); if(ok) win(id); log(id,block,it[1].map((a,j)=>$('#'+id+'_'+j).value.trim()).join(' | '),ok,it[1].join(' | ')); };
+      $('#'+id+'b').onclick=go; it[1].forEach((a,j)=> $('#'+id+'_'+j).addEventListener('keydown',e=>{ if(e.key==='Enter') go(); })); });
+  }
+  /* pick item: [question, [options], correct index, okMsg, noMsg] */
+  function pick(host,block,items,start){
+    start=start||0;
+    $(host).innerHTML=items.map((it,k)=>{ const id=block+k; return '<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+it[0]+'</div><div class="row pk" id="'+id+'">'+it[1].map((o,j)=>'<button class="btn ghost opt" data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="fb" id="'+id+'Fb"></div></div></div>'; }).join('');
+    items.forEach((it,k)=>{ const id=block+k; reg(id,block);
+      $$('#'+id+' button').forEach(b=> b.onclick=()=>{ const ok=+b.dataset.j===it[2]; $$('#'+id+' button').forEach(x=>x.classList.remove('right','wrong')); b.classList.add(ok?'right':'wrong');
+        say(id+'Fb',ok, ok?(it[3]||'Correct!'):(it[4]||'Not this one. Think again.')); if(ok) win(id); log(id,block,b.textContent.trim(),ok,String(it[1][it[2]]).replace(/<[^>]+>/g,'')); }); });
+  }
+  const X=(q,a,l,ok)=>[q,[a],[l||''],ok,0,'ex'];
+  /* area model picture: h = short side, parts = pieces of the long side */
+  function area(h,parts){ const W=300, tot=parts.reduce((a,b)=>a+b,0); let x=40, g='';
+    parts.forEach(p=>{ const w=Math.max(48,W*p/tot); g+='<rect x="'+x+'" y="26" width="'+w+'" height="60" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2"/><text x="'+(x+w/2)+'" y="18" text-anchor="middle" font-size="14" fill="var(--ink)">'+p+'</text><text x="'+(x+w/2)+'" y="61" text-anchor="middle" font-size="13" fill="var(--muted)">?</text>'; x+=w; });
+    g+='<text x="28" y="61" text-anchor="middle" font-size="14" fill="var(--ink)">'+h+'</text>';
+    return '<svg viewBox="0 0 '+(x+10)+' 96" width="'+(x+10)+'" role="img" aria-label="area model '+h+' by '+parts.join(' + ')+'" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+
+  function dots(n,g){ const full=Math.floor(n/g), rem=n%g; let s='', x=8, y=8; const R=8, step=22;
+    for(let k=0;k<full;k++){ const w=g*step+8; s+='<rect x="'+(x-4)+'" y="'+(y-4)+'" width="'+w+'" height="'+(step+8)+'" rx="10" fill="none" stroke="var(--acc)" stroke-width="2" stroke-dasharray="4 3"/>';
+      for(let i=0;i<g;i++) s+='<circle cx="'+(x+R+4+i*step)+'" cy="'+(y+R+3)+'" r="'+R+'" fill="var(--acc)" opacity=".8"/>'; y+=step+12; }
+    for(let i=0;i<rem;i++) s+='<circle cx="'+(x+R+4+i*step)+'" cy="'+(y+R+3)+'" r="'+R+'" fill="var(--warm)"/>';
+    const H=y+(rem?step+10:0)+4, W=g*step+24;
+    return '<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" role="img" aria-label="'+n+' dots in groups of '+g+' with '+rem+' left over" style="display:block;max-width:100%;height:auto">'+s+'</svg>'; }
+
+  multi('#warm','w',[X('12 × 9',108),X('84 ÷ 12',7),X('11 × 8',88),X('60 × 3',180),X('360 ÷ 4',90)]);
+
+  /* protractor: one side on 0 (right), the other at d degrees */
+  function prot(d){ const cx=160,cy=150,r=130; let g='<path d="M'+(cx-r)+' '+cy+' A'+r+' '+r+' 0 0 1 '+(cx+r)+' '+cy+' Z" fill="var(--gold-soft)" fill-opacity=".55" stroke="var(--ink)" stroke-width="2"/>';
+    for(let a=0;a<=180;a+=5){ const t=a*Math.PI/180, L=a%30===0?16:(a%10===0?11:6), c=Math.cos(t), s=Math.sin(t);
+      g+='<line x1="'+(cx+r*c).toFixed(1)+'" y1="'+(cy-r*s).toFixed(1)+'" x2="'+(cx+(r-L)*c).toFixed(1)+'" y2="'+(cy-(r-L)*s).toFixed(1)+'" stroke="var(--ink)" stroke-width="'+(a%10?1:1.6)+'"/>';
+      if(a%10===0) g+='<text x="'+(cx+(r-28)*c).toFixed(1)+'" y="'+(a%180===0?cy-9:cy-(r-28)*s+4).toFixed(1)+'" text-anchor="middle" font-size="'+(a%30?9:12)+'" font-weight="'+(a%30?400:700)+'" fill="var(--'+(a%30?'muted':'ink')+')">'+a+'</text>'; }
+    const t=d*Math.PI/180;
+    g+='<line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+r+20)+'" y2="'+cy+'" stroke="var(--warm)" stroke-width="3.5" stroke-linecap="round"/><line x1="'+cx+'" y1="'+cy+'" x2="'+(cx+(r+20)*Math.cos(t)).toFixed(1)+'" y2="'+(cy-(r+20)*Math.sin(t)).toFixed(1)+'" stroke="var(--warm)" stroke-width="3.5" stroke-linecap="round"/><circle cx="'+cx+'" cy="'+cy+'" r="4" fill="var(--ink)"/>';
+    return '<svg viewBox="0 0 330 160" width="330" role="img" aria-label="a protractor measuring an angle" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  multi('#mp','mp',[[prot(50)+'Acute or obtuse? How many degrees?',[50],['angle ='],'50°: acute.','Start at 0 on the right side. Count up to the second line.','q'],
+    [prot(135)+'Acute or obtuse? How many degrees? (Small ticks are every 5°.)',[135],['angle ='],'135°: obtuse, between 130 and 140.','Obtuse means more than 90. Find 130, then one small tick more.','q']]);
+  multi('#mi','mi',[['A straight angle is split into two angles. One is <b>64°</b>. How big is the other?',[116],['□ ='],'180 − 64 = 116°. Check: 116 + 64 = 180 ✓','Straight angle = 180°: 64 + □ = 180.','q'],
+    ['A right angle is split into two angles. One is <b>42°</b>. How big is the other?',[48],['□ ='],'90 − 42 = 48°. Check: 48 + 42 = 90 ✓','Right angle = 90°. Check by adding!','q'],
+    ['Three angles make a <b>full turn</b>: <b>110°</b>, <b>90°</b> and □. Find □.',[160],['□ ='],'360 − 110 − 90 = 160°.','A full turn is 360°.','q'],
+    ['⭐ A right angle is split into two angles. One is <b>2 times</b> as big as the other. How big is the smaller one?',[30],['smaller ='],'x + 2x = 90, 3x = 90, x = 30°. The big one is 60°.','Call the small one x. The big one is 2x. Together: 90.','q']]);
+
+  multi('#rv1','rv1',[['<b>Story:</b> A dress costs <b>$72</b>. That is <b>4 times as much</b> as a hat. How much does the hat cost?',[18],['hat = $'],'The dress is bigger, we know the big one: 72 ÷ 4 = 18.','Who is bigger: the dress or the hat? Do we know the big one?','q']]);
+  pick('#rv2','rv2',[['<b>Divisibility:</b> which number is divisible by <b>9</b>?',['3,456','2,345','1,234','4,567'],0,'3 + 4 + 5 + 6 = 18, and 18 divides by 9.','Add the digits of each number.']],1);
+  $('#rvp').innerHTML='';
+  multi('#rvp','rv3',[['<b>Remainder:</b> <span class="ex">275 ÷ 8</span> = □ R □',[34,3],['',' R '],'8 × 34 = 272, 275 − 272 = 3.','240 ÷ 8 = 30, 35 ÷ 8 = 4 R 3.','q','The quotient is right! What is left over?'],
+    ['<b>Equation:</b> <span class="ex">2(x + 6) = x + 15</span>',[3],['x ='],'2x + 12 = x + 15 → x = 3. Check: 2 × 9 = 18 = 3 + 15 ✓','Open the brackets, then take away x from both sides.'],
+    ['<b>Multiply:</b> <span class="ex">34 × 12</span>',[408],[''],'34 × 10 = 340, 34 × 2 = 68, 340 + 68 = 408.','Break 12 into 10 + 2.'],
+    ['<b>Fractions:</b> '+fr(3,4)+' = '+fr('□',8),[6],['□ ='],'3/4 = 6/8: top and bottom × 2.','4 × 2 = 8, so 3 × 2 = ?','q']]);
+  document.querySelectorAll('#rvp .n').forEach((n,k)=>n.textContent=(k+3)+'.');
+
+  /* primes in different words: type primes with spaces */
+  const isP=n=>{ if(n<2) return false; for(let d=2;d*d<=n;d++) if(n%d===0) return false; return true; };
+  const PW=[['Write <b>24</b> as a product of primes.',24,'2 × 2 × 2 × 3'],['Which primes multiply to make <b>30</b>?',30,'2 × 3 × 5'],['Break <b>63</b> into primes.',63,'3 × 3 × 7'],['⭐ Write <b>100</b> as a product of primes.',100,'2 × 2 × 5 × 5']];
+  $('#pw').innerHTML=PW.map((p,k)=>'<div class="it"><span class="n">'+(k+1)+'.</span><div class="b"><div class="q">'+p[0]+' <span class="hint">Type the primes with spaces, e.g. 2 2 5</span></div><div class="row"><span class="ex">'+p[1]+' =</span><input class="txt" style="width:200px" id="pw'+k+'" aria-label="primes for '+p[1]+'"><button class="btn small" id="pw'+k+'b">Check</button></div><div class="fb" id="pw'+k+'Fb"></div></div></div>').join('');
+  PW.forEach((p,k)=>{ const id='pw'+k; reg(id,'pw'); const go=()=>{ const ns=($('#'+id).value.match(/\d+/g)||[]).map(Number); const prod=ns.reduce((a,b)=>a*b,1);
+      const bad=ns.filter(n=>!isP(n)); const ok=ns.length>0&&!bad.length&&prod===p[1]; mark($('#'+id),ok);
+      say(id+'Fb',ok, ok?p[1]+' = '+p[2]+'. Same as the prime factorization!': !ns.length?'Type the primes, e.g. 2 2 5.': bad.length?bad[0]+' is not prime. Split it again!':'These multiply to '+prod+', not '+p[1]+'.'); if(ok) win(id); log(id,'pw',$('#'+id).value.trim(),ok,p[2]); };
+    $('#'+id+'b').onclick=go; $('#'+id).addEventListener('keydown',e=>{ if(e.key==='Enter') go(); }); });
+  multi('#pq','pq',[['What is the <b>smallest</b> prime factor of <b>45</b>?',[3],[''],'45 = 3 × 3 × 5, the smallest is 3.','Is 45 even? Try 3.','q'],
+    ['The prime factorization of a number is <b>2 × 3 × 7</b>. What is the number?',[42],['number ='],'2 × 3 = 6, 6 × 7 = 42.','Multiply the primes.','q']]);
+  document.querySelectorAll('#pw .n').forEach((n,k)=>n.textContent=(k+3)+'.');
+
+  /* money: answers as dollars + cents */
+  const M=(q,d,c,ok,no)=>[q,[d,c],['$','.'],ok,no,'q','The dollars are right! Check the cents.'];
+  multi('#mo','mo',[['How much money? <b>3 quarters, 2 dimes and 1 nickel.</b>',[1,0],['$','.'],'75 + 20 + 5 = 100¢ = $1.00.','Quarter 25¢, dime 10¢, nickel 5¢. Add the cents.','q','The dollars are right! Check the cents.'],
+    ['How many cents are in <b>$2.40</b>?',[240],['¢ ='],'$2 = 200¢, plus 40¢ = 240¢.','$1 = 100¢.','q'],
+    M('<span class="ex">$3.45 + $2.30</span>',5,75,'$5.75: 3 + 2 dollars, 45 + 30 cents.','Add dollars to dollars, cents to cents.'),
+    M('A toy costs <b>$6.35</b>. You pay with a <b>$10</b> bill. How much change do you get?',3,65,'$10.00 − $6.35 = $3.65. Count up: $6.35 → $7.00 is 65¢, → $10 is $3.','Count up from $6.35 to $7, then to $10.'),
+    M('<span class="ex">$4.80 + $2.65</span>',7,45,'80 + 65 = 145¢ = $1.45, so $4 + $2 + $1.45 = $7.45.','80¢ + 65¢ is more than a dollar!'),
+    M('⭐ Two steps: a book costs <b>$4.75</b> and a pen costs <b>$1.80</b>. You pay <b>$10</b>. What is your change?',3,45,'Total $6.55, change $10.00 − $6.55 = $3.45.','First add the prices. Then subtract from $10.')]);
+
+  /* feet and inches */
+  $('#ftab').innerHTML='<tr><th style="border:2px solid var(--line);padding:4px 10px">feet</th>'+[1,2,3,4,5].map(n=>'<td style="border:2px solid var(--line);padding:4px 10px;text-align:center">'+n+'</td>').join('')+'</tr><tr><th style="border:2px solid var(--line);padding:4px 10px">inches</th>'+[1,2,3,4,5].map(n=>'<td style="border:2px solid var(--line);padding:4px 6px;text-align:center">'+(n===1?'12':'<input class="num" style="width:58px" id="ft'+n+'" inputmode="numeric" aria-label="'+n+' feet in inches">')+'</td>').join('')+'</tr>';
+  [2,3,4,5].forEach(n=>{ const id='ft'+n; reg(id,'ft'); $('#'+id).addEventListener('input',()=>{ const ok=num($('#'+id).value)===12*n; mark($('#'+id),ok); if(ok) win(id); }); $('#'+id).addEventListener('change',()=>{ const v=$('#'+id).value.trim(); if(v) log(id,'ft',v,num(v)===12*n,12*n); }); });
+  multi('#fi','fi',[['<span class="ex">5 ft 4 in</span> = □ in',[64],['□ ='],'5 × 12 = 60, 60 + 4 = 64 inches.','First change 5 feet to inches.','q'],
+    ['<span class="ex">50 in</span> = □ ft □ in',[4,2],['ft =','in ='],'50 ÷ 12 = 4 R 2 → 4 ft 2 in.','How many 12s fit in 50? The rest stays in inches.','q','The feet are right! What is left over?'],
+    ['<span class="ex">2 yards</span> = □ ft = □ in',[6,72],['ft =','in ='],'2 × 3 = 6 ft, 6 × 12 = 72 in.','1 yard = 3 feet. Then 1 foot = 12 inches.','q','The feet are right! Now × 12.'],
+    ['Which is longer: <b>2 ft</b> or <b>30 in</b>? Type the inches of the longer one.',[30],['longer ='],'2 ft = 24 in, and 30 in is longer.','Change 2 ft to inches first.','q'],
+    ['⭐ A ribbon is <b>6 feet</b> long. You cut it into pieces <b>8 inches</b> long. How many pieces?',[9],['pieces ='],'6 ft = 72 in, 72 ÷ 8 = 9 pieces.','Feet and inches do not mix! Change 6 ft to inches first.','q']]);
+
+  /* time */
+  multi('#tm','tm',[['<span class="ex">3 hours</span> = □ minutes',[180],['□ ='],'3 × 60 = 180 minutes.','1 hour = 60 minutes.','q'],
+    ['<span class="ex">2 h 15 min</span> = □ min',[135],['□ ='],'120 + 15 = 135 minutes.','2 hours = 120 minutes.','q'],
+    ['<span class="ex">4 minutes</span> = □ seconds',[240],['□ ='],'4 × 60 = 240 seconds.','1 minute = 60 seconds.','q'],
+    ['<span class="ex">200 min</span> = □ h □ min',[3,20],['h =','min ='],'200 ÷ 60 = 3 R 20 → 3 h 20 min.','How many 60s fit in 200?','q','The hours are right! What is left over?'],
+    ['A movie starts at <b>2:45 p.m.</b> It lasts <b>1 h 50 min</b>. When does it end? <span class="hint">(hour : minutes p.m.)</span>',[4,35],['',':'],'2:45 + 1 h = 3:45, + 15 min = 4:00, + 35 min = 4:35 p.m.','Jump 1 hour first. Then jump to the full hour.','q','The hour is right! Check the minutes.'],
+    ['A school trip starts at <b>10:40 a.m.</b> and ends at <b>1:15 p.m.</b> How long is that?',[2,35],['h =','min ='],'10:40 → 11:00 is 20 min, → 1:00 is 2 h, → 1:15 is 15 min. 2 h 35 min.','Jump to 11:00 first. Then to 1:00. Then the rest.','q','The hours are right! Add the minute jumps.'],
+    ['⭐ Two steps: Mia practices piano <b>45 minutes</b> a day for <b>3 days</b>. How long is that in hours and minutes?',[2,15],['h =','min ='],'45 × 3 = 135 min = 2 h 15 min.','First find all the minutes. Then change to hours.','q','The hours are right! Check the minutes.']]);
+
+  function olyQ(id,ans,ok,no){ reg(id,id); $$('#'+id+'Ch button').forEach(b=> b.onclick=()=>{ const g=b.dataset.o===String(ans); $$('#'+id+'Ch button').forEach(x=>x.classList.remove('right','wrong')); b.classList.add(g?'right':'wrong'); say(id+'Fb',g,g?ok:no); if(g) win(id); log(id,id,b.textContent.trim(),g,String(ans)); }); }
+  olyQ('o3',60,'Yes, 60 = 2 × 2 × 3 × 5. It needs two 2s because of 4.','Check each answer: does it divide by 4? By 3? Is there a smaller one?');
+  multi('#ox','ox',[['Now it must also divide by <b>6</b>. What is the smallest number?',[60],['smallest ='],'Still 60: 6 = 2 × 3, and 60 already has 2 and 3.','Does 60 divide by 6?','q'],
+    ['⭐ Now it must divide by <b>2, 3, 4, 5 and 9</b>. What is the smallest number?',[180],['smallest ='],'9 = 3 × 3, so we need one more 3: 2 × 2 × 3 × 3 × 5 = 180.','60 = 2 × 2 × 3 × 5. What is missing for 9?','q']]);
+
+  const stages=$$('section.stage'); let cur=0; const KEY='mm-l13-step-'+(KID||'x');
+  stages.forEach((s,i)=>{ const b=document.createElement('button'); b.innerHTML='<b>'+(i+1)+'</b><span>'+s.dataset.title+'</span>'; b.onclick=()=>go(i); $('#stepsNav').appendChild(b); });
+  const NAMES={w:'Warm-up',mp:'Protractor',mi:'Missing angle',rv1:'Review: story',rv2:'Review: divisibility',rv3:'Review: mix',pq:'Primes: other side',pw:'Primes: new words',mo:'Money',ft:'Feet table',fi:'Feet & inches',tm:'Time',o3:'Olympiad',ox:'Olympiad: more'};
+  function summary(){ if(!S.done){ S.done=1; save(); queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Lesson 13',answer:right.size+' of '+ALL.size+' correct',score:right.size,total:ALL.size}); }
+    $('#sum').innerHTML=Object.keys(NAMES).map(k=>{ const keys=[...ALL].filter(x=>blockOf[x]===k); const r=keys.filter(x=>right.has(x)).length; return '<div><span class="hint">'+NAMES[k]+'</span><b>'+r+' / '+keys.length+'</b></div>'; }).join(''); }
+  function go(i){ cur=Math.max(0,Math.min(stages.length-1,i)); stages.forEach((s,k)=>s.hidden=k!==cur); $$('#stepsNav button').forEach((b,k)=>{ if(k===cur) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); });
+    $('#prevBtn').disabled=cur===0; $('#nextBtn').disabled=cur===stages.length-1; if(cur===stages.length-1) summary(); try{ localStorage.setItem(KEY,String(cur)); }catch(e){} }
+  $('#prevBtn').onclick=()=>{ go(cur-1); window.scrollTo({top:0,behavior:'smooth'}); };
+  $('#nextBtn').onclick=()=>{ go(cur+1); window.scrollTo({top:0,behavior:'smooth'}); };
+  $('#resetBtn').onclick=()=>{ try{ localStorage.removeItem(KEY); }catch(e){} location.reload(); };
+  if(NAME){ $('#eb').textContent='MathMind Online · '+NAME+' · Lesson 13'; }
+  net(); flush();
+  upd(); let st=0; try{ const s=parseInt(localStorage.getItem(KEY),10); if(!isNaN(s)) st=s; }catch(e){} go(st);
+})();
+</script>
+
+</body>
+</html>
