@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 10</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+.sub{margin:0;font-size:18px;font-family:"Grandstander",sans-serif}
+.rbw{overflow-x:auto;padding-bottom:4px}
+.rb{display:inline-flex;flex-direction:column}
+.rb svg{display:block}
+.rbrow{display:flex}
+.rbrow > *{width:52px;margin:0 3px;flex:none}
+.rbrow input.num{width:52px;font-size:17px;padding:4px 2px}
+.rbrow .giv{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:10px;border:2px solid var(--ink);font-weight:700;font-size:18px;background:var(--gold-soft)}
+.tree svg{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 10</span>
+    <h1>Fractions, Equal Fractions and Review (3 days)</h1>
+    <p class="lead">Do <b>one day at a time</b>, about 20 minutes a day. Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking and drawing. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <nav class="jump" aria-label="Days"><a href="#d1">Day 1 · Sat Nov 21</a><a href="#d2">Day 2 · Sun Nov 22</a><a href="#d3">Day 3 · Mon Nov 23</a><a href="#fin">Finish</a></nav>
+  </header>
+
+  <section class="card">
+    <h2>Remember</h2>
+    <div class="method"><b>Fraction:</b> the <b>bottom</b> number (denominator) = how many <b>equal</b> parts in the whole. The <b>top</b> number (numerator) = how many parts we take.<br>
+    <b>Part of a number:</b> first find <b>one part</b> (÷ bottom), then take the parts you need (× top). <span class="frac-ex">3/4 of 20: one part = 20 ÷ 4 = 5, three parts = 3 × 5 = 15.</span><br>
+    <b>Equal fractions:</b> multiply (or divide) the top <b>and</b> the bottom by the <b>same</b> number. 1/2 = 2/4 = 4/8.</div>
+  </section>
+
+  <section class="card" id="d1">
+    <div class="head"><h2>Day 1 · Saturday, Nov 21</h2><span class="cnt" id="c1"></span></div>
+    <h3 class="sub">A. Fractions</h3><div class="list" id="f1"></div>
+    <h3 class="sub">B. Equal Fractions</h3><div class="list" id="e1"></div>
+    <h3 class="sub">C. Review: One of Each</h3><div class="list" id="r1"></div>
+  </section>
+
+  <section class="card" id="d2">
+    <div class="head"><h2>Day 2 · Sunday, Nov 22</h2><span class="cnt" id="c2"></span></div>
+    <h3 class="sub">A. Fractions</h3><div class="list" id="f2"></div>
+    <h3 class="sub">B. Equal Fractions</h3><div class="list" id="e2"></div>
+    <h3 class="sub">C. Review: One of Each</h3><div class="list" id="r2"></div>
+  </section>
+
+  <section class="card" id="d3">
+    <div class="head"><h2>Day 3 · Monday, Nov 23</h2><span class="cnt" id="c3"></span></div>
+    <h3 class="sub">A. Fractions</h3><div class="list" id="f3"></div>
+    <h3 class="sub">B. Equal Fractions</h3><div class="list" id="e3"></div>
+    <h3 class="sub">C. Review: One of Each</h3><div class="list" id="r3"></div>
+  </section>
+
+  <section class="card done" id="fin">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={f:'Fractions',e:'Equal fractions',r:'Review'};
+  const add=(id,day,sec,ans,label,pick)=>ITEMS.push({id,day,sec,ans,label:'Day '+day+': '+label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=>it.pick ? v===it.ans : num(v)===it.ans;
+  const fr=(a,b)=>'<sup>'+a+'</sup>⁄<sub>'+b+'</sub>';
+  const N={};
+  const nx=host=>(N[host]=(N[host]||0)+1);
+  function rows(host,day,sec,pref,items){
+    items.forEach((it,k)=>{ const n=nx(host), id=pref+k;
+      $(host).insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+n+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+id+'_'+j+'" inputmode="numeric" aria-label="'+(f[0]||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>');
+      it.f.forEach((f,j)=>add(id+'_'+j,day,sec,f[1],it.lab+(it.f.length>1?' ('+(f[0]||j+1)+')':''))); });
+  }
+  function picks(host,day,sec,pref,items){
+    items.forEach((p,k)=>{ const n=nx(host), id=pref+k;
+      $(host).insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+n+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+id+'">'+p[3].map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>');
+      add(id,day,sec,p[1],p[2],1); });
+  }
+  function tape(n,k){ const W=300, w=W/n; let g='';
+    for(let i=0;i<n;i++) g+='<rect x="'+(10+i*w)+'" y="8" width="'+w+'" height="34" fill="'+(i<k?'var(--gold-soft)':'var(--card)')+'" stroke="var(--ink)" stroke-width="2"/>';
+    return '<svg viewBox="0 0 320 50" width="320" role="img" aria-label="bar in '+n+' equal parts, '+k+' shaded" style="display:block;max-width:100%;height:auto">'+g+'</svg>'; }
+  const TB=[['top'],['/ bottom']];
+  const SH=(n,k,what,lab)=>({q:tape(n,k)+'What fraction of the bar is <b>'+what+'</b>?',f:[['top',what==='yellow'?k:n-k],['/ bottom',n]],lab});
+  const PART=(q,one,ans,unit,lab)=>({q,f:[['one part =',one],['answer =',ans,unit||'']],lab});
+  const EQ=(a,b,c,d,ans,lab)=>({q:fr(a,b)+' = '+fr(c,d),cls:'ex',f:[['□ =',ans]],lab});
+  const MON=(q,d,c,lab)=>({q,f:[['$',d],['.',c]],lab});
+
+  /* ---------- DAY 1 ---------- */
+  rows('#f1',1,'f','a1',[SH(5,2,'yellow','2 of 5 shaded'),SH(5,2,'white (not shaded)','5 parts, 2 shaded → white'),SH(8,5,'white (not shaded)','8 parts, 5 shaded → white'),
+    PART('Find <b>'+fr(1,4)+' of 20</b>.',5,5,'','1/4 of 20'),
+    PART('Find <b>'+fr(3,4)+' of 20</b>.',5,15,'','3/4 of 20'),
+    PART('Find <b>'+fr(2,3)+' of 21</b>.',7,14,'','2/3 of 21'),
+    PART('A class has <b>24</b> children. <b>'+fr(1,3)+'</b> of them wear glasses. How many children wear glasses?',8,8,'children','1/3 of 24 kids')]);
+  picks('#e1',1,'e','p1',[[tape(2,1)+tape(8,4)+'Look at the two bars. Is '+fr(1,2)+' equal to '+fr(4,8)+'?','Yes','1/2 = 4/8? (picture)',['Yes','No']]]);
+  rows('#e1',1,'e','q1',[EQ(1,2,'□',8,4,'1/2 = □/8'),EQ(1,3,'□',9,3,'1/3 = □/9'),EQ(2,5,'□',10,4,'2/5 = □/10'),EQ(3,4,'□',8,6,'3/4 = □/8'),EQ('⭐ 4',8,1,'□',2,'4/8 = 1/□')]);
+  picks('#r1',1,'r','s1',[['Divisibility: is <b>2,346</b> divisible by <b>6</b>?','Yes','2346 ÷ 6?',['Yes','No']]]);
+  rows('#r1',1,'r','t1',[{q:'Divide with a remainder: <span class="ex">254 ÷ 7</span>',f:[['',36],['R',2]],lab:'254 ÷ 7'},
+    {q:'A bike costs <b>$96</b>. That is <b>8 times as much</b> as a ball. How much does the ball cost?',f:[['$',12]],lab:'96 is 8 times the ball'},
+    {q:'Equation: <span class="ex">2(x + 5) = x + 17</span>',f:[['x =',7]],lab:'2(x+5) = x+17'},
+    MON('You buy a book for <b>$13.45</b> and pay with a <b>$20</b> bill. How much change do you get?',6,55,'change from $20 for $13.45')]);
+
+  /* ---------- DAY 2 ---------- */
+  rows('#f2',2,'f','a2',[SH(4,3,'yellow','3 of 4 shaded'),SH(4,3,'white (not shaded)','4 parts, 3 shaded → white'),SH(10,7,'white (not shaded)','10 parts, 7 shaded → white'),
+    PART('Find <b>'+fr(1,5)+' of 35</b>.',7,7,'','1/5 of 35'),
+    PART('Find <b>'+fr(3,5)+' of 35</b>.',7,21,'','3/5 of 35'),
+    PART('There are <b>32</b> cookies. <b>'+fr(3,8)+'</b> of them are eaten. How many cookies are <b>eaten</b>?',4,12,'cookies','3/8 of 32 eaten'),
+    {q:'Same cookies: how many cookies are <b>left</b>?',f:[['left =',20,'cookies']],lab:'32 − 12 left'}]);
+  rows('#e2',2,'e','q2',[EQ(1,4,'□',12,3,'1/4 = □/12'),EQ(2,3,'□',6,4,'2/3 = □/6'),EQ(5,6,10,'□',12,'5/6 = 10/□'),EQ(3,5,'□',15,9,'3/5 = □/15'),EQ('⭐ 6',9,'□',3,2,'6/9 = □/3')]);
+  picks('#e2',2,'e','p2',[['Which fraction is equal to '+fr(1,2)+'?','3/6','= 1/2',['2/3','3/6','3/5','1/4']]]);
+  picks('#r2',2,'r','s2',[['Divisibility: is <b>1,234</b> divisible by <b>6</b>?','No','1234 ÷ 6?',['Yes','No']]]);
+  rows('#r2',2,'r','t2',[{q:'<b>50 inches</b> = □ feet □ inches <span class="hint">(1 foot = 12 inches)</span>',f:[['',4,'ft'],['',2,'in']],lab:'50 in = ft + in'},
+    {q:'A straight angle is split into two angles. One is <b>3 times</b> as big as the other. How big is each angle?',f:[['small =',45,'°'],['big =',135,'°']],lab:'x + 3x = 180'},
+    {q:'A movie starts at <b>10:40 a.m.</b> and ends at <b>1:15 p.m.</b> How long is the movie?',f:[['',2,'h'],['',35,'min']],lab:'10:40 → 1:15'},
+    {q:'<span class="ex">60 = 2 × 2 × □ × 5</span> <span class="hint">(prime factors)</span>',f:[['□ =',3]],lab:'60 = 2×2×□×5'}]);
+
+  /* ---------- DAY 3 ---------- */
+  rows('#f3',3,'f','a3',[SH(3,2,'yellow','2 of 3 shaded'),
+    {q:'A pizza is cut into <b>8</b> equal slices. Sam eats <b>3</b> slices. What fraction of the pizza is <b>left</b>?',f:[['top',5],['/ bottom',8]],lab:'pizza 8, eat 3 → left'},
+    PART('Find <b>'+fr(1,6)+' of 42</b>.',7,7,'','1/6 of 42'),
+    PART('Find <b>'+fr(5,6)+' of 42</b>.',7,35,'','5/6 of 42'),
+    PART('Mia has <b>$40</b>. She spends <b>'+fr(1,4)+'</b> of her money. How much does she <b>spend</b>?',10,10,'$','1/4 of $40 spent'),
+    {q:'Same story: how much money does Mia have <b>left</b>?',f:[['$',30]],lab:'$40 − $10 left'}]);
+  rows('#e3',3,'e','q3',[EQ(1,2,5,'□',10,'1/2 = 5/□'),EQ(3,4,'□',16,12,'3/4 = □/16'),EQ(2,7,'□',14,4,'2/7 = □/14'),EQ(4,5,8,'□',10,'4/5 = 8/□'),EQ('⭐ 9',12,'□',4,3,'9/12 = □/4')]);
+  picks('#e3',3,'e','p3',[['Which fraction is <b>NOT</b> equal to '+fr(2,3)+'?','3/4','NOT = 2/3',['4/6','6/9','3/4','8/12']]]);
+  picks('#r3',3,'r','s3',[['Divisibility: which number is divisible by <b>6</b>?','2,418','which ÷ 6',['3,124','2,505','2,418','1,333']]]);
+  rows('#r3',3,'r','t3',[{q:'Divide with a remainder: <span class="ex">485 ÷ 9</span>',f:[['',53],['R',8]],lab:'485 ÷ 9'},
+    {q:'A bush is <b>6</b> feet tall. A tree is <b>7 times as tall</b> as the bush. How tall is the tree?',f:[['',42,'feet']],lab:'tree 7 times bush 6'},
+    {q:'Equation: <span class="ex">3(n + 2) = n + 14</span>',f:[['n =',4]],lab:'3(n+2) = n+14'},
+    MON('A toy costs <b>$7.25</b>. You pay with a <b>$10</b> bill. How much change do you get?',2,75,'change from $10 for $7.25')]);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw10';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 10'; }
+  const SK='mm-hw10-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:'Day '+it.day+' '+SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ [1,2,3].forEach(d=>{ const its=ITEMS.filter(i=>i.day===d); $('#c'+d).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 10',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
