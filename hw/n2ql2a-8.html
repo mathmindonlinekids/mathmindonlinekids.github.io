@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 8</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+.sub{margin:0;font-size:18px;font-family:"Grandstander",sans-serif}
+.rbw{overflow-x:auto;padding-bottom:4px}
+.rb{display:inline-flex;flex-direction:column}
+.rb svg{display:block}
+.rbrow{display:flex}
+.rbrow > *{width:52px;margin:0 3px;flex:none}
+.rbrow input.num{width:52px;font-size:17px;padding:4px 2px}
+.rbrow .giv{display:inline-flex;align-items:center;justify-content:center;height:40px;border-radius:10px;border:2px solid var(--ink);font-weight:700;font-size:18px;background:var(--gold-soft)}
+.tree svg{max-width:100%;height:auto;display:block}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 8</span>
+    <h1>Mental Math, Wholes, Equations and Number Puzzles</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <p class="lead"><b>Do one day at a time (15–20 minutes):</b> Sunday to Friday. Next lesson: Saturday!</p>
+    <nav class="jump" aria-label="Days"><a href="#d1">Day 1 · Sun</a><a href="#d2">Day 2 · Mon</a><a href="#d3">Day 3 · Tue</a><a href="#d4">Day 4 · Wed</a><a href="#d5">Day 5 · Thu</a><a href="#d6">Day 6 · Fri</a><a href="#fin">Finish</a></nav>
+  </header>
+
+  <section class="card">
+    <h2>Remember</h2>
+    <div class="method"><b>Hundreds:</b> 1,400 − 600 → 14 hundreds − 6 hundreds = 8 hundreds = 800. Hard one? Two jumps: 900 − 450 → 900 − 400 = 500 → 500 − 50 = 450.<br>
+    <b>Rounding:</b> look at the digit to the right. 5 or more → round <b>up</b>. 4 or less → round <b>down</b>.<br>
+    <b>Part or whole?</b> We know the <b>whole</b> → divide (<b>part</b>). We know <b>one part</b> → multiply (<b>whole</b>). Draw a stick!<br>
+    <b>400 − y = 150:</b> 400 is the <b>whole</b>. y and 150 are the <b>parts</b>. Missing part = whole − part: y = 400 − 150 = 250.<br>
+    <b>Two steps:</b> go backwards and undo the <b>last</b> step <b>first</b>.</div>
+  </section>
+  <div id="days"></div>
+  <section class="card done" id="fin">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={w:'Warm-up',h:'Find the whole',e:'Equations',t:'Two-step number'};
+  const add=(id,day,sec,ans,label,pick)=>ITEMS.push({id,day,sec,ans,label:'Day '+day+': '+label,pick});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=>it.pick ? v===it.ans : num(v)===it.ans;
+  const fr=(a,b)=>'<sup>'+a+'</sup>⁄<sub>'+b+'</sub>';
+  const W={1:'one half',2:'one half',3:'one third',4:'one fourth',5:'one fifth',6:'one sixth'};
+  const F=b=>fr(1,b)+' ('+W[b]+')';
+  const N={}; const nx=h=>(N[h]=(N[h]||0)+1);
+  function rows(host,day,sec,pref,items){ items.forEach((it,k)=>{ const n=nx(host), id=pref+k;
+      $(host).insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+n+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+id+'_'+j+'" inputmode="numeric" aria-label="'+(f[0]||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>');
+      it.f.forEach((f,j)=>add(id+'_'+j,day,sec,f[1],it.lab+(it.f.length>1?' ('+(f[0]||j+1)+')':''))); }); }
+  function picks(host,day,sec,pref,items){ items.forEach((p,k)=>{ const n=nx(host), id=pref+k;
+      $(host).insertAdjacentHTML('beforeend','<div class="it"><span class="n">'+n+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+id+'">'+p[3].map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>');
+      add(id,day,sec,p[1],p[2],1); }); }
+  const DN=['','Sunday, Nov 22','Monday, Nov 23','Tuesday, Nov 24','Wednesday, Nov 25','Thursday, Nov 26','Friday, Nov 27'];
+  /* day data: mm [[expr,ans]x4], rd [[n,'ten'|'hundred',ans]x2], pw [[b,n,'part'|'whole',ans]x2], wh [[b,part,whole],[story,ans,unit]], eq [[expr,letter,ans]x3], wh index of a−y eq, ts [[text,ans]x2] */
+  const D=[null,
+   {mm:[['1,000 − 400',600],['800 − 350',450],['1,300 − 500',800],['450 + 350',800]],rd:[[47,'ten',50],[362,'hundred',400]],pw:[[4,24,'part',6],[3,5,'whole',15]],wh:[5,6,30],st:['Tom ate '+F(4)+' of a cake. He ate <b>2</b> slices. How many slices were in the whole cake?',8,'slices'],eq:[['□ × 7 = 49','□',7],['600 − y = 250','y',350],['n + 140 = 500','n',360]],big:600,ts:[['I thought of a number. I <b>multiplied it by 2</b>, then <b>added 3</b>, and got <b>15</b>.',6],['I thought of a number. I <b>added 4</b>, then <b>multiplied by 3</b>, and got <b>21</b>.',3]]},
+   {mm:[['1,200 − 600',600],['700 − 250',450],['1,000 − 750',250],['380 + 420',800]],rd:[[84,'ten',80],[650,'hundred',700]],pw:[[2,18,'part',9],[4,6,'whole',24]],wh:[3,8,24],st:['Mia used '+F(2)+' of her stickers. She used <b>15</b>. How many stickers did she have?',30,'stickers'],eq:[['48 ÷ □ = 6','□',8],['500 − m = 320','m',180],['k − 200 = 450','k',650]],big:500,ts:[['I thought of a number. I <b>multiplied it by 4</b>, then <b>took away 2</b>, and got <b>18</b>.',5],['I thought of a number. I <b>took away 3</b>, then <b>multiplied by 2</b>, and got <b>14</b>.',10]]},
+   {mm:[['1,400 − 800',600],['900 − 550',350],['600 − 180',420],['550 + 250',800]],rd:[[95,'ten',100],[249,'hundred',200]],pw:[[5,35,'part',7],[2,9,'whole',18]],wh:[6,4,24],st:['Leo walked '+F(3)+' of the way. He walked <b>5</b> miles. How long is the whole way?',15,'miles'],eq:[['9 × n = 54','n',6],['300 − y = 120','y',180],['x + 75 = 200','x',125]],big:300,ts:[['I thought of a number. I <b>multiplied it by 5</b>, then <b>added 1</b>, and got <b>21</b>.',4],['I thought of a number. I <b>added 6</b>, then <b>divided by 2</b>, and got <b>7</b>.',8]]},
+   {mm:[['1,100 − 300',800],['1,000 − 650',350],['750 − 400',350],['630 + 270',900]],rd:[[123,'ten',120],[870,'hundred',900]],pw:[[3,21,'part',7],[5,3,'whole',15]],wh:[4,9,36],st:['Ann gave away '+F(2)+' of her beads. She gave away <b>25</b> beads. How many beads did she have?',50,'beads'],eq:[['□ ÷ 4 = 8','□',32],['700 − y = 450','y',250],['90 − k = 45','k',45]],big:700,ts:[['I thought of a number. I <b>multiplied it by 3</b>, then <b>took away 4</b>, and got <b>11</b>.',5],['I thought of a number. I <b>took away 5</b>, then <b>multiplied by 4</b>, and got <b>20</b>.',10]]},
+   {mm:[['1,500 − 700',800],['800 − 450',350],['1,000 − 280',720],['360 + 540',900]],rd:[[76,'ten',80],[551,'hundred',600]],pw:[[4,32,'part',8],[3,10,'whole',30]],wh:[5,7,35],st:['Sam read '+F(3)+' of his book. He read <b>20</b> pages. How many pages are in the book?',60,'pages'],eq:[['8 × □ = 64','□',8],['450 − y = 200','y',250],['n − 125 = 300','n',425]],big:450,ts:[['I thought of a number. I <b>multiplied it by 2</b>, then <b>added 7</b>, and got <b>19</b>.',6],['I thought of a number. I <b>added 8</b>, then <b>divided by 3</b>, and got <b>5</b>.',7]]},
+   {mm:[['1,300 − 900',400],['1,000 − 450',550],['820 − 400',420],['470 + 330',800]],rd:[[305,'ten',310],[449,'hundred',400]],pw:[[6,30,'part',5],[4,7,'whole',28]],wh:[2,45,90],st:['Dad paid '+F(3)+' of the price. He paid <b>$9</b>. What is the whole price?',27,'dollars'],eq:[['63 ÷ □ = 9','□',7],['800 − y = 350','y',450],['a + 230 = 600','a',370]],big:800,ts:[['I thought of a number. I <b>multiplied it by 3</b>, then <b>added 6</b>, and got <b>30</b>.',8],['I thought of a number. I <b>took away 2</b>, then <b>multiplied by 5</b>, and got <b>35</b>.',9]]}];
+  for(let d=1;d<=6;d++){ const x=D[d];
+    $('#days').insertAdjacentHTML('beforeend','<section class="card" id="d'+d+'"><div class="head"><h2>Day '+d+' · '+DN[d]+'</h2><span class="cnt" id="c'+d+'"></span></div>'+
+      '<h3 class="sub">A. Warm-up</h3><div class="list" id="w'+d+'"></div><h3 class="sub">B. Find the Whole</h3><div class="list" id="h'+d+'"></div><h3 class="sub">C. Equations</h3><div class="list" id="q'+d+'"></div><h3 class="sub">D. I Thought of a Number</h3><div class="list" id="n'+d+'"></div></section>');
+    rows('#w'+d,d,'w','mm'+d+'_',x.mm.map(m=>({q:m[0]+' =',cls:'ex',f:[['',m[1]]],lab:m[0]})));
+    rows('#w'+d,d,'w','rd'+d+'_',x.rd.map(r=>({q:'Round <b>'+r[0]+'</b> to the nearest <b>'+r[1]+'</b>.',f:[['',r[2]]],lab:'round '+r[0]+' to '+r[1]})));
+    x.pw.forEach((p,k)=>{ const q=p[2]==='part' ? F(p[0])+' of <b>'+p[1]+'</b> is ?' : F(p[0])+' of a number is <b>'+p[1]+'</b>. What is the number?';
+      picks('#w'+d,d,'w','pk'+d+'_'+k+'_',[[q+'<br><span class="hint">First: are we looking for the part or the whole?</span>',p[2],q.replace(/<[^>]+>/g,'')+' → part/whole',['part','whole']]]);
+      rows('#w'+d,d,'w','pa'+d+'_'+k+'_',[{q:'<span class="hint">Now solve it:</span>',f:[['',p[3]]],lab:q.replace(/<[^>]+>/g,'')}]); });
+    rows('#h'+d,d,'h','wh'+d+'_',[{q:F(x.wh[0])+' of a number is <b>'+x.wh[1]+'</b>. Draw a stick with '+x.wh[0]+' equal parts and write '+x.wh[1]+' in every part. What is the whole?',f:[['parts =',x.wh[0]],['whole =',x.wh[2]]],lab:'1/'+x.wh[0]+' = '+x.wh[1]+' → whole'},
+      {q:x.st[0],f:[['',x.st[1],x.st[2]]],lab:'whole story'}]);
+    rows('#q'+d,d,'e','eq'+d+'_',x.eq.map(e=>({q:e[0],cls:'ex',f:[[e[1]+' =',e[2]]],lab:e[0]})));
+    const sub=x.eq.find(e=>e[0].indexOf(' − ')>0 && e[0].indexOf(String(x.big))===0);
+    picks('#q'+d,d,'e','wb'+d+'_',[['In <b>'+sub[0]+'</b>, which number is the <b>whole</b>?',String(x.big),sub[0]+': whole?',[String(x.big),sub[1],String(Number(sub[0].split('= ')[1]))]]]);
+    rows('#n'+d,d,'t','ts'+d+'_',x.ts.map(t=>({q:t[0]+' What was my number?',f:[['number =',t[1]]],lab:t[0].replace(/<[^>]+>/g,'')})));
+  }
+
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw8';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 8'; }
+  const SK='mm-hw8-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:'Day '+it.day+' '+SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ [1,2,3,4,5,6].forEach(d=>{ const its=ITEMS.filter(i=>i.day===d); $('#c'+d).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 8',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
