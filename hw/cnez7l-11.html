@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>MathMind: Homework 11</title>
+<script src="../config.js"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#F4F7FC; --grid:#DCE5F3; --card:#FFFFFF; --ink:#1D2B4F; --muted:#5A6788; --line:#C9D4E8;
+  --acc:#1B998B; --acc-soft:#D5F0EC; --warm:#E4572E; --warm-soft:#FBE3DB; --gold:#F2B134; --gold-soft:#FDF0D2; --oly:#7A5BD6; --oly-soft:#E9E3FA;
+  --p1:#D5F0EC; --p2:#FDF0D2; --p3:#E9E3FA;
+  --ok:#1E8A4C; --ok-soft:#DDF3E5; --bad:#C2372B; --bad-soft:#FBE1DE;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(29,43,79,.07);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+    --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+    --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+    --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+    --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141C30; --grid:#1D2742; --card:#1B2440; --ink:#E9EEF9; --muted:#A3AECB; --line:#2E3A5E;
+  --acc:#3CC7B6; --acc-soft:#173A39; --warm:#FF7A55; --warm-soft:#3E2622; --gold:#F5C25A; --gold-soft:#3A3020; --oly:#A58BF0; --oly-soft:#2C2548;
+  --p1:#173A39; --p2:#3A3020; --p3:#2C2548;
+  --ok:#4CCB7F; --ok-soft:#173826; --bad:#FF7B6E; --bad-soft:#402221;
+  --shadow:0 1px 0 var(--line), 0 6px 18px rgba(0,0,0,.25);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background-color:var(--paper);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font-family:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55;padding-inline:16px;padding-block:20px 56px}
+.wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1,h2{font-family:"Grandstander","Lexend",system-ui,sans-serif;text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(28px,5vw,40px);font-weight:800} h2{font-size:24px;font-weight:800}
+p{margin:0}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.lead{font-size:18px;max-width:64ch}
+.jump{display:flex;flex-wrap:wrap;gap:8px}
+.jump a{font-size:14px;padding:5px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);text-decoration:none}
+.jump a:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+section.card{background:var(--card);border-radius:18px;box-shadow:var(--shadow);padding:22px;display:flex;flex-direction:column;gap:14px;scroll-margin-top:12px}
+.head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cnt{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.method{background:var(--paper);border-radius:12px;padding:12px 14px;font-size:15px;border-left:4px solid var(--acc)}
+.list{display:flex;flex-direction:column}
+.it{display:grid;grid-template-columns:30px minmax(0,1fr);gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
+.it:last-child{border-bottom:none}
+.n{font-family:"Grandstander",sans-serif;font-weight:800;color:var(--muted)}
+.b{display:flex;flex-direction:column;gap:8px}
+.q{font-size:18px;max-width:64ch}
+.ex{font-family:"Grandstander",sans-serif;font-size:24px;font-variant-numeric:tabular-nums}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input.num{font:inherit;font-size:20px;font-weight:700;width:96px;padding:5px 8px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);text-align:center;font-variant-numeric:tabular-nums}
+input.num:focus{outline:3px solid var(--gold);outline-offset:1px;border-color:var(--ink)}
+input.num.filled{border-color:var(--acc)}
+body.teacher input.num.right{border-color:var(--ok);background:var(--ok-soft)}
+body.teacher input.num.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.btn{font:inherit;font-weight:700;font-size:15px;padding:8px 16px;border-radius:10px;border:2px solid var(--ink);background:var(--ink);color:var(--paper);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink)} .btn.small{padding:5px 11px;font-size:14px}
+button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.pair{font-size:14px;color:var(--acc);font-weight:500}
+.am{display:flex;flex-direction:column;gap:8px;padding:14px 0;border-bottom:1px solid var(--line)}
+.am:last-child{border-bottom:none}
+.am svg{max-width:100%;height:auto;display:block}
+.amgrid{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center}
+.amgrid span.l{font-size:14px;color:var(--muted)}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums}
+th,td{border:1.5px solid var(--line);padding:6px 8px;text-align:center}
+th{font-family:"Grandstander",sans-serif;font-size:18px;background:var(--paper)}
+td input.num{width:84px;font-size:17px;padding:4px 6px}
+.done{border:2px solid var(--acc)}
+textarea{font:inherit;font-size:13px;width:100%;min-height:120px;border-radius:10px;border:2px solid var(--line);background:var(--paper);color:var(--ink);padding:10px}
+.fb{font-size:14px;min-height:1.3em;color:var(--ok)}
+.teacherbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:14px;color:var(--muted)}
+.tpanel{display:none;flex-direction:column;gap:10px}
+body.teacher .tpanel{display:flex}
+.score{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.score div{border:1.5px solid var(--line);border-radius:12px;padding:10px 12px}
+.score b{display:block;font-family:"Grandstander",sans-serif;font-size:22px;font-variant-numeric:tabular-nums}
+.mist{margin:0;padding-left:20px;font-size:14px}
+@media (max-width:480px){ section.card{padding:16px} .q{font-size:17px} }
+.pk button[aria-pressed="true"]{background:var(--gold-soft);border-color:var(--ink)}
+[hidden]{display:none!important}
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.shape{border:1.5px solid var(--line);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:6px;align-items:center;text-align:center}
+.hint{font-size:14px;color:var(--muted)}
+.day{font-family:"Grandstander",sans-serif;font-size:15px;color:var(--warm);font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+h3{margin:8px 0 0;font-size:19px;font-family:"Grandstander",sans-serif;border-top:2px dashed var(--line);padding-top:12px}
+</style>
+<body>
+<div class="wrap">
+  <header style="display:flex;flex-direction:column;gap:10px">
+    <span class="eyebrow" id="eb">MathMind Online · Homework 11</span>
+    <h1>Holiday Review: Everything We Learned</h1>
+    <p class="lead">Type your answers. You will not see right or wrong here. Every answer is <b>sent to Madina automatically</b>. Use paper for thinking. You can stop and come back later.</p><p class="lead" id="hi" hidden></p>
+    <p class="lead"><b>Thanksgiving week review:</b> one day at a time, about 20 minutes. Every day mixes all our topics. Thursday is Thanksgiving: do it if you want, or skip it! Next lesson: <b>Monday, November 30</b>.</p>
+    <nav class="jump" aria-label="Days"><a href="#s1">Day 1 · Tue</a><a href="#s2">Day 2 · Wed</a><a href="#s3">Day 3 · Thu</a><a href="#s4">Day 4 · Fri</a><a href="#s5">Day 5 · Sat</a><a href="#s6">Day 6 · Sun</a><a href="#s7">Finish</a></nav>
+  </header>
+
+  <section class="card" id="s1">
+    <p class="day">Day 1 · Tuesday, Nov 24</p>
+    <div class="head"><h2>Day 1</h2><span class="cnt" id="c1"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d1ar"></div><div class="list" id="d1ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d1br"></div><div class="list" id="d1bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d1cr"></div><div class="list" id="d1cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d1dr"></div><div class="list" id="d1dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d1er"></div><div class="list" id="d1ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d1fr"></div><div class="list" id="d1fp"></div>
+  </section>
+  <section class="card" id="s2">
+    <p class="day">Day 2 · Wednesday, Nov 25</p>
+    <div class="head"><h2>Day 2</h2><span class="cnt" id="c2"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d2ar"></div><div class="list" id="d2ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d2br"></div><div class="list" id="d2bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d2cr"></div><div class="list" id="d2cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d2dr"></div><div class="list" id="d2dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d2er"></div><div class="list" id="d2ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d2fr"></div><div class="list" id="d2fp"></div>
+  </section>
+  <section class="card" id="s3">
+    <p class="day">Day 3 · Thursday, Nov 26</p>
+    <div class="head"><h2>Day 3</h2><span class="cnt" id="c3"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d3ar"></div><div class="list" id="d3ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d3br"></div><div class="list" id="d3bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d3cr"></div><div class="list" id="d3cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d3dr"></div><div class="list" id="d3dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d3er"></div><div class="list" id="d3ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d3fr"></div><div class="list" id="d3fp"></div>
+  </section>
+  <section class="card" id="s4">
+    <p class="day">Day 4 · Friday, Nov 27</p>
+    <div class="head"><h2>Day 4</h2><span class="cnt" id="c4"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d4ar"></div><div class="list" id="d4ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d4br"></div><div class="list" id="d4bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d4cr"></div><div class="list" id="d4cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d4dr"></div><div class="list" id="d4dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d4er"></div><div class="list" id="d4ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d4fr"></div><div class="list" id="d4fp"></div>
+  </section>
+  <section class="card" id="s5">
+    <p class="day">Day 5 · Saturday, Nov 28</p>
+    <div class="head"><h2>Day 5</h2><span class="cnt" id="c5"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d5ar"></div><div class="list" id="d5ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d5br"></div><div class="list" id="d5bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d5cr"></div><div class="list" id="d5cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d5dr"></div><div class="list" id="d5dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d5er"></div><div class="list" id="d5ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d5fr"></div><div class="list" id="d5fp"></div>
+  </section>
+  <section class="card" id="s6">
+    <p class="day">Day 6 · Sunday, Nov 29</p>
+    <div class="head"><h2>Day 6</h2><span class="cnt" id="c6"></span></div>
+    <h3>1. Warm-up</h3><div class="method">Mental math. Write only the answer.</div><div class="list" id="d6ar"></div><div class="list" id="d6ap"></div>
+    <h3>2. Multiply and Divide</h3><div class="method">Use the area model or break the number into parts. Check division with multiplication.</div><div class="list" id="d6br"></div><div class="list" id="d6bp"></div>
+    <h3>3. Factors, Multiples and Primes</h3><div class="method">Divisibility: 2 (even), 3 (digit sum), 4 (last two digits), 5 (0 or 5), 10 (0).</div><div class="list" id="d6cr"></div><div class="list" id="d6cp"></div>
+    <h3>4. Story to Math</h3><div class="method">Read slowly. What do we know? What do we look for? Which operation?</div><div class="list" id="d6dr"></div><div class="list" id="d6dp"></div>
+    <h3>5. Equations</h3><div class="method">Undo the steps. Check: put your answer back in!</div><div class="list" id="d6er"></div><div class="list" id="d6ep"></div>
+    <h3>6. Fractions, Measurement and Angles</h3><div class="list" id="d6fr"></div><div class="list" id="d6fp"></div>
+  </section>
+  <section class="card done" id="s7">
+    <h2>Finish</h2><p class="q" id="filled"></p>
+    <div class="row"><button class="btn" id="finish">I'm done!</button><span class="fb" id="ffb"></span></div>
+    <p class="hint" id="net"></p>
+  </section>
+</div>
+
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+  const num=v=>{ const m=String(v).replace(/[^0-9]/g,''); return m===''?NaN:parseInt(m,10); };
+  const ITEMS=[]; const SEC={"1": "Warm-up", "2": "Numbers & division", "3": "Factors & primes", "4": "Story to math", "5": "Equations", "6": "Fractions & measurement"}; let DAY=1;
+  const add=(id,sec,ans,label,pick)=>ITEMS.push({id,sec,ans,label,pick,day:DAY});
+  const val=it=>it.pick ? ($('#'+it.id).dataset.v||'') : $('#'+it.id).value.trim();
+  const ok=(it,v)=> it.pick ? v===it.ans : num(v)===it.ans;
+  const tx=s=>String(s).replace(/<[^>]+>/g,'').trim();
+  function rows(host,sec,pref,items,start){ start=start||0;
+    $(host).innerHTML=items.map((it,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="'+(it.cls||'q')+'">'+it.q+'</div><div class="row">'+it.f.map((f,j)=>'<span>'+f[0]+'</span><input class="num" id="'+pref+k+'_'+j+'" inputmode="numeric" aria-label="'+(tx(f[0])||'Answer')+'">'+(f[2]?'<span>'+f[2]+'</span>':'')).join('')+'</div></div></div>').join('');
+    items.forEach((it,k)=>it.f.forEach((f,j)=>add(pref+k+'_'+j,sec,f[1],'Day '+DAY+': '+(it.lab||('#'+(k+1)))+(it.f.length>1?' ('+(tx(f[0])||j+1)+')':''))));
+  }
+  function picks(host,sec,pref,items,opts,start){ start=start||0;
+    $(host).innerHTML=items.map((p,k)=>'<div class="it"><span class="n">'+(start+k+1)+'.</span><div class="b"><div class="q">'+p[0]+'</div><div class="row pk" id="'+pref+k+'">'+(p[3]||opts).map(o=>'<button class="btn ghost" data-v="'+o+'" aria-pressed="false">'+o+'</button>').join('')+'</div></div></div>').join('');
+    items.forEach((p,k)=>add(pref+k,sec,p[1],'Day '+DAY+': '+p[2],1));
+  }
+  const X=(s,a)=>({q:s+' =',cls:'ex',f:[['',a]],lab:s});
+  const Q=(q,f,lab)=>({q,f,lab});
+
+  /* ---- pictures ---- */
+  function lines(kind,rot){ const c=[80,55], r=(p,a)=>{ const t=a*Math.PI/180; return [c[0]+(p[0]-c[0])*Math.cos(t)-(p[1]-c[1])*Math.sin(t), c[1]+(p[0]-c[0])*Math.sin(t)+(p[1]-c[1])*Math.cos(t)]; };
+    const seg=(a,b,col)=>{ const A=r(a,rot), B=r(b,rot); return '<line x1="'+A[0].toFixed(1)+'" y1="'+A[1].toFixed(1)+'" x2="'+B[0].toFixed(1)+'" y2="'+B[1].toFixed(1)+'" stroke="'+col+'" stroke-width="4" stroke-linecap="round"/>'; };
+    let g='';
+    if(kind==='par') g=seg([15,35],[145,35],'var(--warm)')+seg([15,75],[145,75],'var(--oly)');
+    if(kind==='perp'){ g=seg([15,55],[145,55],'var(--warm)')+seg([80,5],[80,105],'var(--oly)'); const m=[[80,45],[90,45],[90,55]].map(p=>r(p,rot)); g+='<polyline points="'+m.map(p=>p.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="2"/>'; }
+    if(kind==='int') g=seg([15,55],[145,55],'var(--warm)')+seg([45,100],[115,10],'var(--oly)');
+    return '<svg viewBox="0 0 160 110" width="150" role="img" aria-label="two lines" style="display:block">'+g+'</svg>'; }
+  function angle(deg,rot){ rot=rot||0; const v=[30,95], R=110, a0=-rot*Math.PI/180, a1=-(rot+deg)*Math.PI/180, p=a=>[v[0]+R*Math.cos(a),v[1]+R*Math.sin(a)];
+    const A=p(a0), B=p(a1), q=(a,rr)=>[v[0]+rr*Math.cos(a),v[1]+rr*Math.sin(a)];
+    let mk; if(deg===90){ const u=q(a0,14), w=q(a1,14), z=[u[0]+w[0]-v[0],u[1]+w[1]-v[1]]; mk='<polyline points="'+[u,z,w].map(t=>t.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="2"/>'; }
+    else { const s=q(a0,22), e=q(a1,22); mk='<path d="M'+s[0].toFixed(1)+' '+s[1].toFixed(1)+' A22 22 0 0 0 '+e[0].toFixed(1)+' '+e[1].toFixed(1)+'" fill="none" stroke="var(--gold)" stroke-width="3"/>'; }
+    const xs=[v[0],A[0],B[0]], ys=[v[1],A[1],B[1]], x0=Math.min(...xs)-8, y0=Math.min(...ys)-8, w=Math.max(...xs)-x0+8, h=Math.max(...ys)-y0+8;
+    return '<svg viewBox="'+x0.toFixed(0)+' '+y0.toFixed(0)+' '+w.toFixed(0)+' '+h.toFixed(0)+'" width="'+Math.min(170,w).toFixed(0)+'" role="img" aria-label="an angle" style="display:block;max-width:100%;height:auto"><line x1="'+v[0]+'" y1="'+v[1]+'" x2="'+A[0].toFixed(1)+'" y2="'+A[1].toFixed(1)+'" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/><line x1="'+v[0]+'" y1="'+v[1]+'" x2="'+B[0].toFixed(1)+'" y2="'+B[1].toFixed(1)+'" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>'+mk+'</svg>'; }
+  function clock(h,m){ const cx=70,cy=70; let g='<circle cx="70" cy="70" r="62" fill="var(--card)" stroke="var(--ink)" stroke-width="3"/>';
+    for(let i=0;i<60;i++){ const a=(i*6-90)*Math.PI/180, r1=i%5?56:51; g+='<line x1="'+(cx+r1*Math.cos(a))+'" y1="'+(cy+r1*Math.sin(a))+'" x2="'+(cx+60*Math.cos(a))+'" y2="'+(cy+60*Math.sin(a))+'" stroke="var(--muted)" stroke-width="'+(i%5?1:2)+'"/>'; }
+    for(let i=1;i<=12;i++){ const a=(i*30-90)*Math.PI/180; g+='<text x="'+(cx+42*Math.cos(a))+'" y="'+(cy+42*Math.sin(a)+5)+'" text-anchor="middle" font-size="13" fill="var(--ink)">'+i+'</text>'; }
+    const ma=(m*6-90)*Math.PI/180, ha=((h%12+m/60)*30-90)*Math.PI/180;
+    g+='<line x1="70" y1="70" x2="'+(cx+28*Math.cos(ha))+'" y2="'+(cy+28*Math.sin(ha))+'" stroke="var(--ink)" stroke-width="5" stroke-linecap="round"/><line x1="70" y1="70" x2="'+(cx+48*Math.cos(ma))+'" y2="'+(cy+48*Math.sin(ma))+'" stroke="var(--warm)" stroke-width="3" stroke-linecap="round"/><circle cx="70" cy="70" r="4" fill="var(--ink)"/>';
+    return '<svg viewBox="0 0 140 140" width="130" role="img" aria-label="analog clock" style="display:block">'+g+'</svg>'; }
+  const LET={H:[[10,5,10,85],[50,5,50,85],[10,45,50,45]],T:[[5,5,55,5],[30,5,30,85]],N:[[10,5,10,85],[50,5,50,85],[10,5,50,85]],V:[[5,5,30,85],[55,5,30,85]],E:[[10,5,10,85],[10,5,50,5],[10,45,42,45],[10,85,50,85]],Z:[[8,5,52,5],[52,5,8,85],[8,85,52,85]],L:[[12,5,12,85],[12,85,50,85]],F:[[10,5,10,85],[10,5,50,5],[10,45,42,45]],M:[[8,85,8,5],[8,5,30,50],[30,50,52,5],[52,5,52,85]],X:[[5,5,55,85],[55,5,5,85]]};
+  const letter=k=>'<svg viewBox="-2 0 64 90" width="58" role="img" aria-label="letter '+k+'" style="display:block">'+LET[k].map(s=>'<line x1="'+s[0]+'" y1="'+s[1]+'" x2="'+s[2]+'" y2="'+s[3]+'" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/>').join('')+'</svg>';
+  /* any polygon; right angles get a small square mark */
+  function pg(P){ let m=''; const n=P.length;
+    P.forEach((v,i)=>{ const a=P[(i+n-1)%n], c=P[(i+1)%n], u=[a[0]-v[0],a[1]-v[1]], w=[c[0]-v[0],c[1]-v[1]], lu=Math.hypot(u[0],u[1]), lw=Math.hypot(w[0],w[1]);
+      if(Math.abs(u[0]*w[0]+u[1]*w[1])/(lu*lw)<0.03){ const d=9, p1=[v[0]+d*u[0]/lu,v[1]+d*u[1]/lu], p3=[v[0]+d*w[0]/lw,v[1]+d*w[1]/lw], p2=[p1[0]+d*w[0]/lw,p1[1]+d*w[1]/lw];
+        m+='<polyline points="'+[p1,p2,p3].map(q=>q.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="none" stroke="var(--ink)" stroke-width="1.5"/>'; } });
+    const xs=P.map(p=>p[0]), ys=P.map(p=>p[1]), W=Math.max(...xs)+8, H=Math.max(...ys)+8;
+    return '<svg viewBox="0 0 '+W+' '+H+'" width="'+Math.min(140,W)+'" role="img" aria-label="a shape" style="display:block;max-width:100%;height:auto"><polygon points="'+P.map(p=>p.map(x=>x.toFixed(1)).join(',')).join(' ')+'" fill="var(--acc-soft)" stroke="var(--ink)" stroke-width="2.5" stroke-linejoin="round"/>'+m+'</svg>'; }
+  const SHP={rtri:[[15,90],[15,10],[125,90]],otri:[[8,80],[130,80],[50,48]],trap:[[10,15],[90,15],[120,80],[10,80]],para:[[5,15],[90,15],[125,80],[40,80]],rect:[[5,15],[125,15],[125,75],[5,75]],sq:[[10,10],[80,10],[80,80],[10,80]],hex:[...Array(6)].map((_,i)=>[60+50*Math.cos(i*Math.PI/3),52+50*Math.sin(i*Math.PI/3)])};
+  const LN=['parallel','perpendicular','intersecting (not perpendicular)'], AN=['acute','right','obtuse'], LTO=['parallel only','perpendicular only','both','neither'];
+  const ANG=['right =','acute =','obtuse ='];
+  const B=(q,f,lab)=>({q,f,lab,cls:'ex'});
+
+  DAY=1;
+  rows('#d1ar',1,'k1ar',[X("9 × 12",108),X("10 × 12",120),X("2 × 6 × 50",600),X("503 − 418",85)],0);
+  rows('#d1br',2,'k1br',[X("47 × 4",188),X("994 ÷ 7",142),Q("119 ÷ 8 = □ R □",[["quotient =",14],["remainder =",7]],"119÷8"),Q("Estimate <b>42 × 3</b>: round 42 to the nearest ten, then multiply.",[["estimate =",120]],"estimate")],0);
+  rows('#d1cr',3,'k1cr',[Q("Prime factors: <b>42 = 2 × 3 × □</b>",[["□ =",7]],"prime factors 42")],0);
+  picks('#d1cp',3,'k1cp',[["Is <b>49</b> prime or composite?","composite","49 prime?",["prime", "composite"]],["Is <b>192</b> divisible by <b>4</b>?","yes","192 div by 4",["yes", "no"]]],[],1);
+  rows('#d1dr',4,'k1dr',[Q("A dress costs <b>$45</b>. That is <b>3 times as much</b> as a hat. How much is the hat?",[["$",15]],"times as much reverse"),Q("<b>37</b> students go on a trip. Each van holds <b>5</b> students. How many vans do they need?",[["vans =",8]],"vans round up"),Q("You have <b>3</b> quarters and <b>1</b> dime. How many cents is that?",[["cents =",85,"¢"]],"coins")],0);
+  rows('#d1er',5,'k1er',[Q("3 × x − 9 = 9",[["x =",6]],"ax−b"),Q("5 × (x − 4) = 25",[["x =",9]],"a(x−b)"),Q("x − 12 = 39",[["x =",51]],"x−a")],0);
+  rows('#d1fr',6,'k1fr',[Q("2/5 = □/15",[["□ =",6]],"equivalent"),Q("Find <b>1/5</b> of <b>40</b>. (1/5 = one fifth)",[["answer =",8]],"1/5 of 40"),Q("<b>2 ft 8 in</b> = ? inches (1 ft = 12 in)",[["inches =",32]],"ft in"),Q("A fence is <b>20 m</b> long with a post every <b>4 m</b>, and posts at both ends. How many posts?",[["posts =",6]],"fence posts")],0);
+  picks('#d1fp',6,'k1fp',[[angle(130,35)+"Which angle?","obtuse","angle 130",["acute", "right", "obtuse"]]],[],4);
+  DAY=2;
+  rows('#d2ar',1,'k2ar',[X("9 × 10",90),X("12 × 6",72),X("50 × 11 × 2",1100),X("800 − 353",447)],0);
+  rows('#d2br',2,'k2br',[X("88 × 5",440),X("13 × 14",182),Q("46 ÷ 7 = □ R □",[["quotient =",6],["remainder =",4]],"46÷7"),Q("Round <b>2,976</b> to the nearest <b>hundred</b>.",[["answer =",3000]],"round 2976 to 100")],0);
+  rows('#d2cr',3,'k2cr',[Q("How many <b>factors</b> does <b>30</b> have? (List them all on paper.)",[["factors =",8]],"factors of 30")],0);
+  picks('#d2cp',3,'k2cp',[["Is <b>57</b> prime or composite?","composite","57 prime?",["prime", "composite"]],["Is <b>117</b> divisible by <b>3</b>?","yes","117 div by 3",["yes", "no"]]],[],1);
+  rows('#d2dr',4,'k2dr',[Q("A hat costs <b>$4</b>. A dress costs <b>4 times as much</b>. How much is the dress?",[["$",16]],"times as much direct"),Q("Mia buys <b>3</b> packs with <b>7</b> stickers in each. She gives away <b>6</b>. How many stickers are left?",[["left =",15]],"two-step")],0);
+  picks('#d2dp',4,'k2dp',[["<b>9</b> boxes, <b>9</b> pencils in each box. Which expression shows how many pencils in all?","9 × 9","pick operation",["9 × 9", "9 + 9", "9 − 9"]]],[],2);
+  rows('#d2er',5,'k2er',[Q("6 × x − 20 = 4",[["x =",4]],"ax−b"),Q("7 × (x + 3) = 77",[["x =",8]],"a(x+b)"),Q("6 × x = 54",[["x =",9]],"a·x")],0);
+  rows('#d2fr',6,'k2fr',[Q("1/2 = □/4",[["□ =",2]],"equivalent"),Q("<b>1/3</b> (one third) of a number is <b>4</b>. What is the whole number?",[["whole =",12]],"whole 1/3=4"),Q("A movie starts at <b>1:10</b> and lasts <b>45 minutes</b>. When does it end? (Type like 4:35)",[["ends at",155]],"1:10+45"),Q("How many <b>2-digit</b> numbers can you make with the digits <b>1, 2, 3</b> if digits do not repeat?",[["numbers =",6]],"2-digit from 1,2,3")],0);
+  picks('#d2fp',6,'k2fp',[[angle(150,62)+"Which angle?","obtuse","angle 150",["acute", "right", "obtuse"]]],[],4);
+  DAY=3;
+  rows('#d3ar',1,'k3ar',[X("7 × 11",77),X("10 × 7",70),X("4 × 6 × 25",600),X("600 − 492",108)],0);
+  rows('#d3br',2,'k3br',[X("39 × 6",234),X("952 ÷ 8",119),Q("35 ÷ 3 = □ R □",[["quotient =",11],["remainder =",2]],"35÷3"),Q("Estimate <b>44 × 3</b>: round 44 to the nearest ten, then multiply.",[["estimate =",120]],"estimate")],0);
+  rows('#d3cr',3,'k3cr',[Q("Find the number between <b>20</b> and <b>45</b> that is a multiple of <b>3</b> and of <b>5</b>.",[["number =",30]],"common multiple")],0);
+  picks('#d3cp',3,'k3cp',[["Is <b>57</b> prime or composite?","composite","57 prime?",["prime", "composite"]],["Is <b>143</b> divisible by <b>3</b>?","no","143 div by 3",["yes", "no"]]],[],1);
+  rows('#d3dr',4,'k3dr',[Q("A hat costs <b>$7</b>. A dress costs <b>6 times as much</b>. How much is the dress?",[["$",42]],"times as much direct"),Q("Tom has <b>62</b> marbles. That is <b>24 more</b> than Sam has. How many marbles does Sam have?",[["Sam =",38]],"more than reverse"),Q("You have <b>2</b> quarters, <b>2</b> dimes and <b>3</b> nickels. How many cents is that?",[["cents =",85,"¢"]],"coins")],0);
+  rows('#d3er',5,'k3er',[Q("3 × x − 8 = 4",[["x =",4]],"ax−b"),Q("3 × (x + 5) = 27",[["x =",4]],"a(x+b)"),Q("500 − y = 213",[["y =",287]],"whole−y")],0);
+  rows('#d3fr',6,'k3fr',[Q("1/4 = □/8",[["□ =",2]],"equivalent"),Q("Find <b>2/5</b> of <b>40</b>. (1/5 = one fifth)",[["one part =",8],["answer =",16]],"2/5 of 40"),Q("<b>3 ft 5 in</b> = ? inches (1 ft = 12 in)",[["inches =",41]],"ft in"),Q("Together Tom and Sam have <b>30</b> cards. Tom has <b>6 more</b> than Sam. How many does Sam have?",[["Sam =",12]],"sum and difference")],0);
+  picks('#d3fp',6,'k3fp',[[angle(50,78)+"Which angle?","acute","angle 50",["acute", "right", "obtuse"]]],[],4);
+  DAY=4;
+  rows('#d4ar',1,'k4ar',[X("7 × 11",77),X("7 × 7",49),X("4 × 11 × 25",1100),X("600 − 469",131)],0);
+  rows('#d4br',2,'k4br',[X("72 × 6",432),X("17 × 25",425),Q("19 ÷ 3 = □ R □",[["quotient =",6],["remainder =",1]],"19÷3"),Q("Round <b>1,844</b> to the nearest <b>hundred</b>.",[["answer =",1800]],"round 1844 to 100")],0);
+  rows('#d4cr',3,'k4cr',[Q("Prime factors: <b>45 = 3 × 3 × □</b>",[["□ =",5]],"prime factors 45")],0);
+  picks('#d4cp',3,'k4cp',[["Is <b>41</b> prime or composite?","prime","41 prime?",["prime", "composite"]],["Is <b>857</b> divisible by <b>4</b>?","no","857 div by 4",["yes", "no"]]],[],1);
+  rows('#d4dr',4,'k4dr',[Q("A dress costs <b>$48</b>. That is <b>6 times as much</b> as a hat. How much is the hat?",[["$",8]],"times as much reverse"),Q("<b>45</b> students go on a trip. Each van holds <b>6</b> students. How many vans do they need?",[["vans =",8]],"vans round up")],0);
+  picks('#d4dp',4,'k4dp',[["<b>8</b> boxes, <b>7</b> pencils in each box. Which expression shows how many pencils in all?","8 × 7","pick operation",["8 × 7", "8 + 7", "7 − 8"]]],[],2);
+  rows('#d4er',5,'k4er',[Q("8 × x + 6 = 38",[["x =",4]],"ax+b"),Q("6 × (x + 3) = 48",[["x =",5]],"a(x+b)"),Q("⭐ 3 × x + 3 = x + 11",[["x =",4]],"x both sides")],0);
+  rows('#d4fr',6,'k4fr',[Q("2/3 = □/9",[["□ =",6]],"equivalent"),Q("<b>1/5</b> (one fifth) of a number is <b>6</b>. What is the whole number?",[["whole =",30]],"whole 1/5=6"),Q("A movie starts at <b>1:10</b> and lasts <b>35 minutes</b>. When does it end? (Type like 4:35)",[["ends at",145]],"1:10+35"),Q("Lilies double every day. On day <b>10</b> the pond is full. On which day is it <b>half</b> full?",[["day",9]],"lilies")],0);
+  picks('#d4fp',6,'k4fp',[[angle(60,47)+"Which angle?","acute","angle 60",["acute", "right", "obtuse"]]],[],4);
+  DAY=5;
+  rows('#d5ar',1,'k5ar',[X("10 × 10",100),X("7 × 6",42),X("5 × 13 × 20",1300),X("1000 − 456",544)],0);
+  rows('#d5br',2,'k5br',[X("89 × 7",623),X("688 ÷ 4",172),Q("17 ÷ 3 = □ R □",[["quotient =",5],["remainder =",2]],"17÷3"),Q("Estimate <b>89 × 5</b>: round 89 to the nearest ten, then multiply.",[["estimate =",450]],"estimate")],0);
+  rows('#d5cr',3,'k5cr',[Q("How many <b>factors</b> does <b>30</b> have? (List them all on paper.)",[["factors =",8]],"factors of 30")],0);
+  picks('#d5cp',3,'k5cp',[["Is <b>23</b> prime or composite?","prime","23 prime?",["prime", "composite"]],["Is <b>712</b> divisible by <b>3</b>?","no","712 div by 3",["yes", "no"]]],[],1);
+  rows('#d5dr',4,'k5dr',[Q("A dress costs <b>$33</b>. That is <b>3 times as much</b> as a hat. How much is the hat?",[["$",11]],"times as much reverse"),Q("Mia buys <b>5</b> packs with <b>5</b> stickers in each. She gives away <b>3</b>. How many stickers are left?",[["left =",22]],"two-step"),Q("You buy a toy for <b>35¢</b> and pay with <b>$1</b>. How much change?",[["change =",65,"¢"]],"change from $1")],0);
+  rows('#d5er',5,'k5er',[Q("6 × x − 13 = 53",[["x =",11]],"ax−b"),Q("7 × (x + 3) = 63",[["x =",6]],"a(x+b)"),Q("⭐ 6 × x + 3 = x + 43",[["x =",8]],"x both sides")],0);
+  rows('#d5fr',6,'k5fr',[Q("3/4 = □/8",[["□ =",6]],"equivalent"),Q("Find <b>1/5</b> of <b>35</b>. (1/5 = one fifth)",[["answer =",7]],"1/5 of 35"),Q("<b>5 ft 7 in</b> = ? inches (1 ft = 12 in)",[["inches =",67]],"ft in"),Q("I am a 2-digit number. My digits add up to <b>9</b> and my tens digit is <b>3 more</b> than my ones digit. Who am I?",[["number =",63]],"digit riddle")],0);
+  picks('#d5fp',6,'k5fp',[[angle(110,1)+"Which angle?","obtuse","angle 110",["acute", "right", "obtuse"]]],[],4);
+  DAY=6;
+  rows('#d6ar',1,'k6ar',[X("10 × 6",60),X("6 × 6",36),X("25 × 11 × 4",1100),X("700 − 544",156)],0);
+  rows('#d6br',2,'k6br',[X("65 × 6",390),X("49 × 26",1274),Q("77 ÷ 6 = □ R □",[["quotient =",12],["remainder =",5]],"77÷6"),Q("Round <b>2,582</b> to the nearest <b>hundred</b>.",[["answer =",2600]],"round 2582 to 100")],0);
+  rows('#d6cr',3,'k6cr',[Q("Find the number between <b>20</b> and <b>45</b> that is a multiple of <b>6</b> and of <b>8</b>.",[["number =",24]],"common multiple")],0);
+  picks('#d6cp',3,'k6cp',[["Is <b>39</b> prime or composite?","composite","39 prime?",["prime", "composite"]],["Is <b>609</b> divisible by <b>3</b>?","yes","609 div by 3",["yes", "no"]]],[],1);
+  rows('#d6dr',4,'k6dr',[Q("A hat costs <b>$14</b>. A dress costs <b>6 times as much</b>. How much is the dress?",[["$",84]],"times as much direct"),Q("Tom has <b>30</b> marbles. That is <b>16 more</b> than Sam has. How many marbles does Sam have?",[["Sam =",14]],"more than reverse")],0);
+  picks('#d6dp',4,'k6dp',[["<b>6</b> boxes, <b>7</b> pencils in each box. Which expression shows how many pencils in all?","6 × 7","pick operation",["6 × 7", "6 + 7", "7 − 6"]]],[],2);
+  rows('#d6er',5,'k6er',[Q("8 × x − 8 = 88",[["x =",12]],"ax−b"),Q("4 × (x − 4) = 28",[["x =",11]],"a(x−b)"),Q("⭐ 6 × x + 6 = x + 31",[["x =",5]],"x both sides")],0);
+  rows('#d6fr',6,'k6fr',[Q("1/3 = □/12",[["□ =",4]],"equivalent"),Q("<b>1/5</b> (one fifth) of a number is <b>6</b>. What is the whole number?",[["whole =",30]],"whole 1/5=6"),Q("A movie starts at <b>4:40</b> and lasts <b>35 minutes</b>. When does it end? (Type like 4:35)",[["ends at",515]],"4:40+35"),Q("A book has pages numbered 1 to 20. How many times is the digit <b>1</b> printed?",[["times =",12]],"digit 1 count")],0);
+  picks('#d6fp',6,'k6fp',[[angle(110,40)+"Which angle?","obtuse","angle 110",["acute", "right", "obtuse"]]],[],4);
+
+  /* state + sending (one row per answer box) */
+  const QS=new URLSearchParams(location.search); const KID=(QS.get('k')||'').replace(/[^a-z0-9]/gi,''); const NAME=(QS.get('n')||'').slice(0,30);
+  const URL_=(window.MATHMIND||{}).SCRIPT_URL||''; const HW='hw11';
+  if(NAME){ $('#hi').hidden=false; $('#hi').textContent='Hi, '+NAME+'! ★'; $('#eb').textContent='MathMind Online · '+NAME+' · Homework 11'; }
+  const SK='mm-hw11-'+(KID||'x');
+  let S={v:{},sent:{},queue:[],tries:{}}; try{ S=Object.assign(S,JSON.parse(localStorage.getItem(SK)||'{}')); }catch(e){}
+  const save=()=>{ try{ localStorage.setItem(SK,JSON.stringify(S)); }catch(e){} };
+  function post(o){ return fetch(URL_,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(o)}); }
+  function flush(){ if(!URL_||!KID||!S.queue.length){ net(); return; } const batch=S.queue.slice();
+    batch.reduce((p,o)=>p.then(()=>post(o).then(()=>{ S.queue.shift(); save(); })),Promise.resolve()).catch(()=>{}).finally(net); }
+  function net(){ $('#net').textContent = !KID ? 'This link has no student code. Ask Madina for your personal link.' : (S.queue.length ? 'Waiting for the internet to send '+S.queue.length+' answer(s)…' : 'All answers are sent ✓'); }
+  function queue(o){ o.kid=KID; o.ts=new Date().toISOString(); S.queue.push(o); save(); flush(); }
+  const timers={};
+  function sendQ(it){ const v=val(it); if(v==='') return; if(S.sent[it.id]===v) return;
+    S.sent[it.id]=v; S.tries[it.id]=(S.tries[it.id]||0)+1; save();
+    queue({type:'hw',day:HW,item:it.id,section:SEC[it.sec],q:it.label+' → верно: '+it.ans,answer:v,correct:ok(it,v),firstTry:S.tries[it.id]===1,tries:S.tries[it.id]}); }
+  const changed=it=>{ clearTimeout(timers[it.id]); timers[it.id]=setTimeout(()=>sendQ(it),1500); };
+  ITEMS.forEach(it=>{ const el=$('#'+it.id);
+    if(it.pick){ const setv=v=>{ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); }; if(S.v[it.id]) setv(S.v[it.id]);
+      el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ setv(b.dataset.v); S.v[it.id]=b.dataset.v; save(); counts(); changed(it); }); }
+    else { if(S.v[it.id]!==undefined) el.value=S.v[it.id]; el.classList.toggle('filled',el.value.trim()!=='');
+      el.addEventListener('input',()=>{ S.v[it.id]=el.value; el.classList.toggle('filled',el.value.trim()!==''); save(); counts(); changed(it); });
+      el.addEventListener('blur',()=>{ clearTimeout(timers[it.id]); sendQ(it); }); } });
+  function counts(){ [1,2,3,4,5,6].forEach(d=>{ const its=ITEMS.filter(i=>i.day===d); $('#c'+d).textContent=its.filter(i=>val(i)!=='').length+' of '+its.length+' filled'; });
+    const tot=ITEMS.filter(i=>val(i)!=='').length; $('#filled').textContent='You filled '+tot+' of '+ITEMS.length+' answers.'+(tot<ITEMS.length?' Check if you missed any!':' Great work!'); }
+  counts(); flush(); window.addEventListener('online',flush);
+  /* bring back saved answers from the teacher's sheet (other device / cleared browser) */
+  if(URL_&&KID) fetch(URL_+'?kid='+encodeURIComponent(KID)+'&hw='+encodeURIComponent(HW)).then(r=>r.json()).then(d=>{ if(!d||!d.answers) return;
+    ITEMS.forEach(it=>{ const raw=d.answers[it.id]; if(raw===undefined||raw===null||raw===''||val(it)!=='') return; const v=String(raw); const el=$('#'+it.id);
+      if(it.pick){ el.dataset.v=v; el.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===v)); } else { el.value=v; el.classList.add('filled'); }
+      S.v[it.id]=v; S.sent[it.id]=v; S.tries[it.id]=S.tries[it.id]||1; });
+    save(); counts(); }).catch(()=>{});
+  $('#finish').onclick=()=>{ ITEMS.forEach(sendQ); const done=ITEMS.filter(i=>val(i)!==''); const right=done.filter(i=>ok(i,val(i))).length;
+    queue({type:'hwdone',day:HW,item:'FINISH',section:'',q:'Homework 11',answer:done.length+' of '+ITEMS.length+' answered',score:right,total:ITEMS.length});
+    $('#ffb').textContent='Thank you! Your homework is sent to Madina ★'; };
+})();
+</script>
+</body>
+</html>
