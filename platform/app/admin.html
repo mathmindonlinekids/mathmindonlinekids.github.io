@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind: кабинет методиста</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="app.css">
+<script src="config.js"></script>
+<script>if ((window.MATHMIND_APP||{}).SUPABASE_URL) document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"><\/script>');</script>
+<script src="js/skills-demo.js"></script>
+<script src="js/data.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="row between">
+    <div>
+      <span class="eyebrow">MathMind · кабинет методиста</span>
+      <h1>Ученики и прогресс</h1>
+    </div>
+    <button class="btn ghost small" id="out" hidden>Выйти</button>
+  </div>
+  <p class="banner" id="demoNote" hidden>Демо-режим: вымышленные ученики и цифры. Настоящие данные появятся после подключения базы.</p>
+  <p class="muted" id="err" hidden></p>
+
+  <div class="legend">
+    <span><i class="dot green"></i>закреплено</span>
+    <span><i class="dot yellow"></i>в процессе</span>
+    <span><i class="dot red"></i>не освоено</span>
+    <span><i class="dot not_started"></i>ещё не проходили</span>
+  </div>
+
+  <section class="grid" id="kids" aria-label="Ученики"></section>
+
+  <section class="card" id="detail" hidden>
+    <div class="row between">
+      <div>
+        <h2 id="dName"></h2>
+        <span class="muted" id="dSub"></span>
+      </div>
+      <div class="counts" id="dCounts"></div>
+    </div>
+    <div class="bar" id="dBar" aria-hidden="true"></div>
+    <div class="card" style="background:var(--paper);box-shadow:none;padding:14px" id="todoBox">
+      <h3>В следующий урок</h3>
+      <p class="muted">Навыки, которые не освоены или проседают. Нажмите на клетку ниже, чтобы поставить цвет вручную.</p>
+      <ol class="todo" id="todo"></ol>
+    </div>
+    <div class="row">
+      <label class="muted" for="fw">Показать:</label>
+      <select class="field" id="fw" style="width:auto">
+        <option value="all">всю программу</option>
+        <option value="state">стандарты штата</option>
+        <option value="CORE">MathMind (русская школа)</option>
+        <option value="OLY">олимпиада</option>
+      </select>
+    </div>
+    <div id="map" style="display:flex;flex-direction:column;gap:18px"></div>
+  </section>
+</div>
+
+<dialog id="dlg">
+  <div class="card">
+    <span class="eyebrow" id="gCode"></span>
+    <h3 id="gTitle"></h3>
+    <p class="muted" id="gStats"></p>
+    <p class="muted">Поставить цвет вручную (например, на уроке видно, что ребёнок понял):</p>
+    <div class="row" id="gBtns">
+      <button class="btn small ghost" data-s="green">🟢 закреплено</button>
+      <button class="btn small ghost" data-s="yellow">🟡 в процессе</button>
+      <button class="btn small ghost" data-s="red">🔴 не освоено</button>
+      <button class="btn small ghost" data-s="">↺ по ответам</button>
+    </div>
+    <div class="row" style="justify-content:flex-end"><button class="btn small" id="gClose">Закрыть</button></div>
+  </div>
+</dialog>
+
+<script>
+(async function () {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fail = m => { $('#err').hidden = false; $('#err').textContent = m; };
+  const ORDER = ['green', 'yellow', 'red', 'not_started'];
+  const FW = { NC: 'Стандарты Северной Каролины', FL: 'Стандарты Флориды (B.E.S.T.)', CORE: 'MathMind: русская школа и сингапурская математика', OLY: 'Олимпиадная математика' };
+  const daysAgo = iso => iso ? Math.floor((Date.now() - new Date(iso)) / 864e5) : null;
+
+  let ses;
+  try { ses = await MM.session(); } catch (e) { return fail('Не удалось подключиться к базе.'); }
+  if (!ses) { location.href = 'index.html'; return; }
+  if (ses.demo) $('#demoNote').hidden = false;
+  else {
+    $('#out').hidden = false; $('#out').onclick = async () => { await MM.signOut(); location.href = 'index.html'; };
+    if (!ses.profile || !['admin', 'teacher'].includes(ses.profile.role)) return fail('Эта страница для методиста и учителей.');
+  }
+
+  let kids = [], maps = {}, current = null;
+  try { kids = await MM.students(); maps = await MM.allMaps(kids.map(k => k.id)); }
+  catch (e) { return fail('Не удалось загрузить учеников: ' + e.message); }
+
+  const count = rows => { const c = { green: 0, yellow: 0, red: 0, not_started: 0 }; rows.forEach(r => c[r.status]++); return c; };
+  const barHtml = c => { const t = c.green + c.yellow + c.red + c.not_started || 1;
+    return ['green', 'yellow', 'red'].map(k => '<span class="' + k + '" style="width:' + (c[k] / t * 100) + '%"></span>').join(''); };
+
+  function renderKids() {
+    $('#kids').innerHTML = kids.map(k => {
+      const rows = maps[k.id] || [], c = count(rows);
+      const last = rows.reduce((m, r) => r.last_at && (!m || r.last_at > m) ? r.last_at : m, null);
+      const d = daysAgo(last);
+      const alerts = [];
+      if (c.red) alerts.push(c.red + ' ' + (c.red === 1 ? 'навык' : c.red < 5 ? 'навыка' : 'навыков') + ' не освоено');
+      if (d === null || d >= 7) alerts.push(d === null ? 'ещё не занимался' : 'не занимался ' + d + ' дн.');
+      return '<button class="card kid" data-id="' + esc(k.id) + '" aria-current="' + (current === k.id) + '">' +
+        '<div class="row between"><span class="name">' + esc(k.first_name) + '</span><span class="tag">' + k.grade + ' класс · ' + esc(k.state) + '</span></div>' +
+        '<div class="bar">' + barHtml(c) + '</div>' +
+        '<div class="counts"><span><b style="color:var(--ok)">' + c.green + '</b> закр.</span><span><b style="color:var(--mid)">' + c.yellow + '</b> в проц.</span><span><b style="color:var(--bad)">' + c.red + '</b> не осв.</span><span><b style="color:var(--none)">' + c.not_started + '</b> впереди</span></div>' +
+        (alerts.length ? '<span class="alert">' + esc(alerts.join(' · ')) + '</span>' : '<span class="muted">последнее занятие: ' + (d === 0 ? 'сегодня' : d + ' дн. назад') + '</span>') +
+        '</button>';
+    }).join('');
+    document.querySelectorAll('.kid').forEach(b => b.onclick = () => open(b.dataset.id));
+  }
+
+  function open(id) {
+    current = id; renderKids();
+    const k = kids.find(x => x.id === id), rows = maps[id] || [], c = count(rows);
+    $('#detail').hidden = false;
+    $('#dName').textContent = k.first_name;
+    $('#dSub').textContent = k.grade + ' класс · ' + k.state + ' · навыков в программе: ' + rows.length;
+    $('#dCounts').innerHTML = '<span><b style="color:var(--ok)">' + c.green + '</b> закреплено</span><span><b style="color:var(--mid)">' + c.yellow + '</b> в процессе</span><span><b style="color:var(--bad)">' + c.red + '</b> не освоено</span>';
+    $('#dBar').innerHTML = barHtml(c);
+    const todo = rows.filter(r => r.status === 'red' || (r.status === 'yellow' && r.pct < 70))
+      .sort((a, b) => (a.status === 'red' ? 0 : 1) - (b.status === 'red' ? 0 : 1) || a.pct - b.pct).slice(0, 6);
+    $('#todo').innerHTML = todo.length ? todo.map(r => '<li><i class="dot ' + r.status + '"></i>' + esc(r.title_ru) + ' <span class="muted">(' + esc(r.skill_id) + ', ' + r.pct + '% верно)</span></li>').join('')
+      : '<li class="muted">Пока нечего: все начатые навыки идут хорошо.</li>';
+    renderMap();
+    if (window.innerWidth < 700) $('#detail').scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function renderMap() {
+    const rows = maps[current] || [], f = $('#fw').value;
+    const shown = rows.filter(r => f === 'all' || (f === 'state' ? (r.framework === 'NC' || r.framework === 'FL') : r.framework === f));
+    const groups = [];
+    shown.forEach(r => {
+      const key = r.framework + '|' + r.domain;
+      let g = groups.find(x => x.key === key); if (!g) groups.push(g = { key, fw: r.framework, domain: r.domain, rows: [] });
+      g.rows.push(r);
+    });
+    let lastFw = '';
+    $('#map').innerHTML = groups.map(g => {
+      const head = g.fw !== lastFw ? '<h2 style="font-size:19px;margin-top:4px">' + esc(FW[g.fw] || g.fw) + '</h2>' : '';
+      lastFw = g.fw;
+      return head + '<div class="domain"><h3>' + esc(g.domain) + '</h3><div class="tiles">' + g.rows.map(r =>
+        '<button class="tile ' + r.status + (r.override_status ? ' manual' : '') + '" data-skill="' + esc(r.skill_id) + '">' +
+        '<span class="code">' + esc(r.skill_id) + (r.override_status ? ' · вручную' : '') + '</span>' +
+        '<span class="t">' + esc(r.title_ru) + '</span>' +
+        '<span class="meta">' + (r.tries ? r.pct + '% верно · ' + r.tries + ' отв. · ' + r.days + ' дн.' : 'ещё не было заданий') + '</span></button>').join('') + '</div></div>';
+    }).join('') || '<p class="muted">В программе нет навыков этого типа.</p>';
+    document.querySelectorAll('#map .tile').forEach(t => t.onclick = () => edit(t.dataset.skill));
+  }
+
+  let editing = null;
+  function edit(skillId) {
+    const r = (maps[current] || []).find(x => x.skill_id === skillId); editing = r;
+    $('#gCode').textContent = r.skill_id;
+    $('#gTitle').textContent = r.title_ru;
+    $('#gStats').textContent = (r.tries ? 'По ответам: ' + r.pct + '% верно, ' + r.tries + ' ответов за ' + r.days + ' дн. Автоматический цвет: ' + { green: 'закреплено', yellow: 'в процессе', red: 'не освоено', not_started: 'ещё не проходили' }[MM.colour(r.tries, r.pct, r.days)] + '.' : 'Ответов по этому навыку пока нет.') + (r.override_status ? ' Сейчас стоит цвет вручную.' : '');
+    $('#dlg').showModal();
+  }
+  document.querySelectorAll('#gBtns button').forEach(b => b.onclick = async () => {
+    const s = b.dataset.s || null;
+    try { await MM.setOverride(current, editing.skill_id, s); } catch (e) { alert('Не сохранилось: ' + e.message); return; }
+    maps[current] = await MM.skillMap(current);
+    $('#dlg').close(); open(current);
+  });
+  $('#gClose').onclick = () => $('#dlg').close();
+  $('#fw').onchange = renderMap;
+
+  renderKids();
+  if (kids.length) open(kids[0].id);
+})();
+</script>
+</body>
+</html>

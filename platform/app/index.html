@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind: вход</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="app.css">
+<script src="config.js"></script>
+<script>if ((window.MATHMIND_APP||{}).SUPABASE_URL) document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"><\/script>');</script>
+<script src="js/data.js"></script>
+</head>
+<body>
+<div class="wrap narrow" style="max-width:460px;padding-top:6vh">
+  <div>
+    <span class="eyebrow">MathMind</span>
+    <h1>Вход · Sign in</h1>
+  </div>
+
+  <section class="card" id="demo" hidden>
+    <p class="banner">Демо-режим: база ещё не подключена. Можно посмотреть, как будут выглядеть кабинеты.</p>
+    <a class="btn" href="admin.html">Кабинет методиста</a>
+    <a class="btn ghost" href="kid.html">Кабинет ребёнка (English)</a>
+  </section>
+
+  <form class="card" id="form" hidden>
+    <label for="email">Email</label>
+    <input class="field" id="email" type="email" autocomplete="email" required placeholder="name@example.com">
+    <button class="btn" type="submit">Получить ссылку для входа · Send me a link</button>
+    <p class="muted" id="msg">Мы пришлём на почту ссылку для входа, пароль не нужен.</p>
+  </form>
+</div>
+<script>
+(async function () {
+  const $ = s => document.querySelector(s);
+  if (!MM.live) { $('#demo').hidden = false; return; }
+  const ses = await MM.session();
+  if (ses && ses.profile) {
+    const r = ses.profile.role;
+    location.href = r === 'admin' || r === 'teacher' ? 'admin.html' : r === 'student' ? 'kid.html' : 'parent.html';
+    return;
+  }
+  if (ses && !ses.profile) { $('#form').hidden = false; $('#msg').textContent = 'Этот email ещё не приглашён в школу. Напишите методисту.'; return; }
+  $('#form').hidden = false;
+  $('#form').onsubmit = async e => {
+    e.preventDefault();
+    try { await MM.signIn($('#email').value.trim()); $('#msg').textContent = 'Готово! Проверьте почту и нажмите на ссылку. · Check your email.'; }
+    catch (err) { $('#msg').textContent = 'Не получилось: ' + err.message; }
+  };
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>MathMind: My Math World</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Grandstander:wght@600;800&family=Lexend:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="app.css">
+<script src="config.js"></script>
+<script>if ((window.MATHMIND_APP||{}).SUPABASE_URL) document.write('<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"><\/script>');</script>
+<script src="js/skills-demo.js"></script>
+<script src="js/data.js"></script>
+</head>
+<body>
+<div class="wrap narrow">
+  <div>
+    <span class="eyebrow">MathMind</span>
+    <h1 id="hello">Hi!</h1>
+  </div>
+  <p class="banner" id="demoNote" hidden>Demo: a pretend student. <label>Show: <select id="pick"></select></label></p>
+  <p class="muted" id="err" hidden></p>
+
+  <section class="card">
+    <div class="level">
+      <div class="badge" id="lvl">1</div>
+      <div class="xp">
+        <div class="row between"><b>Level <span id="lvl2">1</span></b><span class="muted" id="xpTxt"></span></div>
+        <div class="bar"><span id="xpBar" style="width:0"></span></div>
+      </div>
+    </div>
+    <a class="btn big" id="join" href="#" target="_blank" rel="noopener">▶ Join my lesson</a>
+  </section>
+
+  <section class="card">
+    <h2>My Math World</h2>
+    <p class="muted">Every island is a skill. Practice opens new islands!</p>
+    <div class="legend"><span>⭐ open</span><span>🚀 on the way</span><span>🔒 coming soon</span></div>
+    <div id="world" style="display:flex;flex-direction:column;gap:18px"></div>
+  </section>
+</div>
+<script>
+(async function () {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fail = m => { $('#err').hidden = false; $('#err').textContent = m; };
+  const IC = { unlocked: '⭐', in_progress: '🚀', locked: '🔒' };
+  const NICE = { 'Operations & Algebraic Thinking': 'Multiply & Divide Land', 'Number & Operations in Base Ten': 'Big Numbers Bay', 'Number Sense & Operations': 'Big Numbers Bay',
+    'Fractions': 'Fraction Forest', 'Measurement & Data': 'Measure Mountains', 'Measurement': 'Measure Mountains', 'Geometry': 'Shape City', 'Geometric Reasoning': 'Shape City',
+    'Algebraic Reasoning': 'Puzzle Peaks', 'Data Analysis': 'Data Desert', 'Olympiad': 'Olympiad Galaxy' };
+
+  let ses;
+  try { ses = await MM.session(); } catch (e) { return fail('Could not connect. Please try again.'); }
+  if (!ses) { location.href = 'index.html'; return; }
+  const kids = await MM.students();
+  if (!kids.length) return fail('Your page is not ready yet. Ask your teacher.');
+
+  async function show(kid) {
+    const name = kid.first_name.replace(/\s*\(.*\)$/, '');
+    $('#hello').textContent = 'Hi, ' + name + '! ★';
+    $('#join').href = kid.zoom_url || '#';
+    const rows = await MM.kidMap(kid.id);
+    const open = rows.filter(r => r.status === 'unlocked').length;
+    const level = Math.floor(open / 5) + 1, into = open % 5;
+    $('#lvl').textContent = $('#lvl2').textContent = level;
+    $('#xpTxt').textContent = into + ' / 5 islands to level ' + (level + 1);
+    $('#xpBar').style.width = (into / 5 * 100) + '%';
+    const groups = [];
+    rows.forEach(r => {
+      const land = r.domain.startsWith('MathMind') ? 'Thinking Tools Island' : (NICE[r.domain] || r.domain);
+      let g = groups.find(x => x.land === land); if (!g) groups.push(g = { land, rows: [] });
+      g.rows.push(r);
+    });
+    $('#world').innerHTML = groups.map(g => '<div class="domain"><h3>' + esc(g.land) + ' <span class="muted">' +
+      g.rows.filter(r => r.status === 'unlocked').length + ' / ' + g.rows.length + '</span></h3><div class="world">' +
+      g.rows.map(r => '<div class="isle ' + r.status + '"><span class="ic" aria-hidden="true">' + IC[r.status] + '</span><span class="t">' +
+        esc(r.status === 'locked' ? 'Coming soon' : r.title_en) + '</span></div>').join('') + '</div></div>').join('');
+  }
+
+  if (ses.demo) {
+    $('#demoNote').hidden = false;
+    $('#pick').innerHTML = kids.map(k => '<option value="' + esc(k.id) + '">' + esc(k.first_name) + '</option>').join('');
+    $('#pick').onchange = () => show(kids.find(k => k.id === $('#pick').value));
+  }
+  show(kids[0]);
+})();
+</script>
+</body>
+</html>
